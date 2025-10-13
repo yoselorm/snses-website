@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* body{
+    font-family: 'metro-nova';
+    src: url('assets/metro-nova-pro.otf');
+ 
+} */
+
+
+@font-face {
+    font-family: 'metro-nova';
+    src: url('assets/metro-nova-pro.otf');
+}
+
+@font-face {
+    font-family: 'garamond';
+    src: url('assets/garamond.ttf');
+}
