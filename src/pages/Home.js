@@ -136,7 +136,7 @@ useEffect(() => {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.8, delay: 1 }}
-            className="text-[x-small] md:text-sm font-metro-nova font-thin tracking-wide mb-8 max-w-2xl mx-auto"
+            className="text-[x-small] md:text-sm font-metro-nova font-thin tracking-wide mb-44 max-w-2xl mx-auto"
           >
             Hand-poured candles crafted with love and intention
           </motion.p>

@@ -4,7 +4,7 @@ import { motion } from 'framer-motion';
 
 const Shop = () => {
   return (
-    <div className="flex flex-col items-center justify-center min-h-[80vh] bg-[#f4f1eb] text-center px-4">
+    <div className="flex flex-col items-center justify-center min-h-[80vh] bg-[#f4f1eb] text-center px-4 font-garamond">
       <motion.div
         initial={{ scale: 0 }}
         animate={{ scale: 1 }}
