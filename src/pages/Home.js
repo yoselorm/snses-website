@@ -28,12 +28,12 @@ const Home = () => {
 
 //newletter 
 useEffect(() => {
-  const hasSeenNewsletter = sessionStorage.getItem("hasSeenNewsletter");
+  const hasSeenNewsletter = sessionStorage.getItem("hasSnsesSeenNewsletter");
 
   if (!hasSeenNewsletter) {
     const timer = setTimeout(() => {
       setShowNewsletter(true);
-      sessionStorage.setItem("hasSeenNewsletter", "true");
+      sessionStorage.setItem("hasSnsesSeenNewsletter", "true");
     }, 2000); 
     return () => clearTimeout(timer);
   }
@@ -188,7 +188,7 @@ useEffect(() => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
-            className="text-4xl sm:text-5xl font-light leading-tight mb-6 font-metro-nova"
+            className="text-4xl sm:text-5xl font-light leading-tight mb-6 font-garamond"
           >
             Journey of Light & Luxury
           </motion.h2>
@@ -197,7 +197,7 @@ useEffect(() => {
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.6, duration: 0.6 }}
-            className="text-gray-600 text-[14px] leading-relaxed mb-8 max-w-md font-garamond"
+            className="text-gray-600 text-[18px] leading-relaxed mb-8 max-w-md font-garamond"
           >
             Designed with unwavering attention to detail, Montroi’s marble includes oil
             burners, candle holders, incense burners, and reed diffusers — all thoughtfully

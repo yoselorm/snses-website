@@ -87,7 +87,29 @@ const Navbar = () => {
   };
 
   return (
+    
     <nav className="font-metro-nova tracking-[1px] w-full bg-[#f4f1eb] border-b border-gray-200 sticky top-0 left-0 z-50 shadow-sm">
+      <div className="bg-[#b79b4b] py-2 overflow-hidden relative font-garamond">
+        <motion.div
+          animate={{
+            x: [0, -1000]
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "linear"
+          }}
+          className="whitespace-nowrap text-sm font-medium"
+        >
+          Enjoy 15% off with two or more items & free shipping on all orders. 
+          &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+          Enjoy 15% off with two or more items & free shipping on all orders. 
+          &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+          Enjoy 15% off with two or more items & free shipping on all orders. 
+          &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+          Enjoy 15% off with two or more items & free shipping on all orders.
+        </motion.div>
+      </div>
       {/* Top Bar */}
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Left Section */}
@@ -250,7 +272,7 @@ const Navbar = () => {
                 <li key={page.name} className="relative group">
                   <Link
                     to={page.path}
-                    className={`text-[9px] font-thin ${
+                    className={`text-[10px] font-thin ${
                       isActive ? 'text-amber-600' : 'text-gray-500'
                     } hover:text-amber-600 transition`}
                   >

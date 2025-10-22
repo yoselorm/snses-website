@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import founder from '../assets/owner.jpeg'
 
 const OurStory = () => {
   const topRef = useRef(null);
@@ -93,7 +94,7 @@ const OurStory = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={founderInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-4xl font-thin tracking-wider text-gray-900 mb-12 text-center font-metro-nova"
+            className="text-4xl font-thin tracking-wider text-gray-900 mb-12 text-center font-garamond"
           >
             Meet the founder
           </motion.h2>
@@ -132,7 +133,7 @@ const OurStory = () => {
             >
               <div className="bg-gray-300 overflow-hidden shadow-xl h-[600px]">
                 <img
-                  src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=600&h=800&fit=crop"
+                  src={founder}
                   alt="Founder"
                   className="w-full h-full object-cover"
                 />
