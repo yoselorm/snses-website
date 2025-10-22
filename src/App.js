@@ -7,11 +7,13 @@ import Footer from './components/Footer'
 import Community from './pages/Community'
 import ContactUs from './pages/ContactUs'
 import News from './pages/News'
+import ScrollToTop from './components/ScrollToTop'
 
 const App = () => {
   return (
     <>
       <Navbar />
+      <ScrollToTop/>
 
       <Routes>
         <Route path='/' element={<Home />} />

@@ -1,11 +1,18 @@
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useInView, useAnimation } from 'framer-motion';
 import { ArrowRight } from 'lucide-react';
+import cat1 from '../assets/cat1.jpg'
+import cat2 from '../assets/cat2.jpg'
+import cat3 from '../assets/cat3.jpg'
+import cat4 from '../assets/cat4.jpg'
+import cat5 from '../assets/cat5.jpg'
+import NewsletterModal from '../components/NewsletterModal';
 
 const Home = () => {
   const containerRef = useRef(null);
   const collectionRef = useRef(null);
   const blogRef = useRef(null);
+  const [showNewsletter, setShowNewsletter] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -18,81 +25,47 @@ const Home = () => {
   const collectionInView = useInView(collectionRef, { once: true, amount: 0.3 });
   const blogInView = useInView(blogRef, { once: true, amount: 0.2 });
 
-  const [scrollPosition, setScrollPosition] = useState(0);
-  const [isManualScroll, setIsManualScroll] = useState(false);
-  const carouselRef = useRef(null);
 
-  // Auto-scroll carousel
-  useEffect(() => {
-    if (!collectionInView || isManualScroll) return;
+//newletter 
+useEffect(() => {
+  const hasSeenNewsletter = sessionStorage.getItem("hasSeenNewsletter");
 
-    const interval = setInterval(() => {
-      if (carouselRef.current) {
-        const maxScroll = carouselRef.current.scrollWidth - carouselRef.current.clientWidth;
-        const currentScroll = carouselRef.current.scrollLeft;
-
-        if (currentScroll >= maxScroll) {
-          // Reset to beginning for infinite loop
-          carouselRef.current.scrollTo({ left: 0, behavior: 'smooth' });
-          setScrollPosition(0);
-        } else {
-          // Scroll to next item (352px = 320px width + 32px gap)
-          const nextScroll = currentScroll + 352;
-          carouselRef.current.scrollTo({ left: nextScroll, behavior: 'smooth' });
-          setScrollPosition(nextScroll);
-        }
-      }
-    }, 3000);
-
-    return () => clearInterval(interval);
-  }, [collectionInView, isManualScroll, scrollPosition]);
-
-  // Handle manual scroll
-  const handleManualScroll = (direction) => {
-    setIsManualScroll(true);
-    if (carouselRef.current) {
-      const currentScroll = carouselRef.current.scrollLeft;
-      const scrollAmount = direction === 'left' ? -352 : 352;
-      carouselRef.current.scrollTo({
-        left: currentScroll + scrollAmount,
-        behavior: 'smooth'
-      });
-    }
-    // Resume auto-scroll after 5 seconds of manual interaction
-    setTimeout(() => setIsManualScroll(false), 5000);
-  };
+  if (!hasSeenNewsletter) {
+    const timer = setTimeout(() => {
+      setShowNewsletter(true);
+      sessionStorage.setItem("hasSeenNewsletter", "true");
+    }, 2000); 
+    return () => clearTimeout(timer);
+  }
+}, []);
 
   // Sample products data
   const products = [
     {
       id: 1,
-      name: "BAGS",
-      image: "https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=600&fit=crop"
+      name: "MAKOLA",
+      image: cat1
     },
     {
       id: 2,
-      name: "PERFUMES",
-      image: "https://images.unsplash.com/photo-1541643600914-78b084683601?w=600&h=600&fit=crop"
+      name: "LABADI",
+      image: cat2
     },
     {
       id: 3,
-      name: "TRAVEL ACCESSORIES",
-      image: "https://images.unsplash.com/photo-1565026057447-bc90a3dceb87?w=600&h=600&fit=crop"
+      name: "SOBOLO",
+      image: cat3
     },
     {
       id: 4,
-      name: "LEATHER GOODS",
-      image: "https://images.unsplash.com/photo-1627123424574-724758594e93?w=600&h=600&fit=crop"
+      name: "The NORTH",
+      image: cat4
     },
+
     {
       id: 5,
-      name: "CANDLES",
-      image: "https://images.unsplash.com/photo-1602874801006-ec6c31e4e98e?w=600&h=600&fit=crop"
-    },
-    {
-      id: 6,
-      name: "HOME DECOR",
-      image: "https://images.unsplash.com/photo-1615529182904-14819c35db37?w=600&h=600&fit=crop"
+      name: "ABURI",
+      image: cat5
     }
   ];
 
@@ -102,7 +75,7 @@ const Home = () => {
       id: 1,
       title: "The Art of Candle Making",
       excerpt: "Discover the ancient craft of candle making and how we blend tradition with modern techniques to create our unique scents.",
-      image: "https://images.unsplash.com/photo-1602874801006-ec6c31e4e98e?w=600&h=400&fit=crop",
+      image: cat2,
       date: "Oct 10, 2025"
     },
     {
@@ -167,7 +140,7 @@ const Home = () => {
           >
             Hand-poured candles crafted with love and intention
           </motion.p>
-          <motion.button
+          {/* <motion.button
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 1.2 }}
@@ -177,9 +150,91 @@ const Home = () => {
           >
             EXPLORE COLLECTION
             <ArrowRight size={20} />
+          </motion.button> */}
+          <motion.button
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.6, delay: 1.2 }}
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+            className="bg-transparent text-amber-400 text-[9px] px-8 py-4 border border-amber-500 font-medium tracking-wider hover:bg-white transition-colors flex items-center gap-2 mx-auto"
+          >
+            SHOP NEW ARRIVALS
+            <ArrowRight size={20} />
           </motion.button>
         </motion.div>
       </motion.section>
+
+      <section className="bg-[#faf8f6] py-20 px-4 sm:px-20">
+      <div className="max-w-7xl mx-auto grid md:grid-cols-2 gap-12 items-center">
+        {/* Text Content */}
+        <motion.div
+          initial={{ opacity: 0, x: -60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="text-gray-900"
+        >
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2, duration: 0.6 }}
+            className="text-[11px] tracking-[2px] uppercase text-gray-600 mb-3"
+          >
+            Discover the essence of <strong>SNSES</strong> candles
+          </motion.p>
+
+          <motion.h2
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4, duration: 0.6 }}
+            className="text-4xl sm:text-5xl font-light leading-tight mb-6 font-metro-nova"
+          >
+            Journey of Light & Luxury
+          </motion.h2>
+
+          <motion.p
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.6, duration: 0.6 }}
+            className="text-gray-600 text-[14px] leading-relaxed mb-8 max-w-md font-garamond"
+          >
+            Designed with unwavering attention to detail, Montroi’s marble includes oil
+            burners, candle holders, incense burners, and reed diffusers — all thoughtfully
+            crafted to complement Montroi’s signature scents, creating a harmonious and
+            refined ambiance in any space.
+          </motion.p>
+
+          <motion.button
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.97 }}
+            transition={{ duration: 0.2 }}
+            className="bg-gray-300 text-gray-900 px-8 py-3 text-xs tracking-widest hover:bg-gray-400 transition-colors"
+          >
+            EXPLORE THE COLLECTION
+          </motion.button>
+        </motion.div>
+
+        {/* Image */}
+        <motion.div
+          initial={{ opacity: 0, x: 60 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
+          viewport={{ once: true }}
+          className="relative"
+        >
+          <motion.img
+            whileHover={{ scale: 1.03 }}
+            transition={{ duration: 0.5 }}
+            src={cat4}
+            alt="Timeless stone of the Silk Route"
+            className="rounded-sm shadow-md w-full h-auto object-cover"
+          />
+          <div className="absolute -bottom-6 -right-6 w-[90%] h-[90%] bg-[#f0edea] -z-10"></div>
+        </motion.div>
+      </div>
+    </section>
+
 
       {/* Our Collection Carousel Section */}
       <section ref={collectionRef} className="py-20 px-4 sm:px-20 bg-white overflow-hidden">
@@ -221,47 +276,52 @@ const Home = () => {
             transition={{ duration: 1, delay: 0.7 }}
             className="relative"
           >
-            <div className="flex gap- overflow-x-auto pb-8 scrollbar-hide">
-              {products.map((product, index) => (
-                <motion.div
-                  key={product.id}
-                  initial={{ opacity: 0, x: 100 }}
-                  animate={collectionInView ? { opacity: 1, x: 0 } : {}}
-                  transition={{
-                    duration: 0.6,
-                    delay: 0.9 + (index * 0.15),
-                    ease: "easeOut"
-                  }}
-                  className="flex-shrink-0 w-[480px] group cursor-pointer"
-                >
-                  <div className="relative overflow-hidden shadow-lg h-[550px] w-[470px]">
-                    <motion.img
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                    />
-                    {/* Overlay with name on hover */}
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                      className="absolute inset-0 bg-black/50 flex items-center justify-center"
-                    >
-                      <motion.h3
-                        initial={{ y: 20, opacity: 0 }}
-                        whileHover={{ y: 0, opacity: 1 }}
+            <div className="relative overflow-hidden w-full">
+              <motion.div
+                className="flex gap-6"
+                animate={{ x: ["0%", "-50%"] }}
+                transition={{
+                  repeat: Infinity,
+                  repeatType: "loop",
+                  duration: 25, // Adjust speed (lower = faster)
+                  ease: "linear"
+                }}
+              >
+                {[...products, ...products].map((product, index) => (
+                  <div
+                    key={index}
+                    className="flex-shrink-0 w-[480px] group cursor-pointer"
+                  >
+                    <div className="relative overflow-hidden shadow-lg h-[550px] w-[470px]">
+                      <motion.img
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.5 }}
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover"
+                      />
+                      {/* Overlay with name on hover */}
+                      <motion.div
+                        initial={{ opacity: 0 }}
+                        whileHover={{ opacity: 1 }}
                         transition={{ duration: 0.3 }}
-                        className="text-white font-garamond text-2xl font-light tracking-widest"
+                        className="absolute inset-0 bg-black/50 flex items-center justify-center"
                       >
-                        {product.name}
-                      </motion.h3>
-                    </motion.div>
+                        <motion.h3
+                          initial={{ y: 20, opacity: 0 }}
+                          whileHover={{ y: 0, opacity: 1 }}
+                          transition={{ duration: 0.3 }}
+                          className="text-white font-garamond text-2xl font-light tracking-widest"
+                        >
+                          {product.name}
+                        </motion.h3>
+                      </motion.div>
+                    </div>
                   </div>
-                </motion.div>
-              ))}
+                ))}
+              </motion.div>
             </div>
+
           </motion.div>
         </div>
       </section>
@@ -360,6 +420,11 @@ const Home = () => {
         </div>
       </section>
 
+
+      <NewsletterModal
+        isOpen={showNewsletter}
+        onClose={() => setShowNewsletter(false)}
+      />
 
     </div>
   );

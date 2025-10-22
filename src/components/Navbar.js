@@ -1,27 +1,90 @@
-import React, { useState } from 'react';
-import { User, Heart, ShoppingCart, X } from 'lucide-react';
+import React, { useState, useRef, useEffect } from 'react';
+import { User, Heart, ShoppingCart, X, Search } from 'lucide-react';
 import { useLocation, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
-import logo from '../assets/main-logo.png';
+import logo from '../assets/logo-name.png';
+import AuthModal from './AuthModal';
 
 const Navbar = () => {
   const location = useLocation();
   const [cartCount] = useState(0);
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
-  const [isAuthenticated] = useState(false); // Change this dynamically when you integrate auth
+  const [isAuthenticated] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [searchResults, setSearchResults] = useState([]);
+  const searchInputRef = useRef(null);
+  const searchContainerRef = useRef(null);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+
+
+  // Mock product data - replace with your actual products
+  const allProducts = [
+    { id: 1, name: 'African Print Dress', category: 'Dresses', price: 89.99 },
+    { id: 2, name: 'Kente Cloth Shirt', category: 'Shirts', price: 65.00 },
+    { id: 3, name: 'Ankara Skirt', category: 'Skirts', price: 55.00 },
+    { id: 4, name: 'Dashiki Top', category: 'Tops', price: 45.00 },
+    { id: 5, name: 'African Jewelry Set', category: 'Accessories', price: 35.00 },
+    { id: 6, name: 'Adire Fabric', category: 'Fabrics', price: 25.00 },
+  ];
 
   const pages = [
     { name: 'HOME', path: '/' },
     { name: 'SHOP', path: '/shop' },
-    { name: 'NEWS', path: '/news' },
+    // { name: 'NEWS', path: '/news' },
     { name: 'OUR STORY', path: '/our-story' },
     { name: 'COMMUNITY', path: '/community' },
     // { name: 'CONTACT US', path: '/contact' },
   ];
 
   const activePage = pages.find(p => p.path === location.pathname)?.name;
+
+  // Handle search
+  useEffect(() => {
+    if (searchQuery.trim() === '') {
+      setSearchResults([]);
+      return;
+    }
+
+    const filtered = allProducts.filter(product =>
+      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+      product.category.toLowerCase().includes(searchQuery.toLowerCase())
+    );
+    setSearchResults(filtered);
+  }, [searchQuery]);
+
+  // Focus input when search opens
+  useEffect(() => {
+    if (isSearchOpen && searchInputRef.current) {
+      setTimeout(() => searchInputRef.current.focus(), 100);
+    }
+  }, [isSearchOpen]);
+
+  // Close search when clicking outside
+  useEffect(() => {
+    const handleClickOutside = (event) => {
+      if (searchContainerRef.current && !searchContainerRef.current.contains(event.target)) {
+        setIsSearchOpen(false);
+        setSearchQuery('');
+        setSearchResults([]);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
+
+  const handleSearchClick = () => {
+    setIsSearchOpen(!isSearchOpen);
+    setIsCartOpen(false);
+    setIsWishlistOpen(false);
+    if (isSearchOpen) {
+      setSearchQuery('');
+      setSearchResults([]);
+    }
+  };
 
   return (
     <nav className="font-metro-nova tracking-[1px] w-full bg-[#f4f1eb] border-b border-gray-200 sticky top-0 left-0 z-50 shadow-sm">
@@ -30,7 +93,9 @@ const Navbar = () => {
         {/* Left Section */}
         <div className="flex items-center gap-6">
           {!isAuthenticated ? (
-            <button className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition">
+            <button 
+            onClick={() => setIsAuthModalOpen(true)}
+            className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition">
               <User size={20} />
               <span className="text-sm font-medium">Sign In</span>
             </button>
@@ -54,12 +119,96 @@ const Navbar = () => {
 
         {/* Right Section */}
         <div className="flex items-center gap-2 sm:gap-6">
+          {/* Search */}
+          <div ref={searchContainerRef} className="relative">
+            <motion.div
+              initial={false}
+              animate={{
+                width: isSearchOpen ? '280px' : '40px',
+              }}
+              transition={{ duration: 0.3, ease: 'easeInOut' }}
+              className="relative"
+            >
+              {!isSearchOpen ? (
+                <button
+                  onClick={handleSearchClick}
+                  className="flex items-center justify-center w-10 h-10 text-gray-700 hover:text-gray-900 transition"
+                >
+                  <Search size={20} />
+                </button>
+              ) : (
+                <div className="relative">
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    placeholder="Search products..."
+                    className="w-full h-10 pl-10 pr-10 border border-gray-300 rounded-full focus:outline-none focus:border-amber-500 text-sm"
+                  />
+                  <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
+                  <button
+                    onClick={handleSearchClick}
+                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
+                  >
+                    <X size={18} />
+                  </button>
+                </div>
+              )}
+            </motion.div>
+
+            {/* Search Results Dropdown */}
+            <AnimatePresence>
+              {isSearchOpen && searchQuery && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.2 }}
+                  className="absolute top-12 right-0 w-80 bg-white border border-gray-200 rounded-lg shadow-xl max-h-96 overflow-y-auto z-50"
+                >
+                  {searchResults.length > 0 ? (
+                    <div className="py-2">
+                      <div className="px-4 py-2 text-xs text-gray-500 font-semibold uppercase">
+                        {searchResults.length} Result{searchResults.length !== 1 ? 's' : ''}
+                      </div>
+                      {searchResults.map((product) => (
+                        <button
+                          key={product.id}
+                          className="w-full px-4 py-3 hover:bg-gray-50 text-left border-b border-gray-100 last:border-b-0 transition"
+                          onClick={() => {
+                            console.log('Selected:', product.name);
+                            setIsSearchOpen(false);
+                            setSearchQuery('');
+                          }}
+                        >
+                          <div className="font-medium text-gray-900 text-sm">{product.name}</div>
+                          <div className="flex items-center justify-between mt-1">
+                            <span className="text-xs text-gray-500">{product.category}</span>
+                            <span className="text-sm font-semibold text-amber-600">
+                              ${product.price.toFixed(2)}
+                            </span>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
+                  ) : (
+                    <div className="px-4 py-8 text-center text-gray-500 text-sm">
+                      No products found for "{searchQuery}"
+                    </div>
+                  )}
+                </motion.div>
+              )}
+            </AnimatePresence>
+          </div>
+
           {/* Wishlist Button */}
           <button
             className="flex items-center gap-2 text-gray-700 hover:text-gray-900 transition relative"
             onClick={() => {
               setIsWishlistOpen(!isWishlistOpen);
               setIsCartOpen(false);
+              setIsSearchOpen(false);
             }}
           >
             <Heart size={20} />
@@ -72,6 +221,7 @@ const Navbar = () => {
             onClick={() => {
               setIsCartOpen(!isCartOpen);
               setIsWishlistOpen(false);
+              setIsSearchOpen(false);
             }}
           >
             <ShoppingCart size={20} />
@@ -214,6 +364,9 @@ const Navbar = () => {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
+
     </nav>
   );
 };

@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
+import News from './News';
 
 const Community = () => {
   const heroRef = useRef(null);
@@ -241,6 +242,10 @@ const Community = () => {
             ))}
           </div>
         </div>
+      </section>
+
+      <section>
+        <News/>
       </section>
 
       {/* Footer Spacer */}

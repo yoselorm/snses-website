@@ -1,6 +1,11 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import { Calendar } from 'lucide-react';
+import cat1 from '../assets/cat1.jpg'
+import cat2 from '../assets/cat2.jpg'
+import cat3 from '../assets/cat3.jpg'
+import cat4 from '../assets/cat4.jpg'
+import cat5 from '../assets/cat5.jpg'
 
 const News = () => {
   const heroRef = useRef(null);
@@ -83,7 +88,7 @@ const News = () => {
 
       {/* News Grid Section */}
       <section ref={newsRef} className="py-20 px-4">
-        <div className="max-w-8xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
             {newsArticles.map((article, index) => (
               <motion.article

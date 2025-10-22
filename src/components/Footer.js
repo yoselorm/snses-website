@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Instagram, Facebook, Twitter, Mail } from 'lucide-react';
-import logo from '../assets/main-logo.png';
+import logo from '../assets/logo-name.png';
 import { Link } from 'react-router-dom';
+import { FaPinterest, FaTiktok } from "react-icons/fa";
 
 
 const Footer = () => {
@@ -46,7 +47,7 @@ const Footer = () => {
                     >
                         <div className="flex items-center">
                             <Link to="/" className="flex items-center">
-                                <img src={logo} alt="SNSES Logo" className="h-40 w-auto" />
+                                <img src={logo} alt="SNSES Logo" className="h-20 w-auto" />
                             </Link>
                         </div>
                     </motion.div>
@@ -97,7 +98,7 @@ const Footer = () => {
                             <li>
                                 E-mail:{' '}
                                 <a href="mailto:info@snses.com" className="underline hover:text-amber-700 transition">
-                                    info@snses.com
+                                    snsesgroup@gmail.com
                                 </a>
                             </li>
                         </ul>
@@ -136,7 +137,7 @@ const Footer = () => {
                         {/* Social Icons */}
                         <div className="flex gap-4 mt-6">
                             <a
-                                href="https://instagram.com"
+                                href="https://www.instagram.com/houseofsnses?igsh=azVnZXdzbmZhM2li&utm_source=qr"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-700 hover:text-amber-700 transition"
@@ -144,7 +145,7 @@ const Footer = () => {
                                 <Instagram size={20} />
                             </a>
                             <a
-                                href="https://facebook.com"
+                                href="https://www.facebook.com/profile.php?id=61582463126697&sk=about"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-700 hover:text-amber-700 transition"
@@ -152,12 +153,20 @@ const Footer = () => {
                                 <Facebook size={20} />
                             </a>
                             <a
-                                href="https://twitter.com"
+                                href="https://pin.it/6TMx3l1MY"
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 className="text-gray-700 hover:text-amber-700 transition"
                             >
-                                <Twitter size={20} />
+                                <FaPinterest size={20} />
+                            </a>
+                            <a
+                                href="https://www.tiktok.com/@houseofsnses?_t=ZN-90Zl1DGNtys&_r=1"
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-700 hover:text-amber-700 transition"
+                            >
+                                <FaTiktok size={20} />
                             </a>
                         </div>
                     </motion.div>
