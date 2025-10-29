@@ -9,6 +9,7 @@ import ContactUs from './pages/ContactUs'
 import News from './pages/News'
 import ScrollToTop from './components/ScrollToTop'
 import Shop from './pages/Shop'
+import CheckoutPage from './pages/CheckOut'
 
 const App = () => {
   return (
@@ -23,6 +24,8 @@ const App = () => {
         <Route path='/contact' element={<ContactUs />} />
         <Route path='/news' element={<News />} />
         <Route path='/shop' element={<Shop />} />
+        <Route path='/checkout' element={<CheckoutPage />} />
+
       </Routes>
 
       <Footer/>

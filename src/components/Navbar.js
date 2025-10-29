@@ -1,24 +1,32 @@
 import React, { useState, useRef, useEffect } from 'react';
-import { User, Heart, ShoppingCart, X, Search } from 'lucide-react';
+import { User, Heart, ShoppingCart, X, Search, LogOut } from 'lucide-react';
 import { useLocation, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useDispatch, useSelector } from 'react-redux';
+import { logoutCustomer } from '../redux/AuthSlice';
 import logo from '../assets/logo-name.png';
 import AuthModal from './AuthModal';
+import WishlistDropdown from './WishlishtDropdown';
+import CartDropdown from './CartDropDown';
 
 const Navbar = () => {
   const location = useLocation();
-  const [cartCount] = useState(0);
+  const dispatch = useDispatch();
+  const {currentUser } = useSelector((state) => state.customer);
+  const token = localStorage.getItem('snsesCustomerToken')
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
-  const [isAuthenticated] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
   const [isSearchOpen, setIsSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState('');
   const [searchResults, setSearchResults] = useState([]);
+  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const searchInputRef = useRef(null);
   const searchContainerRef = useRef(null);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
+  const userMenuRef = useRef(null);
 
+  const isAuthenticated = !!token;
 
   // Mock product data - replace with your actual products
   const allProducts = [
@@ -33,13 +41,48 @@ const Navbar = () => {
   const pages = [
     { name: 'HOME', path: '/' },
     { name: 'SHOP', path: '/shop' },
-    // { name: 'NEWS', path: '/news' },
     { name: 'OUR STORY', path: '/our-story' },
     { name: 'COMMUNITY', path: '/community' },
-    // { name: 'CONTACT US', path: '/contact' },
   ];
 
   const activePage = pages.find(p => p.path === location.pathname)?.name;
+
+  // Handle logout
+  const handleLogout = () => {
+    dispatch(logoutCustomer());
+    setIsUserMenuOpen(false);
+  };
+
+// inside Navbar component (replace existing cartCount usage)
+const [cartCount, setCartCount] = useState(0);
+
+useEffect(() => {
+  const computeCount = (cart) => (cart || []).reduce((acc, it) => acc + (it.quantity || 0), 0);
+
+  const loadAndSet = () => {
+    const stored = JSON.parse(localStorage.getItem('snsesCart')) || [];
+    setCartCount(computeCount(stored));
+  };
+
+  // initial load
+  loadAndSet();
+
+  // listener for same-tab updates
+  const onCartUpdated = (e) => {
+    if (e?.detail) setCartCount(computeCount(e.detail));
+    else loadAndSet();
+  };
+
+  window.addEventListener('snses_cart_updated', onCartUpdated);
+  window.addEventListener('storage', onCartUpdated); // cross-tab
+
+  return () => {
+    window.removeEventListener('snses_cart_updated', onCartUpdated);
+    window.removeEventListener('storage', onCartUpdated);
+  };
+}, []);
+
+
 
   // Handle search
   useEffect(() => {
@@ -70,6 +113,9 @@ const Navbar = () => {
         setSearchQuery('');
         setSearchResults([]);
       }
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target)) {
+        setIsUserMenuOpen(false);
+      }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
@@ -80,6 +126,7 @@ const Navbar = () => {
     setIsSearchOpen(!isSearchOpen);
     setIsCartOpen(false);
     setIsWishlistOpen(false);
+    setIsUserMenuOpen(false);
     if (isSearchOpen) {
       setSearchQuery('');
       setSearchResults([]);
@@ -87,7 +134,6 @@ const Navbar = () => {
   };
 
   return (
-    
     <nav className="font-metro-nova tracking-[1px] w-full bg-[#f4f1eb] border-b border-gray-200 sticky top-0 left-0 z-50 shadow-sm">
       <div className="bg-[#b79b4b] py-2 overflow-hidden relative font-garamond">
         <motion.div
@@ -110,25 +156,79 @@ const Navbar = () => {
           Enjoy 15% off with two or more items & free shipping on all orders.
         </motion.div>
       </div>
+      
       {/* Top Bar */}
       <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
         {/* Left Section */}
         <div className="flex items-center gap-6">
           {!isAuthenticated ? (
             <button 
-            onClick={() => setIsAuthModalOpen(true)}
-            className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition">
+              onClick={() => setIsAuthModalOpen(true)}
+              className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition"
+            >
               <User size={20} />
               <span className="text-sm font-medium">Sign In</span>
             </button>
           ) : (
-            <Link
-              to="/profile"
-              className="flex items-center gap-2 text-gray-700 hover:text-gray-900 transition"
-            >
-              <User size={20} />
-              <span className="text-sm font-medium">My Account</span>
-            </Link>
+            <div ref={userMenuRef} className="relative">
+              <button
+                onClick={() => {
+                  setIsUserMenuOpen(!isUserMenuOpen);
+                  setIsCartOpen(false);
+                  setIsWishlistOpen(false);
+                  setIsSearchOpen(false);
+                }}
+                className="flex items-center gap-2 text-gray-700 hover:text-gray-900 transition"
+              >
+                <User size={20} />
+                <span className="text-sm font-medium">My Account</span>
+              </button>
+
+              {/* User Dropdown Menu */}
+              <AnimatePresence>
+                {isUserMenuOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute left-0 top-full mt-2 bg-white border border-gray-200 rounded-lg shadow-xl w-48 overflow-hidden z-50"
+                  >
+                    <div className="px-4 py-3 border-b border-gray-100">
+                      <p className="text-sm font-medium text-gray-900">
+                        {currentUser?.name || 'User'}
+                      </p>
+                      <p className="text-xs text-gray-500 mt-1">
+                        {currentUser?.email || ''}
+                      </p>
+                    </div>
+                    {/* <Link
+                      to="/profile"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition"
+                      onClick={() => setIsUserMenuOpen(false)}
+                    >
+                      <User size={16} />
+                      My Profile
+                    </Link> */}
+                    <Link
+                      to="/orders"
+                      className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition"
+                      onClick={() => setIsUserMenuOpen(false)}
+                    >
+                      <ShoppingCart size={16} />
+                      My Orders
+                    </Link>
+                    <button
+                      onClick={handleLogout}
+                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition border-t border-gray-100"
+                    >
+                      <LogOut size={16} />
+                      Logout
+                    </button>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
           )}
         </div>
 
@@ -231,10 +331,10 @@ const Navbar = () => {
               setIsWishlistOpen(!isWishlistOpen);
               setIsCartOpen(false);
               setIsSearchOpen(false);
+              setIsUserMenuOpen(false);
             }}
           >
             <Heart size={20} />
-            {/* <span className="text-sm font-medium hidden sm:inline">Wishlist</span> */}
           </button>
 
           {/* Cart Button */}
@@ -244,10 +344,10 @@ const Navbar = () => {
               setIsCartOpen(!isCartOpen);
               setIsWishlistOpen(false);
               setIsSearchOpen(false);
+              setIsUserMenuOpen(false);
             }}
           >
             <ShoppingCart size={20} />
-            {/* <span className="text-sm font-medium hidden sm:inline">Cart</span> */}
             <span className="-ml-1 text-sm text-gray-500">{cartCount}</span>
           </button>
 
@@ -329,7 +429,7 @@ const Navbar = () => {
       </div>
 
       {/* 🛒 Cart Dropdown */}
-      <AnimatePresence>
+      {/* <AnimatePresence>
         {isCartOpen && (
           <motion.div
             initial={{ opacity: 0, scale: 0.8, y: -10 }}
@@ -352,43 +452,18 @@ const Navbar = () => {
             </div>
           </motion.div>
         )}
-      </AnimatePresence>
+      </AnimatePresence> */}
+      <CartDropdown isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
 
-      {/* ❤️ Wishlist Dropdown */}
-      <AnimatePresence>
-        {isWishlistOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: -10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: -10 }}
-            transition={{ duration: 0.35, ease: 'easeInOut' }}
-            className="absolute right-28 top-20 bg-white border border-gray-200 rounded-lg shadow-xl p-6 w-80"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-lg">Your Wishlist</h3>
-              <button
-                onClick={() => setIsWishlistOpen(false)}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                ×
-              </button>
-            </div>
 
-            {isAuthenticated ? (
-              <div className="text-center py-8 text-gray-500">
-                Your wishlist is empty!
-              </div>
-            ) : (
-              <div className="text-center py-8 text-gray-500">
-                Kindly <span className="text-amber-600 font-semibold">login</span> to view your wishlist.
-              </div>
-            )}
-          </motion.div>
-        )}
-      </AnimatePresence>
+ 
+<WishlistDropdown 
+  isOpen={isWishlistOpen} 
+  onClose={() => setIsWishlistOpen(false)} 
+/>
+
 
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />
-
     </nav>
   );
 };

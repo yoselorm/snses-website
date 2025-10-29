@@ -94,7 +94,6 @@ const Footer = () => {
                         <h3 className="text-gray-900 font-medium tracking-wider mb-6 text-sm">CONNECT</h3>
                         <ul className="space-y-3 text-sm text-gray-600">
                         
-                            <li className="pt-2">Phone: +971559388481</li>
                             <li>
                                 E-mail:{' '}
                                 <a href="mailto:info@snses.com" className="underline hover:text-amber-700 transition">
