@@ -1,4 +1,3 @@
-// src/components/CartDropdown.jsx
 import React, { useEffect, useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { X } from 'lucide-react';
@@ -7,7 +6,6 @@ import { Link } from 'react-router-dom';
 const CartDropdown = ({ isOpen, onClose }) => {
   const [cartItems, setCartItems] = useState([]);
 
-  // load cart from localStorage
   const loadCart = () => {
     const storedCart = JSON.parse(localStorage.getItem('snsesCart')) || [];
     setCartItems(storedCart);
@@ -16,15 +14,13 @@ const CartDropdown = ({ isOpen, onClose }) => {
   useEffect(() => {
     if (isOpen) loadCart();
 
-    // listen for custom event from same-tab updates
     const onCartUpdated = (e) => {
-      // e.detail might have updated cart; fall back to localStorage
       if (e?.detail) setCartItems(e.detail);
       else loadCart();
     };
 
     window.addEventListener('snses_cart_updated', onCartUpdated);
-    window.addEventListener('storage', onCartUpdated); // cross-tab sync
+    window.addEventListener('storage', onCartUpdated);
 
     return () => {
       window.removeEventListener('snses_cart_updated', onCartUpdated);
@@ -36,12 +32,15 @@ const CartDropdown = ({ isOpen, onClose }) => {
     const updated = cartItems.filter((it) => it.productToken !== productToken);
     setCartItems(updated);
     localStorage.setItem('snsesCart', JSON.stringify(updated));
-
-    // notify other components in same tab
     window.dispatchEvent(new CustomEvent('snses_cart_updated', { detail: updated }));
   };
 
-  const total = cartItems.reduce((acc, item) => acc + (parseFloat(item.price || 0) * (item.quantity || 1)), 0);
+  // ✅ FIXED subtotal calculation
+  const total = cartItems.reduce((acc, item) => {
+    const price = parseFloat(item.price || 0);
+    const quantity = parseInt(item.quantity || 1);
+    return acc + price * quantity;
+  }, 0);
 
   return (
     <AnimatePresence>
@@ -99,7 +98,7 @@ const CartDropdown = ({ isOpen, onClose }) => {
               <div className="pt-4 border-t border-gray-100">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-sm text-gray-600">Subtotal:</span>
-                  <span className="font-semibold text-amber-700">$${total.toFixed(2)}</span>
+                  <span className="font-semibold text-amber-700">${total.toFixed(2)}</span>
                 </div>
 
                 <Link

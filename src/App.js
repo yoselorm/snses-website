@@ -10,6 +10,8 @@ import News from './pages/News'
 import ScrollToTop from './components/ScrollToTop'
 import Shop from './pages/Shop'
 import CheckoutPage from './pages/CheckOut'
+import ProductDetail from './pages/ProductDetail'
+import BlogDetail from './pages/BlogDetails'
 
 const App = () => {
   return (
@@ -25,6 +27,8 @@ const App = () => {
         <Route path='/news' element={<News />} />
         <Route path='/shop' element={<Shop />} />
         <Route path='/checkout' element={<CheckoutPage />} />
+        <Route path='/product/:token' element={<ProductDetail />} />
+        <Route path="/blog/:id" element={<BlogDetail />} />
 
       </Routes>
 

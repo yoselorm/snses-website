@@ -75,7 +75,7 @@ const News = () => {
             animate={heroInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
           >
-            <h1 className="text-xl font-thin tracking-wider text-gray-900 mb-6">
+            <h1 className="text-4xl font-thin tracking-wider text-gray-900 mb-6">
               NEWS & STORIES
             </h1>
             <p className="text-gray-700 text-sm leading-relaxed max-w-2xl mx-auto">

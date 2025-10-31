@@ -102,6 +102,22 @@ export const removeFromWishlist = createAsyncThunk(
   }
 );
 
+export const getProductByToken = createAsyncThunk(
+  'products/getProductByToken',
+  async (productToken, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(
+        `${process.env.REACT_APP_API_URL}/products`,{productToken}
+      );
+      return response.data.data; 
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data?.message || 'Failed to fetch product'
+      );
+    }
+  }
+);
+
 // Initial state
 const initialState = {
   products: [],
@@ -246,6 +262,18 @@ const productSlice = createSlice({
         state.wishlistLoading = false;
         state.wishlistError = action.payload;
         state.wishlistSuccess = false;
+      })
+      .addCase(getProductByToken.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getProductByToken.fulfilled, (state, action) => {
+        state.loading = false;
+        state.selectedProduct = action.payload;
+      })
+      .addCase(getProductByToken.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
       });
   }
 });
