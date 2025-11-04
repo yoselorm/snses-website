@@ -1,7 +1,6 @@
-// src/pages/Home.jsx
 import React, { useRef, useEffect, useState } from 'react';
 import { motion, useScroll, useTransform, useInView } from 'framer-motion';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Star } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCategories } from '../redux/CategorySlice';
 import { fetchBlogs } from '../redux/BlogSlice';
@@ -10,7 +9,9 @@ import NewsletterModal from '../components/NewsletterModal';
 
 const Home = () => {
   const containerRef = useRef(null);
+  const bestSellersRef = useRef(null);
   const collectionRef = useRef(null);
+  const whoWeAreRef = useRef(null);
   const blogRef = useRef(null);
   const [showNewsletter, setShowNewsletter] = useState(false);
 
@@ -26,7 +27,9 @@ const Home = () => {
   const heroOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0.7]);
   const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
 
+  const bestSellersInView = useInView(bestSellersRef, { once: true, amount: 0.3 });
   const collectionInView = useInView(collectionRef, { once: true, amount: 0.3 });
+  const whoWeAreInView = useInView(whoWeAreRef, { once: true, amount: 0.3 });
   const blogInView = useInView(blogRef, { once: true, amount: 0.2 });
 
   // Fetch data
@@ -48,6 +51,34 @@ const Home = () => {
   }, []);
 
   const displayedBlogs = blogs?.slice(0, 3) || [];
+
+  // Best seller products (mock data - replace with your actual data)
+  const bestSellers = [
+    {
+      id: 1,
+      name: "Vanilla Dreams",
+      price: "$28",
+      image: "https://images.unsplash.com/photo-1602874801006-e04b6d8c0be6?w=500"
+    },
+    {
+      id: 2,
+      name: "Lavender Bliss",
+      price: "$32",
+      image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=500"
+    },
+    {
+      id: 3,
+      name: "Citrus Sunrise",
+      price: "$30",
+      image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?w=500"
+    },
+    {
+      id: 4,
+      name: "Ocean Breeze",
+      price: "$28",
+      image: "https://images.unsplash.com/photo-1588854337221-4cf9fa96c819?w=500"
+    }
+  ];
 
   return (
     <div ref={containerRef} className="bg-[#000000] overflow-x-hidden">
@@ -73,25 +104,10 @@ const Home = () => {
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, delay: 0.5 }}
-          className="relative z-10 text-center text-white px-4"
+          className="relative z-10 text-center top-[250px] text-white px-4"
         >
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.7 }}
-            className="text-6xl md:text-8xl font-thin tracking-wider mb-6"
-          >
-            ILLUMINATE
-          </motion.h1>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ duration: 0.8, delay: 1 }}
-            className="text-[x-small] md:text-sm font-metro-nova font-thin tracking-wide mb-44 max-w-2xl mx-auto"
-          >
-            Hand-poured candles crafted with love and intention
-          </motion.p>
-          <motion.button
+        <Link to='/shop'>
+        <motion.button
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6, delay: 1.2 }}
@@ -99,13 +115,134 @@ const Home = () => {
             whileTap={{ scale: 0.95 }}
             className="bg-transparent text-amber-400 text-[9px] px-8 py-4 border border-amber-500 font-medium tracking-wider hover:bg-white transition-colors flex items-center gap-2 mx-auto"
           >
-            SHOP NEW ARRIVALS
+            EXPLORE
             <ArrowRight size={20} />
-          </motion.button>
+          </motion.button></Link>
         </motion.div>
       </motion.section>
 
-      {/* Category Carousel */}
+      {/* Best Sellers Featured Section */}
+      <section ref={bestSellersRef} className="py-20 px-4 sm:px-20 bg-[#faf8f5]">
+        <div className="max-w-7xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, y: 50 }}
+            animate={bestSellersInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-3xl font-thin tracking-wider text-gray-900 mb-2">
+              BEST SELLERS
+            </h2>
+            <p className="text-gray-600 text-sm font-garamond mb-4 ">
+              Discover our most loved and sought-after fragrances. Each one tells a story of culture, creativity and craftsmanship - an ode to Africa’s rich and layered traditions            </p>
+            <div className="h-0.5 bg-amber-600 mx-auto w-20"></div>
+          </motion.div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+            {bestSellers.map((product, index) => (
+              <motion.div
+                key={product.id}
+                initial={{ opacity: 0, y: 60 }}
+                animate={bestSellersInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: 0.1 * index }}
+                whileHover={{ y: -10, transition: { duration: 0.3 } }}
+                className="group cursor-pointer"
+              >
+                <div className="relative overflow-hidden bg-white shadow-lg mb-4">
+                  <div className="aspect-square overflow-hidden">
+                    <motion.img
+                      whileHover={{ scale: 1.1 }}
+                      transition={{ duration: 0.5 }}
+                      src={product.image}
+                      alt={product.name}
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    whileHover={{ opacity: 1 }}
+                    transition={{ duration: 0.3 }}
+                    className="absolute inset-0 bg-black/40 flex items-center justify-center"
+                  >
+                    {/* <motion.button
+                      initial={{ y: 20, opacity: 0 }}
+                      whileHover={{ y: 0, opacity: 1 }}
+                      className="bg-white text-gray-900 px-6 py-2 text-xs tracking-wider hover:bg-amber-600 hover:text-white transition-colors"
+                    >
+                      VIEW DETAILS
+                    </motion.button> */}
+                  </motion.div>
+                </div>
+                <div className="text-center">
+                  <h3 className="text-lg font-garamond tracking-wide text-gray-900 mb-2 group-hover:text-amber-700 transition-colors">
+                    {product.name}
+                  </h3>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+       {/* Who We Are Section */}
+       <section ref={whoWeAreRef} className="py-20 px-4 sm:px-20 bg-[#f4f1eb]">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+            {/* Left - Text Content */}
+            <motion.div
+              initial={{ opacity: 0, x: -60 }}
+              animate={whoWeAreInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8 }}
+              className="space-y-6"
+            >
+              <div>
+                <h2 className="text-3xl font-thin tracking-wider text-gray-900 mb-4">
+                  WHO WE ARE
+                </h2>
+                <div className="h-0.5 bg-amber-600 w-20 mb-6"></div>
+              </div>
+
+              <p className="text-gray-700 leading-relaxed text-base font-garamond">
+                SNSES is a cultural archive crafted through scent and storytelling. We believe in the power of storytelling and the importance of preserving culture through modern mediums. Through meticulously designed fragrances and immersive experiences, SNSES brings Africa’s vibrant stories to life, weaving together tradition and turning each moment into a journey across the continent’s rich and layered cultural tapestry. Our creations celebrate culture, creativity, and the artistry of heritage, inviting you to explore a world where history and the senses converge.
+              </p>
+
+              <p className="text-gray-700 leading-relaxed text-base font-garamond">
+              “Through every creation, SNSES honors Africa’s cultural legacy, transforming history, artistry, and tradition into fragrances and experiences that awaken the senses”
+              </p>
+
+         
+
+             <Link to='/our-story'>
+             <motion.button
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 text-xs tracking-wider transition mt-4"
+              >
+                LEARN MORE ABOUT US
+              </motion.button></Link>
+            </motion.div>
+
+            {/* Right - Image */}
+            <motion.div
+              initial={{ opacity: 0, x: 60 }}
+              animate={whoWeAreInView ? { opacity: 1, x: 0 } : {}}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="relative"
+            >
+              <div className="relative overflow-hidden shadow-2xl">
+                <img
+                  src="https://images.unsplash.com/photo-1583225214464-9296029427aa?w=800"
+                  alt="Our Craftsmanship"
+                  className="w-full h-[600px] object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent"></div>
+              </div>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Category Carousel - Smaller Squares */}
       <section ref={collectionRef} className="py-20 px-4 sm:px-20 bg-white overflow-hidden">
         <div className="max-w-8xl mx-auto">
           <motion.div
@@ -117,13 +254,13 @@ const Home = () => {
             <h2 className="text-2xl font-thin tracking-wider text-gray-900 mb-2">
               EXPLORE OUR PRODUCTS
             </h2>
-            <p className="text-gray-600 text-[12px] font-metro-nova mb-4 tracking-[2px]">
+            <p className="text-gray-600 text-[12px] font-garamond mb-4 tracking-[2px]">
               Made with pride by our craftsmen
             </p>
             <div className="h-0.5 bg-amber-600 mx-auto w-20"></div>
           </motion.div>
 
-          {/* Moving Carousel */}
+          {/* Moving Carousel - Smaller Squares */}
           <motion.div
             initial={{ opacity: 0, x: 100 }}
             animate={collectionInView ? { opacity: 1, x: 0 } : {}}
@@ -144,13 +281,13 @@ const Home = () => {
                 {[...categories, ...categories].map((category, index) => (
                   <div
                     key={index}
-                    className="flex-shrink-0 w-[480px] group cursor-pointer"
+                    className="flex-shrink-0 w-[280px] group cursor-pointer"
                   >
-                    <div className="relative overflow-hidden shadow-lg h-[550px] w-[470px]">
+                    <div className="relative overflow-hidden shadow-lg aspect-square">
                       <motion.img
                         whileHover={{ scale: 1.1 }}
                         transition={{ duration: 0.5 }}
-                        src={category.image || 'https://via.placeholder.com/400'}
+                        src={category.image || 'https://via.placeholder.com/300'}
                         alt={category.name}
                         className="w-full h-full object-cover"
                       />
@@ -164,7 +301,7 @@ const Home = () => {
                           initial={{ y: 20, opacity: 0 }}
                           whileHover={{ y: 0, opacity: 1 }}
                           transition={{ duration: 0.3 }}
-                          className="text-white font-garamond text-2xl font-light tracking-widest"
+                          className="text-white font-garamond text-xl font-light tracking-widest"
                         >
                           {category.name}
                         </motion.h3>
@@ -175,12 +312,34 @@ const Home = () => {
               </motion.div>
             </div>
           </motion.div>
+
+          {/* Customer Review */}
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={collectionInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.8, delay: 1.2 }}
+            className="text-center mt-20 max-w-3xl mx-auto"
+          >
+            <div className="flex justify-center mb-4">
+              {[...Array(5)].map((_, i) => (
+                <Star key={i} size={20} className="fill-amber-500 text-amber-500" />
+              ))}
+            </div>
+            <p className="text-gray-700 text-lg font-garamond italic leading-relaxed mb-4">
+              "The products combine high-quality materials with refined craftsmanship, offering a balance of durability, design, and functionality suitable for various settings"
+            </p>
+            {/* <p className="text-amber-600 font-medium text-sm tracking-wider">
+              — SARAH M., VERIFIED CUSTOMER
+            </p> */}
+          </motion.div>
         </div>
       </section>
 
+     
+
       {/* Blog Section */}
       <section ref={blogRef} className="py-20 px-4 sm:px-16 bg-[#f4f1eb]">
-        <div className="max-w-8xl mx-auto">
+        <div className="max-w-7xl mx-auto">
           <div className="text-center mb-16">
             <h2 className="text-2xl font-thin tracking-wider text-gray-900 mb-2">
               FROM OUR COMMUNITY
@@ -188,7 +347,7 @@ const Home = () => {
             <div className="h-0.5 bg-amber-600 mx-auto w-20"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[4rem]">
             {displayedBlogs.map((post, index) => (
               <motion.article
                 key={post.id}
@@ -198,7 +357,7 @@ const Home = () => {
                 whileHover={{ y: -8, transition: { duration: 0.3 } }}
                 className="bg-white p-2 overflow-hidden shadow-md cursor-pointer group"
               >
-                <div className="relative overflow-hidden h-[550px]">
+                <div className="relative overflow-hidden h-[400px]">
                   <motion.img
                     whileHover={{ scale: 1.1 }}
                     transition={{ duration: 0.5 }}
@@ -214,8 +373,8 @@ const Home = () => {
                   <h3 className="text-lg tracking-[1px] font-garamond font-thin text-gray-900 mb-3 group-hover:text-amber-700 transition-colors">
                     {post.title}
                   </h3>
-                  <p className="text-gray-600 leading-relaxed mb-4 text-[12px] font-metro-nova">
-                    {post.excerpt?.slice(0, 120)}...
+                  <p className="text-gray-600 leading-relaxed mb-4 text-[12px] font-garamond">
+                    {post.excerpt?.slice(0, 100)}...
                   </p>
                   <Link
                     to={`/blog/${post.id}`}
@@ -236,7 +395,7 @@ const Home = () => {
             <div className="text-center mt-12">
               <Link
                 to="/community"
-                className="inline-block bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 text-xs tracking-wider transition "
+                className="inline-block bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 text-xs tracking-wider transition"
               >
                 MORE
               </Link>

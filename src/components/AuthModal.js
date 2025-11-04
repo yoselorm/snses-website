@@ -43,7 +43,7 @@ const AuthModal = ({ isOpen, onClose }) => {
       const customerData = {
         name: `${formData.firstName} ${formData.lastName}`,
         email: formData.email,
-        phone: "", 
+        // phone: "", 
         pword: formData.password,
       };
       dispatch(addCustomer(customerData));

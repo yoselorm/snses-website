@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import News from './News';
+import { Link } from 'react-router-dom';
 
 const Community = () => {
   const heroRef = useRef(null);
@@ -39,19 +40,21 @@ const Community = () => {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="space-y-6"
             >
-              <div>
-                <p className="text-xs tracking-widest text-gray-600 mb-4">CRAFTSMANSHIP</p>
+              <div className='mb-10'>
+                <p className="text-xs tracking-widest text-gray-600 mb-4">ARTISTRY & IMPACT</p>
                 <h1 className="text-5xl font-thin tracking-wide text-gray-900 mb-6">
-                  The Modern Silk Route
+                  The Heart of the SNSES Journey
                 </h1>
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  SNSES works with more than 20 workshops and artisans in Jaipur, Marrakech, Jabal Akhdar, 
-                  Ubrique, Bojaano, and Ghana.
+                  From local ateliers to global communities, we celebrate craftsmanship,
+                  culture, and the stories that connect us all.
                 </p>
               </div>
-              <button className="bg-white border border-gray-900 text-gray-900 px-6 py-2 text-xs tracking-widest hover:bg-gray-900 hover:text-white transition-colors">
-                EXPLORE OUR PRODUCTS
-              </button>
+
+              <Link to='/shop'>
+                <button className="bg-white border border-gray-900 text-gray-900 px-6 py-2 text-xs tracking-widest hover:bg-gray-900 hover:text-white transition-colors">
+                  EXPLORE OUR PRODUCTS
+                </button></Link>
             </motion.div>
 
             {/* Center Column - Large Image */}
@@ -80,18 +83,23 @@ const Community = () => {
               <div>
                 <h3 className="text-xs tracking-widest text-gray-900 mb-3">EAST MEETS WEST</h3>
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  True to the SNSES ethos manufacturing takes place in remote locations using traditional 
-                  methods, supporting families and local communities where expertise in craftsmanship is passed on 
-                  from one generation to the next.
+                  Guided by the SNSES philosophy, our creations bridge cultures — where Eastern
+                  traditions meet Western design. Each piece is crafted in remote communities
+                  using time-honored methods, supporting families and preserving heritage
+                  passed down through generations.
                 </p>
               </div>
+
               <div>
                 <h3 className="text-xs tracking-widest text-gray-900 mb-3">A NOMAD JOURNEY</h3>
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  Our artisans manufacture with pride and care, and SNSES is proud to build a community of 
-                  craftsmen who aim to preserve skills for the future.
+                  From artisans’ hands to the global stage, SNSES celebrates the spirit of
+                  craftsmanship. Every creation reflects a journey of pride, patience, and
+                  purpose — a commitment to sustaining skills, empowering communities, and
+                  shaping the future through tradition.
                 </p>
               </div>
+
             </motion.div>
           </div>
         </div>
@@ -102,9 +110,9 @@ const Community = () => {
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
             {[
-              { number: '7', label: 'LOCATIONS' },
-              { number: '240', label: 'SKILLED ARTISANS' },
-              { number: '20', label: 'WORKSHOPS' }
+              { number: '100', label: 'KIDS EMPOWERED' },
+              { number: '50', label: 'YOUNG ARTISANS TRAINED' },
+              { number: '12', label: 'COMMUNITIES IMPACTED' }
             ].map((stat, index) => (
               <motion.div
                 key={stat.label}
@@ -122,7 +130,7 @@ const Community = () => {
       </section>
 
       {/* Craftsmanship Section - Image Left, Text Right */}
-      <section ref={craftsmanshipRef} className="py-20 px-4 bg-white">
+      {/* <section ref={craftsmanshipRef} className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -159,9 +167,8 @@ const Community = () => {
             </motion.div>
           </div>
         </div>
-      </section>
+      </section> 
 
-      {/* Quote Section */}
       <section ref={quoteRef} className="py-16 px-4 bg-[#f4f1eb]">
         <div className="max-w-4xl mx-auto">
           <motion.div
@@ -182,7 +189,7 @@ const Community = () => {
             <p className="text-gray-900 italic text-sm">— Paul Bowles</p>
           </motion.div>
         </div>
-      </section>
+      </section>*/}
 
       {/* Gallery Section - Three Images */}
       <section ref={galleryRef} className="py-20 px-4 bg-white">
@@ -217,16 +224,16 @@ const Community = () => {
           <div className="grid md:grid-cols-3 gap-12">
             {[
               {
-                title: 'OUR COMMITMENT',
-                description: 'We are committed to being a responsible, honest, and modern company'
+                title: 'WE EMPOWER COMMUNITIES',
+                description: 'Through collaboration, education, and social impact initiatives, we support artisans and future generations'
               },
               {
-                title: 'RESPECTFUL WITH THE ENVIRONMENT',
-                description: 'We manufacture long-lasting items, as opposed to mass quick consumption'
+                title: 'WE CRAFT WITH CARE',
+                description: 'From artisans to materials, each step is guided by intention and precision, creating products that embody quality and meaning.'
               },
               {
-                title: 'WE SHARE VALUES WITH OUR PARTNERS',
-                description: 'We are responsible for the resources that we use and the impact that we have'
+                title: 'WE CELEBRATE STORIES',
+                description: 'Every creation carries a narrative —honoring heritage, tradition, and the artistry that inspires it.'
               }
             ].map((value, index) => (
               <motion.div
@@ -245,7 +252,7 @@ const Community = () => {
       </section>
 
       <section>
-        <News/>
+        <News />
       </section>
 
       {/* Footer Spacer */}

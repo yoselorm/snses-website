@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import newsletterImg from "../assets/newsletter.jpg"; 
+import newsletterImg from "../assets/newsletter.jpg"; // Replace with your background image
 
 const NewsletterModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");
@@ -16,87 +16,90 @@ const NewsletterModal = ({ isOpen, onClose }) => {
     <AnimatePresence>
       {isOpen && (
         <motion.div
-          className="fixed inset-0 bg-black/40 flex justify-center items-center z-[999]"
+          className="fixed inset-0 bg-black/50 flex justify-center items-center z-[999]"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
         >
-          {/* Modal Container */}
           <motion.div
-            initial={{ opacity: 0, scale: 0.9, y: 40 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 40 }}
-            transition={{ duration: 0.4, ease: "easeInOut" }}
-            className="bg-white w-[90%] max-w-4xl shadow-2xl overflow-hidden relative flex flex-col md:flex-row font-garamond"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0, scale: 0.9 }}
+            transition={{ duration: 0.4 }}
+            className="w-[90%] max-w-3xl bg-white flex flex-col md:flex-row overflow-hidden shadow-2xl font-garamond"
           >
-            {/* Close Button */}
-            <button
-              onClick={onClose}
-              className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 text-xl"
-            >
-              x
-            </button>
+            {/* Left Section - Image */}
+            <div className="w-full md:w-1/2 h-64 md:h-auto">
+              <img
+                src={newsletterImg}
+                alt="Newsletter Background"
+                className="w-full h-full object-cover"
+              />
+            </div>
 
-            {/* Left Section */}
-            <div className="flex-1 p-8 flex flex-col justify-center text-left bg-[#faf8f6]">
-              <motion.h2
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.2 }}
-                className="text-3xl sm:text-4xl font-light text-gray-900 mb-4"
+            {/* Right Section - Form */}
+            <div className="w-full md:w-1/2 bg-[#4b0c0c] text-center flex flex-col justify-center items-center px-6 py-10 text-[#d4af37] relative">
+              {/* Close Button */}
+              <button
+                onClick={onClose}
+                className="absolute top-3 right-4 text-gray-300 hover:text-white text-xl"
               >
-                Join Our Circle of Inspiration ✨
-              </motion.h2>
+                ×
+              </button>
 
-              <motion.p
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.3 }}
-                className="text-gray-600 mb-6 leading-relaxed text-[15px]"
-              >
-                Be the first to discover new scents, timeless designs, and exclusive offers
-                crafted for those who appreciate artistry and simplicity.
-              </motion.p>
+              {/* Logo */}
+              <h2 className="text-3xl font-semibold tracking-[0.2em] mb-6">SNSES</h2>
 
-              <motion.form
+              {/* Offer */}
+              <p className="text-lg font-light mb-6 text-[#e6c76e]">
+                Enjoy 10% Off Your First Order
+              </p>
+
+              {/* Email Form */}
+              <form
                 onSubmit={handleSubmit}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.4 }}
-                className="flex flex-col sm:flex-row gap-3"
+                className="flex flex-col items-center w-full max-w-xs gap-3"
               >
                 <input
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  placeholder="Enter your email"
+                  placeholder="Enter Your Email"
                   required
-                  className="flex-1 px-4 py-3 border border-b text-sm outline-none"
+                  className="w-full px-4 py-2 text-sm text-black bg-white placeholder-gray-500 outline-none"
                 />
-                <motion.button
-                  whileHover={{ scale: 1.05 }}
-                  whileTap={{ scale: 0.97 }}
+                <button
                   type="submit"
-                  className="bg-amber-600 text-white px-6 py-3 text-sm font-semibold hover:bg-amber-700 transition"
+                  className="w-full bg-black text-white py-2 text-sm tracking-wide font-semibold hover:bg-gray-800 transition"
                 >
-                  Subscribe
-                </motion.button>
-              </motion.form>
-            </div>
+                  SUBMIT
+                </button>
+              </form>
 
-            {/* Right Section (Image) */}
-            <motion.div
-              initial={{ opacity: 0, x: 60 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={{ delay: 0.3 }}
-              className="flex-1 hidden md:block"
-            >
-              <img
-                src={newsletterImg}
-                alt="Newsletter Invitation"
-                className="h-full w-full object-cover"
-              />
-            </motion.div>
+              {/* No Thanks */}
+              <button
+                onClick={onClose}
+                className="mt-4 text-sm underline text-[#e6c76e] hover:text-white"
+              >
+                No Thanks
+              </button>
+
+              {/* Terms */}
+              <p className="text-[11px] text-gray-300 mt-6 max-w-sm leading-snug">
+                By entering your email, you agree to our{" "}
+                <a href="#" className="underline text-[#e6c76e]">
+                  Terms and Conditions
+                </a>{" "}
+                &{" "}
+                <a href="#" className="underline text-[#e6c76e]">
+                  Privacy Policy
+                </a>.
+              </p>
+
+              <p className="text-[10px] text-gray-400 mt-3">
+                *Discount only for first-time subscribers
+              </p>
+            </div>
           </motion.div>
         </motion.div>
       )}

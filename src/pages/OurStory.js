@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import founder from '../assets/owner.jpeg'
+import { Link } from 'react-router-dom';
 
 const OurStory = () => {
   const topRef = useRef(null);
@@ -53,15 +54,10 @@ const OurStory = () => {
               animate={topInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <h2 className="text-3xl font-[5] font-metro-nova tracking-wider mb-6 text-gray-700">The essence of SNSES</h2>
+              {/* <h2 className="text-3xl font-[5] font-metro-nova tracking-wider mb-6 text-gray-700">The essence of SNSES</h2> */}
               <div className="space-y-4 text-gray-700 text-sm leading-relaxed font-garamond">
                 <p>
-                  Inspired by the rich culture, history, and flavors of Ghana, West Africa, SNSES curates a luxurious 
-                  collection of creations that transport you through sensory experience. Each piece is a tribute to the 
-                  country's vibrant traditions, evoking cherished memories and untold stories. From the warmth of traditional 
-                  spices to the rhythm of local festivities, every SNSES design offers a journey - an immersive experience 
-                  that captures the essence of Ghana and Africa at large. With unparalleled craftsmanship and evocative 
-                  storytelling, SNSES redefines modern luxury by celebrating culture, tradition, and artistry.
+                Founded in 2024, SNSES was born with a passion to celebrate culture through storytelling and sensory experiences. Each meticulously crafted creation is designed to evoke a story. Beyond fragrance, SNSES designs luxurious experiences that transform spaces, inviting you to journey through the depth, beauty, and richness of Africa’s vibrant culture. Every creation is crafted to transport you, offering moments that awaken the senses and connect you to timeless stories and traditions
                 </p>
               </div>
             </motion.div>
@@ -79,9 +75,7 @@ const OurStory = () => {
             className="text-center"
           >
             <p className="text-gray-600 italic leading-relaxed text-base font-garamond">
-              "SNSES is for those who cherish authenticity, beauty, and depth. With a commitment to quality over quantity, 
-              each creation is made to endure — not only in form, but in meaning. Created for the bold and curious, SNSES is more 
-              than a brand. It is a journey into artistry, authenticity, and refined luxury."
+            “For those who appreciate the beauty of culture and the art of storytelling, SNSES exists as a symphony of the senses. Every creation tells a story made for those who value luxury that resonates beyond the surface.”
             </p>
           </motion.div>
         </div>
@@ -107,19 +101,15 @@ const OurStory = () => {
               className="space-y-6 text-gray-700"
             >
               <p className="leading-relaxed text-sm ">
-              When I created SNSES, I didn’t set out to build just another brand. From a young age, I’ve always had a creative mind and a deep love for storytelling. Being born and raised in Ghana, I grew up surrounded by the richness of culture, history, and artistry that shaped the way I see the world. I knew that whatever I created had to reflect that depth — not just products, but stories brought to life.
-
+              When I created SNSES, I didn’t set out to build just another brand. From a young age, I’ve always had a creative mind and a deep love for storytelling. Being born and raised in Ghana, I grew up surrounded by the richness of culture, history, and artistry that shaped the way I see the world. I knew that whatever I created had to reflect that depth — not just through products, but through stories brought to life.
               </p>
               <p className="leading-relaxed text-sm">
-                I  wanted SNSES to be more than something you buy. I wanted it to be something you experience. Each carefully crafted piece carries with it a connection to Ghana and to Africa’s wider narrative. It’s about celebrating heritage reimagined through design, wellness and artistry.
+              I wanted SNSES to be more than something you buy — I wanted it to be something you experience. Each carefully crafted piece carries a connection to Ghana and to Africa’s wider narrative. It’s about celebrating heritage reimagined through craftsmanship.              </p>
+              <p className="leading-relaxed text-sm">
+              From the beginning, my vision has been to work with local artisans whose expertise and creativity breathe authenticity into every creation. Together, we craft pieces that embody luxury, depth, and meaning — creations that transform spaces.
               </p>
               <p className="leading-relaxed text-sm">
-                I set out on a mission to work with the expertise of local artisans to masterfully craft products that blend indigenous natural ingredients with evocative scent stories. Each creation is designed to transform everyday routines into moments of luxury and meaning. It’s about creating experiences that tell a story of culture and craftsmanship. SNSES is not simply about what you hold in your hands; it is about the story it carries. Each piece is rooted in Ghana, yet shared with the world.
-
-              </p>
-              <p className="leading-relaxed text-sm">
-              I hope each SNSES product fills your home with a sense of timeless luxury and meaning, creating moments you will carry with you always.
-              </p>
+              SNSES exists to tell stories. My hope is that each SNSES piece fills your home creating moments you’ll carry with you always.              </p>
               <div className="pt-6">
                 <p className="text-sm font-thin italic text-gray-800">With gratitude and love..</p>
               </div>
@@ -211,10 +201,7 @@ const OurStory = () => {
                 SNSES supports communities
               </h2>
               <p className="text-gray-700 leading-relaxed text-sm font-garamond">
-                Of SNSES beauty is not only about what our values say about the hopes we stem behind our collections. We believe we can 
-                make positive, impactful a now. Children, around and providing all we need to understand how. That's why we launched the 
-                SNSES Community Fund – an initiative that both mobilizes section only nearly of heritage but cause the people and hearts 
-                of those who create it.
+              At SNSES, luxury is not only defined what we create but also about the impact we leave behind. We collaborate closely with local artisans, showcasing their incredible talent and craftsmanship while celebrating the traditions that inspire our collections. By bringing their work to a global stage, we ensure that each creation carries not only a story of heritage but also the hands and hearts of those who made it.
               </p>
             </motion.div>
           </div>
@@ -226,18 +213,16 @@ const OurStory = () => {
             className="mt-16 max-w-4xl mx-auto text-gray-700 leading-relaxed space-y-4 text-sm font-garamond"
           >
             <p>
-              Through SNSES, we work with local artisan groups and makers in Northern Ghana. They are important voices because we supporting 
-              and empowering young individuals with designed underdeveloped and sustainable opportunities. This, each time you see there is a 
-              reflection of resilience, giving them time back to these makers.
+            Our commitment extends beyond creation. Through the MakeWay Foundation, a portion of every purchase goes toward educating and equipping young individuals with the resources and opportunities they need to thrive. By investing in education and sustainable development, we aim to nurture the next generation of innovators, artisans, and storytellers.
             </p>
             <p>
-              For we SNSES is a community. That's a privilege. Our this, brings shared beauty that over SNEEZE values and its partnership to 
-              presenting traditions, empowering opinions, cities. minding fashion boundaries.
+            For us, SNSES is a community. Every piece you bring into your space contributes to preserving culture, empowering artisans, and shaping and inspiring the next generation.
             </p>
             <div className="text-center pt-8">
-              <button className="bg-gray-300 text-gray-900 px-8 py-3 hover:bg-gray-400 transition-colors text-sm tracking-wider">
+           <Link to='/community'>
+           <button className="bg-gray-300 text-gray-900 px-8 py-3 hover:bg-gray-400 transition-colors text-sm tracking-wider">
                 Learn more
-              </button>
+              </button></Link>
             </div>
           </motion.div>
         </div>
@@ -277,15 +262,10 @@ const OurStory = () => {
             className="max-w-6xl mx-auto space-y-6 text-center mb-8 font-garamond"
           >
             <p className="text-gray-700 leading-relaxed text-sm">
-              Every SNSES creation begins with care. We work closely with skilled artisans, drawing on generations of knowledge and 
-              craftsmanship to ensure that each piece is made with precision and meaning. From the sourcing of indigenous natural 
-              ingredients to the thoughtful design of our products, every step is guided by intention. Nothing is rushed, and 
-              nothing is without purpose because we believe luxury is found not only in the finished product, but in the process itself.
+            Every SNSES creation begins with care. We work closely with skilled artisans, drawing on generations of knowledge and craftsmanship to ensure that each piece is made with precision and meaning. From the curation of the finest materials to the thoughtful design of our products, every step is guided by intention. We believe luxury is found not only in the finished product, but in the process itself.
             </p>
             <p className="text-gray-700 leading-relaxed text-sm">
-              What you hold in your hands is the result of many hands - artisans, makers, and creators who pour their expertise into 
-              every stage. This is how we ensure that each product carries not just beauty, but also a story of dedication, responsibility, 
-              and care.
+            What you hold in your hands is the result of many hands - artisans, makers, and creators who pour their expertise into every stage. This is how we ensure that each product carries not just beauty, but also a story of dedication, responsibility, and care.
             </p>
           </motion.div>
 
@@ -296,9 +276,10 @@ const OurStory = () => {
             transition={{ duration: 0.6, delay: 1.2 }}
             className="text-center"
           >
-            <button className="bg-gray-300 text-gray-900 px-8 py-3 text-xs tracking-widest hover:bg-gray-400 transition-colors">
+           <Link to='/shop'>
+           <button className="bg-gray-300 text-gray-900 px-8 py-3 text-xs tracking-widest hover:bg-gray-400 transition-colors">
               DISCOVER OUR PRODUCTS
-            </button>
+            </button></Link>
           </motion.div>
         </div>
       </section>

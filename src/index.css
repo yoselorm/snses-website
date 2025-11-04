@@ -3,11 +3,9 @@
 @tailwind utilities;
 
 
-/* body{
-    font-family: 'metro-nova';
-    src: url('assets/metro-nova-pro.otf');
- 
-} */
+body {
+    zoom: 0.85; /* 90% of original size - adjust as needed */
+  }
 
 
 @font-face {
