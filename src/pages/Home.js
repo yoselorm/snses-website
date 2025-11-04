@@ -278,7 +278,7 @@ const Home = () => {
                   ease: 'linear',
                 }}
               >
-                {[...categories, ...categories].map((category, index) => (
+                {[...categories, ...categories]?.map((category, index) => (
                   <div
                     key={index}
                     className="flex-shrink-0 w-[280px] group cursor-pointer"
@@ -391,7 +391,7 @@ const Home = () => {
           </div>
 
           {/* Show More Button */}
-          {blogs.length > 3 && (
+          {blogs?.length > 3 && (
             <div className="text-center mt-12">
               <Link
                 to="/community"

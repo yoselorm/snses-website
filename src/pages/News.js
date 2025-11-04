@@ -25,8 +25,8 @@ const News = () => {
   // ✅ Pagination logic
   const indexOfLastBlog = currentPage * blogsPerPage;
   const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
-  const currentBlogs = blogs.slice(indexOfFirstBlog, indexOfLastBlog);
-  const totalPages = Math.ceil(blogs.length / blogsPerPage);
+  const currentBlogs = blogs?.slice(indexOfFirstBlog, indexOfLastBlog);
+  const totalPages = Math.ceil(blogs?.length / blogsPerPage);
 
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
@@ -65,7 +65,7 @@ const News = () => {
 
           <div className="grid md:grid-cols-3 gap-[4rem]">
             {!loading &&
-              currentBlogs.map((article, index) => (
+              currentBlogs?.map((article, index) => (
                 <motion.article
                   key={article._id}
                   initial={{ opacity: 0, y: 50 }}
@@ -130,9 +130,9 @@ const News = () => {
           </div>
 
           {/* Pagination */}
-          {!loading && blogs.length > 6 && (
+          {!loading && blogs?.length > 6 && (
             <div className="flex justify-center items-center gap-3 mt-12">
-              {Array.from({ length: totalPages }).map((_, i) => (
+              {Array.from({ length: totalPages })?.map((_, i) => (
                 <button
                   key={i}
                   onClick={() => handlePageChange(i + 1)}
