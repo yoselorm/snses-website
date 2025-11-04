@@ -278,7 +278,7 @@ const Home = () => {
                   ease: 'linear',
                 }}
               >
-                {categories?.map((category, index) => (
+                {[...categories, ...categories]?.map((category, index) => (
                   <div
                     key={index}
                     className="flex-shrink-0 w-[280px] group cursor-pointer"
