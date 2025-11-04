@@ -78,8 +78,8 @@ const CartDropdown = ({ isOpen, onClose }) => {
                       <div>
                         <p className="text-sm font-medium text-gray-800">{item.productName || item.name}</p>
                         <p className="text-xs text-gray-500">Qty: {item.quantity}</p>
-                        <p className="text-sm text-amber-600 font-semibold">
-                          ${(parseFloat(item.price || 0) * (item.quantity || 1)).toFixed(2)}
+                        <p className="text-sm text-amber-600 font-sans">
+                        £{(parseFloat(item.price || 0) * (item.quantity || 1)).toFixed(2)}
                         </p>
                       </div>
                     </div>
@@ -98,7 +98,7 @@ const CartDropdown = ({ isOpen, onClose }) => {
               <div className="pt-4 border-t border-gray-100">
                 <div className="flex items-center justify-between mb-3">
                   <span className="text-sm text-gray-600">Subtotal:</span>
-                  <span className="font-semibold text-amber-700">${total.toFixed(2)}</span>
+                  <span className="font-sans text-amber-700">£{total.toFixed(2)}</span>
                 </div>
 
                 <Link

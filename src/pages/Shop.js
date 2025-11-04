@@ -240,9 +240,9 @@ const Shop = () => {
                     style={{ width: `${(priceRange.max / maxPrice) * 100}%` }}
                   />
                 </div>
-                <div className="flex items-center justify-between text-sm text-gray-600">
-                  <span>${priceRange.min}</span>
-                  <span className="font-medium text-amber-600">${priceRange.max}</span>
+                <div className="flex items-center justify-between text-sm text-gray-600 font-sans">
+                  <span>£{priceRange.min}</span>
+                  <span className="font-medium text-amber-600">£{priceRange.max}</span>
                 </div>
               </div>
             </div>
@@ -353,9 +353,11 @@ const Shop = () => {
                         </p>
                         
                         <div className="flex items-center justify-between">
-                          <span className="text-lg font-semibold text-gray-900">
-                            ${parseFloat(product.price || 0).toFixed(2)}
+                          <span className="text-sm text-gray-900 font-sans">
+                          £{parseFloat(product.price || 0).toFixed(2)}
                           </span>
+                          {/* <span className="font-sans">£</span>{parseFloat(selectedProduct.price || 0).toFixed(2)} */}
+
                           <button 
                             onClick={(e) => {
                               e.stopPropagation();

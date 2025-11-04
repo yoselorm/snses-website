@@ -14,6 +14,7 @@ const ProductDetail = () => {
     (state) => state.products
   );
   const { token } = useSelector((state) => state.customer);
+  console.log(selectedProduct)
 
   const [selectedImage, setSelectedImage] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -27,11 +28,11 @@ const ProductDetail = () => {
   const [thumbnails, setThumbnails] = useState([]);
 
   // Fetch product if not in state
-  useEffect(() => {
-    if (!selectedProduct || selectedProduct.productToken !== productToken) {
-      dispatch(getProductByToken(productToken));
-    }
-  }, [dispatch, productToken, selectedProduct]);
+  // useEffect(() => {
+  //   if (!selectedProduct || selectedProduct.productToken !== productToken) {
+  //     dispatch(getProductByToken(productToken));
+  //   }
+  // }, [dispatch, productToken, selectedProduct]);
 
   // Set up images when product loads
   useEffect(() => {
@@ -78,7 +79,6 @@ const ProductDetail = () => {
         price: parseFloat(selectedProduct.price || 0),
         image: selectedProduct.images?.main_image || '/placeholder-product.png',
         quantity,
-        size: selectedSize,
       });
     }
 
@@ -224,19 +224,7 @@ const ProductDetail = () => {
             </div>
 
             {/* Size Selection with Input */}
-            <div>
-              <label className="block text-sm font-semibold text-gray-800 mb-3 tracking-wide uppercase">
-                Select a Size
-              </label>
-              <input
-                type="text"
-                value={selectedSize}
-                onChange={(e) => setSelectedSize(e.target.value)}
-                className="w-full max-w-[200px] px-4 py-3 border-2 border-gray-800 text-center text-sm font-medium focus:outline-none focus:border-amber-600"
-                placeholder="e.g., 250g"
-              />
-              <p className="text-xs text-gray-500 mt-2">{selectedSize}</p>
-            </div>
+            
 
             {/* Quantity */}
             <div className="flex items-center gap-3">

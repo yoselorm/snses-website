@@ -94,8 +94,8 @@ const Checkout = () => {
                     />
                     <div>
                       <p className="font-semibold text-gray-800">{item.productName || item.name}</p>
-                      <p className="text-sm text-gray-500">
-                        ${(parseFloat(item.price || 0) * (item.quantity || 1)).toFixed(2)}
+                      <p className="text-sm text-gray-500 font-sans">
+                      £{(parseFloat(item.price || 0) * (item.quantity || 1)).toFixed(2)}
                       </p>
                       <div className="flex items-center mt-2">
                         <button
@@ -126,7 +126,7 @@ const Checkout = () => {
 
               <div className="flex justify-between items-center pt-4 border-t">
                 <p className="text-lg font-semibold text-gray-700">Subtotal:</p>
-                <p className="text-lg font-bold text-amber-700">${subtotal.toFixed(2)}</p>
+                <p className="text-base font-sans text-amber-700">£{subtotal.toFixed(2)}</p>
               </div>
             </div>
           )}
