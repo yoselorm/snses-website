@@ -44,7 +44,7 @@ const NewsletterModal = ({ isOpen, onClose }) => {
                 onClick={onClose}
                 className="absolute top-3 right-4 text-gray-300 hover:text-white text-xl"
               >
-                ×
+                x
               </button>
 
               {/* Logo */}
