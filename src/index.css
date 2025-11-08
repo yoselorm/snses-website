@@ -3,9 +3,9 @@
 @tailwind utilities;
 
 
-body {
-    zoom: 0.9; /* 90% of original size - adjust as needed */
-  }
+/* body {
+    zoom: 0.9; 
+  } */
 
 
 @font-face {
