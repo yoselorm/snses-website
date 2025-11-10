@@ -20,20 +20,7 @@ const Footer = () => {
         <footer className="bg-[#f7f6f5] font-garamond">
             {/* Main Footer Content */}
             <div className="max-w-7xl mx-auto px-4 py-8 my-8">
-                {/* Brand Statement */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                    className="text-center mb-16"
-                >
-                    <p className="text-gray-600 leading-relaxed max-w-4xl mx-auto text-sm">
-                        SNSES sees minimalism as a cultural bridge, an educational tool, to connect, to grow, to learn through dialogue and shared experiences, becoming a nomad,
-                        ultimately leaving a more enlightened world for future generations. We manufacture beautiful objects crafted with pride, skill and care. Objects you will treasure,
-                        objects that tell a story.
-                    </p>
-                </motion.div>
+                
 
                 {/* Footer Grid */}
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
@@ -45,8 +32,8 @@ const Footer = () => {
                         viewport={{ once: true }}
                         className="flex justify-center md:justify-start"
                     >
-                        <div className="flex items-center">
-                            <Link to="/" className="flex items-center">
+                        <div className="">
+                            <Link to="/" className="">
                                 <img src={logo} alt="SNSES Logo" className="h-20 w-auto" />
                             </Link>
                         </div>

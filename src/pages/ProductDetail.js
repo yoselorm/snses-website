@@ -9,7 +9,7 @@ const ProductDetail = () => {
   const { productToken } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  
+
   const { selectedProduct, loading, wishlistLoading, wishlistSuccess, wishlistError } = useSelector(
     (state) => state.products
   );
@@ -39,16 +39,16 @@ const ProductDetail = () => {
     if (selectedProduct?.images) {
       const mainImage = selectedProduct.images.main_image;
       const backupImage = selectedProduct.images.backup_image;
-      
+
       setSelectedImage(mainImage);
-      
+
       // Create thumbnails array - repeat main and backup images
       const thumbs = [];
       if (mainImage) thumbs.push(mainImage);
       if (backupImage) thumbs.push(backupImage);
       if (mainImage) thumbs.push(mainImage);
       if (backupImage) thumbs.push(backupImage);
-      
+
       setThumbnails(thumbs);
     }
   }, [selectedProduct]);
@@ -92,9 +92,17 @@ const ProductDetail = () => {
   // Add to wishlist
   const handleAddToWishlist = () => {
     if (!token) {
-      alert('Please login to add items to wishlist');
+      setCartMessage('Please log in to add items to wishlist');
+      setTimeout(() => setCartMessage(null), 2500);
       return;
     }
+  
+    if (selectedProduct?.isInWishlist) {
+      setCartMessage('This item is already in your wishlist');
+      setTimeout(() => setCartMessage(null), 2500);
+      return;
+    }
+  
     dispatch(
       addToWishlist({
         customerId: localStorage.getItem('snsesUserId'),
@@ -102,6 +110,7 @@ const ProductDetail = () => {
       })
     );
   };
+  
 
   // Clear messages
   useEffect(() => {
@@ -190,9 +199,8 @@ const ProductDetail = () => {
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(img)}
-                  className={`w-full aspect-square border-2 overflow-hidden transition ${
-                    selectedImage === img ? 'border-gray-800' : 'border-gray-300'
-                  }`}
+                  className={`w-full aspect-square border-2 overflow-hidden transition ${selectedImage === img ? 'border-gray-800' : 'border-gray-300'
+                    }`}
                 >
                   <img src={img} alt={`View ${idx + 1}`} className="w-full h-full object-cover" />
                 </button>
@@ -218,13 +226,13 @@ const ProductDetail = () => {
               <p className="text-sm text-gray-600 mb-4 leading-relaxed">
                 {selectedProduct.description}
               </p>
-              <p className="text-3xl font-bold text-gray-900">
-                <span className="font-sans">£</span>{parseFloat(selectedProduct.price || 0).toFixed(2)}
+              <p className="text-2xl font-sans text-gray-900">
+                <span className="">£ </span>{parseFloat(selectedProduct.price || 0).toFixed(2)}
               </p>
             </div>
 
             {/* Size Selection with Input */}
-            
+
 
             {/* Quantity */}
             <div className="flex items-center gap-3">
@@ -244,12 +252,30 @@ const ProductDetail = () => {
             </div>
 
             {/* Add to Cart */}
-            <button
+           <div className='flex flex-col gap-4'>
+           <button
               onClick={handleAddToCart}
               className="w-full bg-black text-white py-3 text-sm font-semibold hover:bg-gray-900 transition tracking-wider uppercase"
             >
               Add to Cart
             </button>
+            {/* Add to Wishlist */}
+            <button
+              onClick={handleAddToWishlist}
+              disabled={selectedProduct?.isInWishlist || wishlistLoading}
+              className={`w-full py-3 text-sm font-semibold uppercase tracking-wider transition ${selectedProduct?.isInWishlist || wishlistLoading
+                  ? 'bg-gray-300 text-gray-700 cursor-not-allowed'
+                  : 'bg-white border border-black text-black hover:bg-black hover:text-white'
+                }`}
+            >
+              {wishlistLoading
+                ? 'Adding...'
+                : selectedProduct?.isInWishlist
+                  ? 'Already in Wishlist'
+                  : 'Add to Wishlist'}
+            </button>
+           </div>
+
 
             {/* Accordion Sections */}
             <div className="space-y-1 border-t pt-6">
@@ -298,7 +324,7 @@ const ProductDetail = () => {
                       <p className="leading-relaxed">
                         {selectedProduct.description || 'Sultry blend of creamy shea butter, smoky wood and earthy spices infused with a hint of honey'}
                       </p>
-                      
+
                       {selectedProduct.primary_feature?.length > 0 && (
                         <div>
                           <strong className="font-semibold">Top Notes:</strong>{' '}

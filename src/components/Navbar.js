@@ -12,7 +12,7 @@ import CartDropdown from './CartDropDown';
 const Navbar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
-  const {currentUser } = useSelector((state) => state.customer);
+  const { currentUser } = useSelector((state) => state.customer);
   const token = localStorage.getItem('snsesCustomerToken')
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
@@ -53,34 +53,34 @@ const Navbar = () => {
     setIsUserMenuOpen(false);
   };
 
-// inside Navbar component (replace existing cartCount usage)
-const [cartCount, setCartCount] = useState(0);
+  // inside Navbar component (replace existing cartCount usage)
+  const [cartCount, setCartCount] = useState(0);
 
-useEffect(() => {
-  const computeCount = (cart) => (cart || []).reduce((acc, it) => acc + (it.quantity || 0), 0);
+  useEffect(() => {
+    const computeCount = (cart) => (cart || []).reduce((acc, it) => acc + (it.quantity || 0), 0);
 
-  const loadAndSet = () => {
-    const stored = JSON.parse(localStorage.getItem('snsesCart')) || [];
-    setCartCount(computeCount(stored));
-  };
+    const loadAndSet = () => {
+      const stored = JSON.parse(localStorage.getItem('snsesCart')) || [];
+      setCartCount(computeCount(stored));
+    };
 
-  // initial load
-  loadAndSet();
+    // initial load
+    loadAndSet();
 
-  // listener for same-tab updates
-  const onCartUpdated = (e) => {
-    if (e?.detail) setCartCount(computeCount(e.detail));
-    else loadAndSet();
-  };
+    // listener for same-tab updates
+    const onCartUpdated = (e) => {
+      if (e?.detail) setCartCount(computeCount(e.detail));
+      else loadAndSet();
+    };
 
-  window.addEventListener('snses_cart_updated', onCartUpdated);
-  window.addEventListener('storage', onCartUpdated); // cross-tab
+    window.addEventListener('snses_cart_updated', onCartUpdated);
+    window.addEventListener('storage', onCartUpdated); // cross-tab
 
-  return () => {
-    window.removeEventListener('snses_cart_updated', onCartUpdated);
-    window.removeEventListener('storage', onCartUpdated);
-  };
-}, []);
+    return () => {
+      window.removeEventListener('snses_cart_updated', onCartUpdated);
+      window.removeEventListener('storage', onCartUpdated);
+    };
+  }, []);
 
 
 
@@ -134,7 +134,7 @@ useEffect(() => {
   };
 
   return (
-    <nav className="font-metro-nova tracking-[1px] w-full bg-[#f4f1eb] border-b border-gray-200 sticky top-0 left-0 z-50 shadow-sm">
+    <nav className="font-metro-nova tracking-[1px] w-full bg-[#f4f1eb]  sticky top-0 left-0 z-50 shadow-sm">
       <div className="bg-[#b79b4b] py-2 overflow-hidden relative font-garamond">
         <motion.div
           animate={{
@@ -147,62 +147,63 @@ useEffect(() => {
           }}
           className="whitespace-nowrap text-sm font-medium"
         >
-          Enjoy 15% off with two or more items & free shipping on all orders. 
+          Enjoy 15% off with two or more items & free shipping on all orders.
           &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
-          Enjoy 15% off with two or more items & free shipping on all orders. 
+          Enjoy 15% off with two or more items & free shipping on all orders.
           &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
-          Enjoy 15% off with two or more items & free shipping on all orders. 
+          Enjoy 15% off with two or more items & free shipping on all orders.
           &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
           Enjoy 15% off with two or more items & free shipping on all orders.
         </motion.div>
       </div>
-      
-      {/* Top Bar */}
-      <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between">
-        {/* Left Section */}
-        <div className="flex items-center gap-6">
-          {!isAuthenticated ? (
-            <button 
-              onClick={() => setIsAuthModalOpen(true)}
-              className="flex items-center gap-2 text-gray-500 hover:text-gray-900 transition"
-            >
-              <User size={20} />
-              <span className="text-sm font-medium">Sign In</span>
-            </button>
-          ) : (
-            <div ref={userMenuRef} className="relative">
+
+      <div className='w-full bg-[#4b0c0c] text-[#d4af37] '>
+        {/* Top Bar */}
+        <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between ">
+          {/* Left Section */}
+          <div className="flex items-center gap-6">
+            {!isAuthenticated ? (
               <button
-                onClick={() => {
-                  setIsUserMenuOpen(!isUserMenuOpen);
-                  setIsCartOpen(false);
-                  setIsWishlistOpen(false);
-                  setIsSearchOpen(false);
-                }}
-                className="flex items-center gap-2 text-gray-700 hover:text-gray-900 transition"
+                onClick={() => setIsAuthModalOpen(true)}
+                className="flex items-center gap-2 text-[#f6e6c7] hover:text-[#e3c27b] transition"
               >
                 <User size={20} />
-                <span className="text-sm font-medium">My Account</span>
+                <span className="text-sm font-medium">Sign In</span>
               </button>
+            ) : (
+              <div ref={userMenuRef} className="relative">
+                <button
+                  onClick={() => {
+                    setIsUserMenuOpen(!isUserMenuOpen);
+                    setIsCartOpen(false);
+                    setIsWishlistOpen(false);
+                    setIsSearchOpen(false);
+                  }}
+                  className="flex items-center gap-2 text-[#f6e6c7] hover:text-[#e3c27b] transition"
+                >
+                  <User size={20} />
+                  <span className="text-sm font-medium">My Account</span>
+                </button>
 
-              {/* User Dropdown Menu */}
-              <AnimatePresence>
-                {isUserMenuOpen && (
-                  <motion.div
-                    initial={{ opacity: 0, y: -10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -10 }}
-                    transition={{ duration: 0.2 }}
-                    className="absolute left-0 top-full mt-2 bg-white border border-gray-200 rounded-lg shadow-xl w-48 overflow-hidden z-50"
-                  >
-                    <div className="px-4 py-3 border-b border-gray-100">
-                      <p className="text-sm font-medium text-gray-900">
-                        {currentUser?.name || 'User'}
-                      </p>
-                      <p className="text-xs text-gray-500 mt-1">
-                        {currentUser?.email || ''}
-                      </p>
-                    </div>
-                    {/* <Link
+                {/* User Dropdown Menu */}
+                <AnimatePresence>
+                  {isUserMenuOpen && (
+                    <motion.div
+                      initial={{ opacity: 0, y: -10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0, y: -10 }}
+                      transition={{ duration: 0.2 }}
+                      className="absolute left-0 top-full mt-2 bg-white border border-gray-200 rounded-lg shadow-xl w-48 overflow-hidden z-50"
+                    >
+                      <div className="px-4 py-3 border-b border-gray-100">
+                        <p className="text-sm font-medium text-gray-900">
+                          {currentUser?.name || 'User'}
+                        </p>
+                        <p className="text-xs text-gray-500 mt-1">
+                          {currentUser?.email || ''}
+                        </p>
+                      </div>
+                      {/* <Link
                       to="/profile"
                       className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition"
                       onClick={() => setIsUserMenuOpen(false)}
@@ -210,159 +211,160 @@ useEffect(() => {
                       <User size={16} />
                       My Profile
                     </Link> */}
-                    <Link
-                      to="/orders"
-                      className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition"
-                      onClick={() => setIsUserMenuOpen(false)}
-                    >
-                      <ShoppingCart size={16} />
-                      My Orders
-                    </Link>
+                      <Link
+                        to="/orders"
+                        className="flex items-center gap-2 px-4 py-2 text-sm text-gray-700 hover:bg-gray-50 transition"
+                        onClick={() => setIsUserMenuOpen(false)}
+                      >
+                        <ShoppingCart size={16} />
+                        My Orders
+                      </Link>
+                      <button
+                        onClick={handleLogout}
+                        className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition border-t border-gray-100"
+                      >
+                        <LogOut size={16} />
+                        Logout
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            )}
+          </div>
+
+          {/* Center Logo */}
+          <div className="flex items-center">
+            <Link to="/" className="flex items-center">
+              <img src={logo} alt="SNSES Logo" className="h-16 w-auto" />
+            </Link>
+          </div>
+
+          {/* Right Section */}
+          <div className="flex items-center gap-2 sm:gap-6">
+            {/* Search */}
+            <div ref={searchContainerRef} className="relative">
+              <motion.div
+                initial={false}
+                animate={{
+                  width: isSearchOpen ? '280px' : '40px',
+                }}
+                transition={{ duration: 0.3, ease: 'easeInOut' }}
+                className="relative"
+              >
+                {!isSearchOpen ? (
+                  <button
+                    onClick={handleSearchClick}
+                    className="flex items-center justify-center w-10 h-10 text-[#f6e6c7] hover:text-[#e3c27b] transition"
+                  >
+                    <Search size={20} />
+                  </button>
+                ) : (
+                  <div className="relative">
+                    <input
+                      ref={searchInputRef}
+                      type="text"
+                      value={searchQuery}
+                      onChange={(e) => setSearchQuery(e.target.value)}
+                      placeholder="Search products..."
+                      className="w-full h-10 pl-10 pr-10 border border-gray-300 rounded-full focus:outline-none focus:border-amber-500 text-sm"
+                    />
+                    <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
                     <button
-                      onClick={handleLogout}
-                      className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition border-t border-gray-100"
+                      onClick={handleSearchClick}
+                      className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
                     >
-                      <LogOut size={16} />
-                      Logout
+                      <X size={18} />
                     </button>
+                  </div>
+                )}
+              </motion.div>
+
+              {/* Search Results Dropdown */}
+              <AnimatePresence>
+                {isSearchOpen && searchQuery && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    transition={{ duration: 0.2 }}
+                    className="absolute top-12 right-0 w-80 bg-white border border-gray-200 rounded-lg shadow-xl max-h-96 overflow-y-auto z-50"
+                  >
+                    {searchResults.length > 0 ? (
+                      <div className="py-2">
+                        <div className="px-4 py-2 text-xs text-gray-500 font-semibold uppercase">
+                          {searchResults.length} Result{searchResults.length !== 1 ? 's' : ''}
+                        </div>
+                        {searchResults.map((product) => (
+                          <button
+                            key={product.id}
+                            className="w-full px-4 py-3 hover:bg-gray-50 text-left border-b border-gray-100 last:border-b-0 transition"
+                            onClick={() => {
+                              console.log('Selected:', product.name);
+                              setIsSearchOpen(false);
+                              setSearchQuery('');
+                            }}
+                          >
+                            <div className="font-medium text-gray-900 text-sm">{product.name}</div>
+                            <div className="flex items-center justify-between mt-1">
+                              <span className="text-xs text-gray-500">{product.category}</span>
+                              <span className="text-sm font-semibold text-amber-600">
+                                ${product.price.toFixed(2)}
+                              </span>
+                            </div>
+                          </button>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="px-4 py-8 text-center text-gray-500 text-sm">
+                        No products found for "{searchQuery}"
+                      </div>
+                    )}
                   </motion.div>
                 )}
               </AnimatePresence>
             </div>
-          )}
-        </div>
 
-        {/* Center Logo */}
-        <div className="flex items-center">
-          <Link to="/" className="flex items-center">
-            <img src={logo} alt="SNSES Logo" className="h-16 w-auto" />
-          </Link>
-        </div>
-
-        {/* Right Section */}
-        <div className="flex items-center gap-2 sm:gap-6">
-          {/* Search */}
-          <div ref={searchContainerRef} className="relative">
-            <motion.div
-              initial={false}
-              animate={{
-                width: isSearchOpen ? '280px' : '40px',
+            {/* Wishlist Button */}
+            <button
+              className="flex items-center gap-2 text-[#f6e6c7] hover:text-[#e3c27b] transition relative"
+              onClick={() => {
+                setIsWishlistOpen(!isWishlistOpen);
+                setIsCartOpen(false);
+                setIsSearchOpen(false);
+                setIsUserMenuOpen(false);
               }}
-              transition={{ duration: 0.3, ease: 'easeInOut' }}
-              className="relative"
             >
-              {!isSearchOpen ? (
-                <button
-                  onClick={handleSearchClick}
-                  className="flex items-center justify-center w-10 h-10 text-gray-700 hover:text-gray-900 transition"
-                >
-                  <Search size={20} />
-                </button>
-              ) : (
-                <div className="relative">
-                  <input
-                    ref={searchInputRef}
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => setSearchQuery(e.target.value)}
-                    placeholder="Search products..."
-                    className="w-full h-10 pl-10 pr-10 border border-gray-300 rounded-full focus:outline-none focus:border-amber-500 text-sm"
-                  />
-                  <Search size={18} className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-                  <button
-                    onClick={handleSearchClick}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-400 hover:text-gray-600"
-                  >
-                    <X size={18} />
-                  </button>
-                </div>
-              )}
-            </motion.div>
+              <Heart size={20} />
+            </button>
 
-            {/* Search Results Dropdown */}
-            <AnimatePresence>
-              {isSearchOpen && searchQuery && (
-                <motion.div
-                  initial={{ opacity: 0, y: -10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -10 }}
-                  transition={{ duration: 0.2 }}
-                  className="absolute top-12 right-0 w-80 bg-white border border-gray-200 rounded-lg shadow-xl max-h-96 overflow-y-auto z-50"
-                >
-                  {searchResults.length > 0 ? (
-                    <div className="py-2">
-                      <div className="px-4 py-2 text-xs text-gray-500 font-semibold uppercase">
-                        {searchResults.length} Result{searchResults.length !== 1 ? 's' : ''}
-                      </div>
-                      {searchResults.map((product) => (
-                        <button
-                          key={product.id}
-                          className="w-full px-4 py-3 hover:bg-gray-50 text-left border-b border-gray-100 last:border-b-0 transition"
-                          onClick={() => {
-                            console.log('Selected:', product.name);
-                            setIsSearchOpen(false);
-                            setSearchQuery('');
-                          }}
-                        >
-                          <div className="font-medium text-gray-900 text-sm">{product.name}</div>
-                          <div className="flex items-center justify-between mt-1">
-                            <span className="text-xs text-gray-500">{product.category}</span>
-                            <span className="text-sm font-semibold text-amber-600">
-                              ${product.price.toFixed(2)}
-                            </span>
-                          </div>
-                        </button>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="px-4 py-8 text-center text-gray-500 text-sm">
-                      No products found for "{searchQuery}"
-                    </div>
-                  )}
-                </motion.div>
-              )}
-            </AnimatePresence>
+            {/* Cart Button */}
+            <button
+              className="flex items-center gap-2 text-[#f6e6c7] hover:text-[#e3c27b] transition relative"
+              onClick={() => {
+                setIsCartOpen(!isCartOpen);
+                setIsWishlistOpen(false);
+                setIsSearchOpen(false);
+                setIsUserMenuOpen(false);
+              }}
+            >
+              <ShoppingCart size={20} />
+              <span className="-ml-1 text-sm text-[#f6e6c7] ">{cartCount}</span>
+            </button>
+
+            {/* Mobile Menu Toggle */}
+            <button
+              className="sm:hidden text-[#f6e6c7] "
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              {menuOpen ? <X size={22} /> : <span className="text-xl">☰</span>}
+            </button>
           </div>
-
-          {/* Wishlist Button */}
-          <button
-            className="flex items-center gap-2 text-gray-700 hover:text-gray-900 transition relative"
-            onClick={() => {
-              setIsWishlistOpen(!isWishlistOpen);
-              setIsCartOpen(false);
-              setIsSearchOpen(false);
-              setIsUserMenuOpen(false);
-            }}
-          >
-            <Heart size={20} />
-          </button>
-
-          {/* Cart Button */}
-          <button
-            className="flex items-center gap-2 text-gray-700 hover:text-gray-900 transition relative"
-            onClick={() => {
-              setIsCartOpen(!isCartOpen);
-              setIsWishlistOpen(false);
-              setIsSearchOpen(false);
-              setIsUserMenuOpen(false);
-            }}
-          >
-            <ShoppingCart size={20} />
-            <span className="-ml-1 text-sm text-gray-500">{cartCount}</span>
-          </button>
-
-          {/* Mobile Menu Toggle */}
-          <button
-            className="sm:hidden text-gray-700"
-            onClick={() => setMenuOpen(!menuOpen)}
-          >
-            {menuOpen ? <X size={22} /> : <span className="text-xl">☰</span>}
-          </button>
         </div>
-      </div>
+      
 
       {/* Navigation Menu */}
-      <div className="border-t border-gray-200">
+      <div className="">
         <div className="max-w-7xl mx-auto px-4">
           {/* Desktop Nav */}
           <ul className="hidden sm:flex items-center justify-center gap-20 py-4">
@@ -372,9 +374,8 @@ useEffect(() => {
                 <li key={page.name} className="relative group">
                   <Link
                     to={page.path}
-                    className={`text-[10px] font-thin ${
-                      isActive ? 'text-amber-600' : 'text-gray-500'
-                    } hover:text-amber-600 transition`}
+                    className={`text-[10px] font-thin ${isActive ? 'text-amber-600' : 'text-[#f6e6c7]'
+                      } hover:text-amber-600 transition`}
                   >
                     {page.name}
                   </Link>
@@ -411,11 +412,10 @@ useEffect(() => {
                   <li key={page.name}>
                     <Link
                       to={page.path}
-                      className={`text-[x-small] ${
-                        activePage === page.name
+                      className={`text-[x-small] ${activePage === page.name
                           ? 'text-amber-600'
                           : 'text-gray-600 hover:text-amber-600'
-                      }`}
+                        }`}
                       onClick={() => setMenuOpen(false)}
                     >
                       {page.name}
@@ -426,6 +426,7 @@ useEffect(() => {
             )}
           </AnimatePresence>
         </div>
+      </div>
       </div>
 
       {/* 🛒 Cart Dropdown */}
@@ -456,11 +457,11 @@ useEffect(() => {
       <CartDropdown isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
 
 
- 
-<WishlistDropdown 
-  isOpen={isWishlistOpen} 
-  onClose={() => setIsWishlistOpen(false)} 
-/>
+
+      <WishlistDropdown
+        isOpen={isWishlistOpen}
+        onClose={() => setIsWishlistOpen(false)}
+      />
 
 
       <AuthModal isOpen={isAuthModalOpen} onClose={() => setIsAuthModalOpen(false)} />

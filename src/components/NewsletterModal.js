@@ -38,7 +38,7 @@ const NewsletterModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Right Section - Form */}
-            <div className="w-full md:w-1/2 bg-[#4b0c0c] text-center flex flex-col justify-center items-center px-6 py-10 text-[#d4af37] relative">
+            <div className="w-full md:w-1/2 bg-[#4b0c0c] text-[#d4af37] text-center flex flex-col justify-center items-center px-6 py-10  relative">
               {/* Close Button */}
               <button
                 onClick={onClose}

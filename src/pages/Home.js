@@ -13,6 +13,7 @@ const Home = () => {
   const collectionRef = useRef(null);
   const whoWeAreRef = useRef(null);
   const blogRef = useRef(null);
+  
   const [showNewsletter, setShowNewsletter] = useState(false);
 
   const dispatch = useDispatch();
@@ -26,6 +27,7 @@ const Home = () => {
 
   const heroOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0.7]);
   const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
+  
 
   const bestSellersInView = useInView(bestSellersRef, { once: true, amount: 0.3 });
   const collectionInView = useInView(collectionRef, { once: true, amount: 0.3 });
@@ -58,7 +60,7 @@ const Home = () => {
       id: 1,
       name: "Vanilla Dreams",
       price: "$28",
-      image: "https://images.unsplash.com/photo-1602874801006-e04b6d8c0be6?w=500"
+      image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?w=500"
     },
     {
       id: 2,
@@ -71,12 +73,6 @@ const Home = () => {
       name: "Citrus Sunrise",
       price: "$30",
       image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?w=500"
-    },
-    {
-      id: 4,
-      name: "Ocean Breeze",
-      price: "$28",
-      image: "https://images.unsplash.com/photo-1588854337221-4cf9fa96c819?w=500"
     }
   ];
 
@@ -131,14 +127,13 @@ const Home = () => {
             className="text-center mb-16"
           >
             <h2 className="text-3xl font-thin tracking-wider text-gray-900 mb-2">
-              BEST SELLERS
+              BESTSELLERS
             </h2>
-            <p className="text-gray-600 text-sm font-garamond mb-4 ">
+            <p className="text-gray-600 text-base font-garamond mb-4 ">
               Discover our most loved and sought-after fragrances. Each one tells a story of culture, creativity and craftsmanship - an ode to Africa’s rich and layered traditions            </p>
-            <div className="h-0.5 bg-amber-600 mx-auto w-20"></div>
           </motion.div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
             {bestSellers.map((product, index) => (
               <motion.div
                 key={product.id}
@@ -199,7 +194,6 @@ const Home = () => {
                 <h2 className="text-3xl font-thin tracking-wider text-gray-900 mb-4">
                   WHO WE ARE
                 </h2>
-                <div className="h-0.5 bg-amber-600 w-20 mb-6"></div>
               </div>
 
               <p className="text-gray-700 leading-relaxed text-base font-garamond">
@@ -254,10 +248,9 @@ const Home = () => {
             <h2 className="text-2xl font-thin tracking-wider text-gray-900 mb-2">
               EXPLORE OUR PRODUCTS
             </h2>
-            <p className="text-gray-600 text-[12px] font-garamond mb-4 tracking-[2px]">
+            <p className="text-gray-600 text-base font-garamond mb-4 ">
               Made with pride by our craftsmen
             </p>
-            <div className="h-0.5 bg-amber-600 mx-auto w-20"></div>
           </motion.div>
 
           {/* Moving Carousel - Smaller Squares */}
@@ -325,7 +318,7 @@ const Home = () => {
                 <Star key={i} size={20} className="fill-amber-500 text-amber-500" />
               ))}
             </div>
-            <p className="text-gray-700 text-lg font-garamond italic leading-relaxed mb-4">
+            <p className="text-gray-700 text-[24px] font-garamond italic leading-relaxed mb-4">
               "The products combine high-quality materials with refined craftsmanship, offering a balance of durability, design, and functionality suitable for various settings"
             </p>
             {/* <p className="text-amber-600 font-medium text-sm tracking-wider">
@@ -347,46 +340,62 @@ const Home = () => {
             <div className="h-0.5 bg-amber-600 mx-auto w-20"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-[4rem]">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-[2rem]">
             {displayedBlogs.map((post, index) => (
-              <motion.article
-                key={post.id}
-                initial={{ opacity: 0, y: 80, scale: 0.9 }}
-                animate={blogInView ? { opacity: 1, y: 0, scale: 1 } : {}}
-                transition={{ duration: 0.6, delay: 0.2 * index }}
-                whileHover={{ y: -8, transition: { duration: 0.3 } }}
-                className="bg-white p-2 overflow-hidden shadow-md cursor-pointer group"
-              >
-                <div className="relative overflow-hidden h-[400px]">
-                  <motion.img
-                    whileHover={{ scale: 1.1 }}
-                    transition={{ duration: 0.5 }}
-                    src={post.image || 'https://via.placeholder.com/400'}
-                    alt={post.title}
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-                <div className="p-6">
-                  <p className="text-[10px] tracking-[1px] text-amber-600 font-medium mb-2">
-                    {new Date(post.created_at).toDateString()}
-                  </p>
-                  <h3 className="text-lg tracking-[1px] font-garamond font-thin text-gray-900 mb-3 group-hover:text-amber-700 transition-colors">
-                    {post.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed mb-4 text-[12px] font-garamond">
-                    {post.excerpt?.slice(0, 100)}...
-                  </p>
-                  <Link
-                    to={`/blog/${post.id}`}
-                    className="flex items-center gap-2 text-gray-900 text-sm font-medium hover:text-amber-700 transition-colors group"
-                  >
-                    Continue Reading
-                    <motion.span whileHover={{ x: 5 }} transition={{ duration: 0.3 }}>
-                      <ArrowRight size={18} />
-                    </motion.span>
-                  </Link>
-                </div>
-              </motion.article>
+            <motion.post
+            key={post._id}
+            initial={{ opacity: 0, y: 50 }}
+            animate={blogInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6, delay: index * 0.1 }}
+            className="bg-[#f9f7f4] border-8 border-[#f4f1eb] shadow-sm hover:shadow-md transition-shadow duration-300 group cursor-pointer flex flex-col"
+          >
+            {/* Image */}
+            <div className="overflow-hidden h-[400px]">
+              <motion.img
+                whileHover={{ scale: 1.05 }}
+                transition={{ duration: 0.5 }}
+                src={post.image || "https://via.placeholder.com/600"}
+                alt={post.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          
+            {/* Content */}
+            <div className="flex flex-col justify-between flex-1 px-8 py-10 text-center">
+              <div className="space-y-3">
+                <p className="text-[11px] tracking-widest text-gray-500 uppercase">
+                  {new Date(post.createdAt).toLocaleDateString("en-GB", {
+                    weekday: "short",
+                    day: "2-digit",
+                    month: "long",
+                    year: "numeric",
+                  })}
+                </p>
+          
+                <h2 className="text-[15px] leading-snug font-medium text-gray-900 uppercase">
+                  {post.title}
+                </h2>
+          
+                <p className="text-[11px] tracking-widest text-gray-700 uppercase">
+                  {post.category || "SNSES NEWS"}
+                </p>
+          
+                <p className="text-sm text-gray-700 leading-relaxed line-clamp-3">
+                  {post.excerpt || post.content?.slice(0, 150) + "..."}
+                </p>
+              </div>
+          
+              <div className="mt-8">
+                <Link
+                  to={`/blog/${post.id}`}
+                  className="inline-block border border-gray-900 text-gray-900 text-[12px] tracking-widest px-6 py-2 hover:bg-gray-900 hover:text-white transition-colors"
+                >
+                  READ MORE
+                </Link>
+              </div>
+            </div>
+          </motion.post>
+          
             ))}
           </div>
 

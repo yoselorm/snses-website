@@ -27,7 +27,7 @@ const OurStory = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={topInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-5xl md:text-xl font-thin tracking-wider mb-16 text-left font-metro-nova"
+            className="text-3xl font-thin tracking-wider text-gray-900 mb-16"
           >
             OUR STORY
           </motion.h1>
@@ -74,7 +74,7 @@ const OurStory = () => {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <p className="text-gray-600 italic leading-relaxed text-base font-garamond">
+            <p className="text-gray-600 italic leading-relaxed text-[22px] font-garamond">
             “For those who appreciate the beauty of culture and the art of storytelling, SNSES exists as a symphony of the senses. Every creation tells a story made for those who value luxury that resonates beyond the surface.”
             </p>
           </motion.div>
@@ -88,7 +88,7 @@ const OurStory = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={founderInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-4xl font-thin tracking-wider text-gray-900 mb-12 text-center font-garamond"
+            className="text-center text-3xl font-thin tracking-wider text-gray-900 mb-12 uppercase"
           >
             Meet the founder
           </motion.h2>
@@ -197,7 +197,7 @@ const OurStory = () => {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="space-y-6"
             >
-              <h2 className="text-2xl font-[5] font-metro-nova tracking-wider text-gray-900 mb-6">
+              <h2 className="text-3xl font-thin tracking-wider text-gray-900 mb-6 uppercase">
                 SNSES supports communities
               </h2>
               <p className="text-gray-700 leading-relaxed text-sm font-garamond">
@@ -235,7 +235,7 @@ const OurStory = () => {
             initial={{ opacity: 0, y: 30 }}
             animate={craftInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8 }}
-            className="text-4xl font-thin tracking-wider text-gray-900 mb-12 text-center font-metro-nova"
+            className="text-center text-3xl font-thin tracking-wider text-gray-900 mb-12 uppercase"
           >
             Behind the craft
           </motion.h2>

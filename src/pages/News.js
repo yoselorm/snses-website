@@ -63,69 +63,64 @@ const News = () => {
             <p className="text-center text-red-600">Error: {error}</p>
           )}
 
-          <div className="grid md:grid-cols-3 gap-[4rem]">
+          <div className="grid md:grid-cols-3 gap-8">
             {!loading &&
               currentBlogs?.map((article, index) => (
                 <motion.article
-                  key={article._id}
-                  initial={{ opacity: 0, y: 50 }}
-                  animate={newsInView ? { opacity: 1, y: 0 } : {}}
-                  transition={{ duration: 0.6, delay: index * 0.1 }}
-                  className="bg-white p-2 overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300 group cursor-pointer"
-                >
-                  {/* Image */}
-                  <div className="relative overflow-hidden h-[300px]">
-                    <motion.img
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
-                      src={article.image || "https://via.placeholder.com/600"}
-                      alt={article.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-
-                  {/* Content */}
-                  <div className="p-6 space-y-4">
-                    <div className="flex items-center gap-2 text-xs text-gray-500">
-                      <Calendar size={14} />
-                      <span>
-                        {new Date(article.createdAt).toLocaleDateString("en-GB", {
-                          weekday: "short",
-                          day: "2-digit",
-                          month: "long",
-                          year: "numeric",
-                        })}
-                      </span>
-                    </div>
-
-                    <h2 className="text-lg font-medium text-gray-900 group-hover:text-amber-700 transition-colors leading-snug">
+                key={article._id}
+                initial={{ opacity: 0, y: 50 }}
+                animate={newsInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-[#f9f7f4] border-8 border-[#f4f1eb] shadow-sm hover:shadow-md transition-shadow duration-300 group cursor-pointer flex flex-col"
+              >
+                {/* Image */}
+                <div className="overflow-hidden h-[400px]">
+                  <motion.img
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.5 }}
+                    src={article.image || "https://via.placeholder.com/600"}
+                    alt={article.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+              
+                {/* Content */}
+                <div className="flex flex-col justify-between flex-1 px-8 py-10 text-center">
+                  <div className="space-y-3">
+                    <p className="text-[11px] tracking-widest text-gray-500 uppercase">
+                      {new Date(article.createdAt).toLocaleDateString("en-GB", {
+                        weekday: "short",
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </p>
+              
+                    <h2 className="text-[15px] leading-snug font-medium text-gray-900 uppercase">
                       {article.title}
                     </h2>
-
-                    <p className="text-xs tracking-widest text-gray-600 uppercase">
+              
+                    <p className="text-[11px] tracking-widest text-gray-700 uppercase">
                       {article.category || "SNSES NEWS"}
                     </p>
-
+              
                     <p className="text-sm text-gray-700 leading-relaxed line-clamp-3">
-                      {article.excerpt ||
-                        article.content?.slice(0, 150) + "..."}
+                      {article.excerpt || article.content?.slice(0, 150) + "..."}
                     </p>
-
+                  </div>
+              
+                  <div className="mt-8">
                     <Link
-                      to={`/blog/${article._id}`}
-                      className="text-gray-900 text-sm tracking-wide hover:text-amber-700 transition-colors font-medium flex items-center gap-2 group"
+                      to={`/blog/${article.id}`}
+                      // to={`/blog/${post.id}`}
+                      className="inline-block border border-gray-900 text-gray-900 text-[12px] tracking-widest px-6 py-2 hover:bg-gray-900 hover:text-white transition-colors"
                     >
                       READ MORE
-                      <motion.span
-                        initial={{ x: 0 }}
-                        whileHover={{ x: 5 }}
-                        transition={{ duration: 0.3 }}
-                      >
-                        →
-                      </motion.span>
                     </Link>
                   </div>
-                </motion.article>
+                </div>
+              </motion.article>
+              
               ))}
           </div>
 
