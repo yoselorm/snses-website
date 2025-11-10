@@ -130,7 +130,8 @@ const Home = () => {
               BESTSELLERS
             </h2>
             <p className="text-gray-600 text-base font-garamond mb-4 ">
-              Discover our most loved and sought-after fragrances. Each one tells a story of culture, creativity and craftsmanship - an ode to Africa’s rich and layered traditions            </p>
+            Discover our best-selling creations, where culture and craftsmanship meet to tell stories that linger
+                        </p>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -197,12 +198,10 @@ const Home = () => {
               </div>
 
               <p className="text-gray-700 leading-relaxed text-base font-garamond">
-                SNSES is a cultural archive crafted through scent and storytelling. We believe in the power of storytelling and the importance of preserving culture through modern mediums. Through meticulously designed fragrances and immersive experiences, SNSES brings Africa’s vibrant stories to life, weaving together tradition and turning each moment into a journey across the continent’s rich and layered cultural tapestry. Our creations celebrate culture, creativity, and the artistry of heritage, inviting you to explore a world where history and the senses converge.
-              </p>
+              SNSES is a cultural archive crafted through scent and storytelling. We believe in the power of storytelling and the importance of preserving culture through modern mediums. Through meticulously designed fragrances and immersive experiences, SNSES brings Africa’s vibrant stories to life, weaving together tradition and turning each moment into a journey across the continent’s rich and layered cultural tapestry. Our creations celebrate culture, creativity, and the artistry of heritage, inviting you to explore a world where history and the senses converge.              </p>
 
               <p className="text-gray-700 leading-relaxed text-base font-garamond">
-              “Through every creation, SNSES honors Africa’s cultural legacy, transforming history, artistry, and tradition into fragrances and experiences that awaken the senses”
-              </p>
+              Through every creation, SNSES honors Africa’s cultural legacy, transforming history, artistry, and tradition into fragrances and experiences that awaken the senses              </p>
 
          
 
@@ -248,9 +247,7 @@ const Home = () => {
             <h2 className="text-2xl font-thin tracking-wider text-gray-900 mb-2">
               EXPLORE OUR PRODUCTS
             </h2>
-            <p className="text-gray-600 text-base font-garamond mb-4 ">
-              Made with pride by our craftsmen
-            </p>
+
           </motion.div>
 
           {/* Moving Carousel - Smaller Squares */}
@@ -319,8 +316,7 @@ const Home = () => {
               ))}
             </div>
             <p className="text-gray-700 text-[24px] font-garamond italic leading-relaxed mb-4">
-              "The products combine high-quality materials with refined craftsmanship, offering a balance of durability, design, and functionality suitable for various settings"
-            </p>
+            “From the packaging to the fragrance, everything feels luxurious. The aromas are rich, complex, and the candle burns beautifully.”            </p>
             {/* <p className="text-amber-600 font-medium text-sm tracking-wider">
               — SARAH M., VERIFIED CUSTOMER
             </p> */}

@@ -57,8 +57,14 @@ const OurStory = () => {
               {/* <h2 className="text-3xl font-[5] font-metro-nova tracking-wider mb-6 text-gray-700">The essence of SNSES</h2> */}
               <div className="space-y-4 text-gray-700 text-sm leading-relaxed font-garamond">
                 <p>
-                Founded in 2024, SNSES was born with a passion to celebrate culture through storytelling and sensory experiences. Each meticulously crafted creation is designed to evoke a story. Beyond fragrance, SNSES designs luxurious experiences that transform spaces, inviting you to journey through the depth, beauty, and richness of Africa’s vibrant culture. Every creation is crafted to transport you, offering moments that awaken the senses and connect you to timeless stories and traditions
-                </p>
+                Founded in 2025, SNSES was born from a desire to celebrate culture through storytelling and sensory experiences. Each creation tells a story, one inspired by the history, art, and vibrant culture of Ghana. Every SNSES piece is designed to transport you to the vibrant heart of Ghana, offering a way to experience the richness of culture and the depth of history. Our products transform spaces, encouraging you to pause, notice, and engage with the subtle details that make each experience unique.        
+                        </p>
+                        <p className="">
+            At SNSES, we focus on the subtle, the unexpected, and the details that often go unnoticed - the moments and textures that carry the fullest stories. Each creation turns ordinary spaces into experiences that invite a connection.          
+              </p>
+            <p >
+            Through these layers, SNSES brings the essence of my home “Ghana” to the spaces you inhabit, creating a deeper connection to the stories that surround us and redefining the experience of luxury.        
+                  </p>
               </div>
             </motion.div>
           </div>
@@ -75,8 +81,9 @@ const OurStory = () => {
             className="text-center"
           >
             <p className="text-gray-600 italic leading-relaxed text-[22px] font-garamond">
-            “For those who appreciate the beauty of culture and the art of storytelling, SNSES exists as a symphony of the senses. Every creation tells a story made for those who value luxury that resonates beyond the surface.”
+            “We create more than products. We craft experiences. Each piece is designed to resonate deeply, evoking emotion and inviting you to engage with, and immerse yourself in, the story woven through every detail.”
             </p>
+         
           </motion.div>
         </div>
       </section>
@@ -201,8 +208,7 @@ const OurStory = () => {
                 SNSES supports communities
               </h2>
               <p className="text-gray-700 leading-relaxed text-sm font-garamond">
-              At SNSES, luxury is not only defined what we create but also about the impact we leave behind. We collaborate closely with local artisans, showcasing their incredible talent and craftsmanship while celebrating the traditions that inspire our collections. By bringing their work to a global stage, we ensure that each creation carries not only a story of heritage but also the hands and hearts of those who made it.
-              </p>
+              At SNSES, luxury is not only defined by what we create but also by the impact we leave behind. We work closely with local artisans, highlighting their exceptional skill and creativity while honoring the culture that inspires our collections. By bringing their work to a global audience, every creation carries not only a story but also the hands and hearts of those who made it.              </p>
             </motion.div>
           </div>
 
@@ -213,11 +219,9 @@ const OurStory = () => {
             className="mt-16 max-w-4xl mx-auto text-gray-700 leading-relaxed space-y-4 text-sm font-garamond"
           >
             <p>
-            Our commitment extends beyond creation. Through the MakeWay Foundation, a portion of every purchase goes toward educating and equipping young individuals with the resources and opportunities they need to thrive. By investing in education and sustainable development, we aim to nurture the next generation of innovators, artisans, and storytellers.
-            </p>
+            Our commitment extends beyond design. Through the MakeWay Foundation, a portion of every purchase supports education and provides young individuals with the tools and opportunities they need to flourish. By supporting the next generation of visionaries, we provide a foundation for them to build and lead.            </p>
             <p>
-            For us, SNSES is a community. Every piece you bring into your space contributes to preserving culture, empowering artisans, and shaping and inspiring the next generation.
-            </p>
+            For us, SNSES is more than a brand — it is a community. Every piece you bring into your space contributes to preserving culture, empowering the next generation, and inspiring the leaders and creators of tomorrow.            </p>
             <div className="text-center pt-8">
            <Link to='/community'>
            <button className="bg-gray-300 text-gray-900 px-8 py-3 hover:bg-gray-400 transition-colors text-sm tracking-wider">
