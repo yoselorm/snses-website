@@ -80,7 +80,7 @@ const OurStory = () => {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <p className="text-gray-600 italic leading-relaxed text-[22px] font-garamond">
+            <p className="text-gray-600 leading-relaxed text-[26px] font-garamond">
             “We create more than products. We craft experiences. Each piece is designed to resonate deeply, evoking emotion and inviting you to engage with, and immerse yourself in, the story woven through every detail.”
             </p>
          

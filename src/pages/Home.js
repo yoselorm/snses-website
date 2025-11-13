@@ -310,12 +310,12 @@ const Home = () => {
             transition={{ duration: 0.8, delay: 1.2 }}
             className="text-center mt-20 max-w-3xl mx-auto"
           >
-            <div className="flex justify-center mb-4">
+            {/* <div className="flex justify-center mb-4">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} size={20} className="fill-amber-500 text-amber-500" />
               ))}
-            </div>
-            <p className="text-gray-700 text-[24px] font-garamond italic leading-relaxed mb-4">
+            </div> */}
+            <p className="text-gray-700 text-[32px] font-garamond leading-relaxed mb-4">
             “From the packaging to the fragrance, everything feels luxurious. The aromas are rich, complex, and the candle burns beautifully.”            </p>
             {/* <p className="text-amber-600 font-medium text-sm tracking-wider">
               — SARAH M., VERIFIED CUSTOMER
@@ -333,7 +333,6 @@ const Home = () => {
             <h2 className="text-2xl font-thin tracking-wider text-gray-900 mb-2">
               FROM OUR COMMUNITY
             </h2>
-            <div className="h-0.5 bg-amber-600 mx-auto w-20"></div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-[2rem]">

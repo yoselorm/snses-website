@@ -30,7 +30,7 @@ const Footer = () => {
                         whileInView={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.6, delay: 0.1 }}
                         viewport={{ once: true }}
-                        className="flex justify-center md:justify-start"
+                        className="flex justify-center  items-center"
                     >
                         <div className="">
                             <Link to="/" className="">
@@ -54,8 +54,13 @@ const Footer = () => {
                                 </a>
                             </li>
                             <li>
-                                <a href="/our-story" className="text-gray-600 hover:text-amber-700 transition text-sm">
-                                    Our Story
+                                <a href="/delivery-returns" className="text-gray-600 hover:text-amber-700 transition text-sm">
+                                    Delivery & Returns
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/faqs" className="text-gray-600 hover:text-amber-700 transition text-sm">
+                                    FAQs
                                 </a>
                             </li>
                             <li>
