@@ -168,7 +168,7 @@ const News = () => {
                 placeholder="Your email address"
                 className="w-full sm:flex-1 bg-[#f4f1eb] border-b-2 border-gray-300 py-3 px-4 text-gray-900 focus:outline-none focus:border-amber-700 transition"
               />
-              <button className="bg-gray-900 text-white px-8 py-3 text-sm tracking-widest hover:bg-gray-800 transition-colors whitespace-nowrap">
+              <button className="bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] px-8 py-3 text-sm tracking-widest transition-colors whitespace-nowrap">
                 SUBSCRIBE
               </button>
             </div>

@@ -119,7 +119,7 @@ const Footer = () => {
                             </div>
                             <button
                                 type="submit"
-                                className="bg-gray-900 text-white px-6 py-2 text-sm tracking-wider hover:bg-gray-800 transition-colors"
+                                className="bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] px-6 py-2 text-sm tracking-wider transition-colors"
                             >
                                 SUBSCRIBE
                             </button>

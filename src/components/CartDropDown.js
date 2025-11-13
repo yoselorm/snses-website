@@ -104,7 +104,7 @@ const CartDropdown = ({ isOpen, onClose }) => {
                 <Link
                   to="/checkout"
                   onClick={onClose}
-                  className="block w-full bg-amber-600 hover:bg-amber-700 text-white text-center text-sm py-2 transition"
+                  className="block w-full bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] text-center text-sm py-2 transition"
                 >
                   Proceed to Checkout
                 </Link>

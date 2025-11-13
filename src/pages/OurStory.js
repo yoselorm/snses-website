@@ -224,7 +224,7 @@ const OurStory = () => {
             For us, SNSES is more than a brand — it is a community. Every piece you bring into your space contributes to preserving culture, empowering the next generation, and inspiring the leaders and creators of tomorrow.            </p>
             <div className="text-center pt-8">
            <Link to='/community'>
-           <button className="bg-gray-300 text-gray-900 px-8 py-3 hover:bg-gray-400 transition-colors text-sm tracking-wider">
+           <button className="bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] px-8 py-3 transition-colors text-sm tracking-wider">
                 Learn more
               </button></Link>
             </div>
@@ -281,7 +281,7 @@ const OurStory = () => {
             className="text-center"
           >
            <Link to='/shop'>
-           <button className="bg-gray-300 text-gray-900 px-8 py-3 text-xs tracking-widest hover:bg-gray-400 transition-colors">
+           <button className="bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] px-8 py-3 text-xs tracking-widest transition-colors">
               DISCOVER OUR PRODUCTS
             </button></Link>
           </motion.div>

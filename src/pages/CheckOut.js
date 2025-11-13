@@ -242,7 +242,7 @@ const Checkout = () => {
             <button
               type="button"
               onClick={handleCheckout}
-              className="mt-6 w-full bg-amber-600 hover:bg-amber-700 text-white font-semibold py-3 transition"
+              className="mt-6 w-full bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] font-semibold py-3 transition"
             >
               Proceed to Payment
             </button>

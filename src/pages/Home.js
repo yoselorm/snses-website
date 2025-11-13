@@ -209,7 +209,7 @@ const Home = () => {
              <motion.button
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-amber-600 hover:bg-amber-700 text-white px-8 py-3 text-xs tracking-wider transition mt-4"
+                className="bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] px-8 py-3 text-xs tracking-wider transition mt-4"
               >
                 LEARN MORE ABOUT US
               </motion.button></Link>
@@ -399,7 +399,7 @@ const Home = () => {
             <div className="text-center mt-12">
               <Link
                 to="/community"
-                className="inline-block bg-amber-600 hover:bg-amber-700 text-white px-6 py-2 text-xs tracking-wider transition"
+                className="inline-block bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] px-6 py-2 text-xs tracking-wider transition"
               >
                 MORE
               </Link>

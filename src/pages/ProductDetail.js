@@ -255,7 +255,7 @@ const ProductDetail = () => {
            <div className='flex flex-col gap-4'>
            <button
               onClick={handleAddToCart}
-              className="w-full bg-black text-white py-3 text-sm font-semibold hover:bg-gray-900 transition tracking-wider uppercase"
+              className="w-full bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] py-3 text-sm font-semibold transition tracking-wider uppercase"
             >
               Add to Cart
             </button>
@@ -264,8 +264,8 @@ const ProductDetail = () => {
               onClick={handleAddToWishlist}
               disabled={selectedProduct?.isInWishlist || wishlistLoading}
               className={`w-full py-3 text-sm font-semibold uppercase tracking-wider transition ${selectedProduct?.isInWishlist || wishlistLoading
-                  ? 'bg-gray-300 text-gray-700 cursor-not-allowed'
-                  : 'bg-white border border-black text-black hover:bg-black hover:text-white'
+                  ? 'text-[#4b0c0c] bg-[#f1e7c7]  cursor-not-allowed'
+                  : 'text-[#4b0c0c] bg-[#f1e7c7] hover:bg-[#f3e6bb] hover:shadow'
                 }`}
             >
               {wishlistLoading
