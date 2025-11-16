@@ -12,6 +12,10 @@ import Shop from './pages/Shop'
 import CheckoutPage from './pages/CheckOut'
 import ProductDetail from './pages/ProductDetail'
 import BlogDetail from './pages/BlogDetails'
+import FAQs from './pages/Faqs'
+import DeliveryReturns from './pages/DeliveryReturns'
+import TermsConditions from './pages/TermsConditions'
+import PrivacyPolicy from './pages/PrivacyPolicy'
 
 const App = () => {
   return (
@@ -29,6 +33,10 @@ const App = () => {
         <Route path='/checkout' element={<CheckoutPage />} />
         <Route path='/product/:token' element={<ProductDetail />} />
         <Route path="/blog/:id" element={<BlogDetail />} />
+        <Route path="/faqs" element={<FAQs />} />
+        <Route path="/delivery-returns" element={<DeliveryReturns />} />
+        <Route path="/terms" element={<TermsConditions />} />
+        <Route path="/privacy" element={<PrivacyPolicy />} />
 
       </Routes>
 

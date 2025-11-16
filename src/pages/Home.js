@@ -6,6 +6,9 @@ import { fetchCategories } from '../redux/CategorySlice';
 import { fetchBlogs } from '../redux/BlogSlice';
 import { Link } from 'react-router-dom';
 import NewsletterModal from '../components/NewsletterModal';
+import bestseller01 from '../assets/bestseller01.jpeg'
+import bestseller02 from '../assets/bestseller02.jpeg'
+import bestseller03 from '../assets/bestseller03.jpeg'
 
 const Home = () => {
   const containerRef = useRef(null);
@@ -60,19 +63,19 @@ const Home = () => {
       id: 1,
       name: "Vanilla Dreams",
       price: "$28",
-      image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?w=500"
+      image: bestseller01
     },
     {
       id: 2,
       name: "Lavender Bliss",
       price: "$32",
-      image: "https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?w=500"
+      image: bestseller02
     },
     {
       id: 3,
       name: "Citrus Sunrise",
       price: "$30",
-      image: "https://images.unsplash.com/photo-1603006905003-be475563bc59?w=500"
+      image: bestseller03
     }
   ];
 
@@ -169,11 +172,11 @@ const Home = () => {
                     </motion.button> */}
                   </motion.div>
                 </div>
-                <div className="text-center">
+                {/* <div className="text-center">
                   <h3 className="text-lg font-garamond tracking-wide text-gray-900 mb-2 group-hover:text-amber-700 transition-colors">
                     {product.name}
                   </h3>
-                </div>
+                </div> */}
               </motion.div>
             ))}
           </div>
