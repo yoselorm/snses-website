@@ -88,7 +88,7 @@ const News = () => {
                 <div className="flex flex-col justify-between flex-1 px-8 py-10 text-center">
                   <div className="space-y-3">
                     <p className="text-[11px] tracking-widest text-gray-500 uppercase">
-                      {new Date(article.createdAt).toLocaleDateString("en-GB", {
+                      {new Date(article.created_at).toLocaleDateString("en-GB", {
                         weekday: "short",
                         day: "2-digit",
                         month: "long",
@@ -99,10 +99,7 @@ const News = () => {
                     <h2 className="text-[15px] leading-snug font-medium text-gray-900 uppercase">
                       {article.title}
                     </h2>
-              
-                    <p className="text-[11px] tracking-widest text-gray-700 uppercase">
-                      {article.category || "SNSES NEWS"}
-                    </p>
+             
               
                     <p className="text-sm text-gray-700 leading-relaxed line-clamp-3">
                       {article.excerpt || article.content?.slice(0, 150) + "..."}
