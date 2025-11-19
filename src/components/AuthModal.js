@@ -200,7 +200,7 @@ const AuthModal = ({ isOpen, onClose }) => {
                 whileTap={!loading ? { scale: 0.97 } : {}}
                 type="submit"
                 disabled={loading}
-                className="w-full bg-amber-600 text-white py-2 mt-4 text-sm font-semibold hover:bg-amber-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
+                className="w-full bg-[#DDC57A] text-white py-2 mt-4 text-sm font-semibold hover:bg-amber-700 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center"
               >
                 {loading ? (
                   <>
@@ -240,7 +240,7 @@ const AuthModal = ({ isOpen, onClose }) => {
                   setIsRegister(!isRegister);
                   dispatch(resetCustomerState());
                 }}
-                className="text-amber-600 font-medium hover:underline"
+                className="text-[#DDC57A] font-medium hover:underline"
                 disabled={loading}
               >
                 {isRegister ? "Sign In" : "Register"}

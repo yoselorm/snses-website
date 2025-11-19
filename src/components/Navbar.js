@@ -4,7 +4,7 @@ import { useLocation, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutCustomer } from '../redux/AuthSlice';
-import logo from '../assets/logo-name.png';
+import logo from '../assets/logozz.png';
 import AuthModal from './AuthModal';
 import WishlistDropdown from './WishlishtDropdown';
 import CartDropdown from './CartDropDown';
@@ -135,7 +135,7 @@ const Navbar = () => {
 
   return (
     <nav className="font-metro-nova tracking-[1px] w-full bg-[#f4f1eb]  sticky top-0 left-0 z-50 shadow-sm">
-      <div className="bg-[#b79b4b] py-2 overflow-hidden relative font-garamond">
+      <div className="bg-[#f5edd4] py-2 overflow-hidden relative font-garamond">
         <motion.div
           animate={{
             x: [0, -1000]
@@ -234,9 +234,9 @@ const Navbar = () => {
           </div>
 
           {/* Center Logo */}
-          <div className="flex items-center">
+          <div className="sm:flex items-center hidden ">
             <Link to="/" className="flex items-center">
-              <img src={logo} alt="SNSES Logo" className="h-16 w-auto" />
+              <img src={logo} alt="SNSES Logo" className="h-[68px] w-auto" />
             </Link>
           </div>
 
@@ -308,7 +308,7 @@ const Navbar = () => {
                             <div className="font-medium text-gray-900 text-sm">{product.name}</div>
                             <div className="flex items-center justify-between mt-1">
                               <span className="text-xs text-gray-500">{product.category}</span>
-                              <span className="text-sm font-semibold text-amber-600">
+                              <span className="text-sm font-semibold text-[#DDC57A]">
                                 ${product.price.toFixed(2)}
                               </span>
                             </div>
@@ -374,8 +374,8 @@ const Navbar = () => {
                 <li key={page.name} className="relative group">
                   <Link
                     to={page.path}
-                    className={`text-[10px] font-thin ${isActive ? 'text-amber-600' : 'text-[#f6e6c7]'
-                      } hover:text-amber-600 transition`}
+                    className={`text-[11px] font-thin ${isActive ? 'text-[#DDC57A]' : 'text-[#f6e6c7]'
+                      } hover:text-[#DDC57A] transition`}
                   >
                     {page.name}
                   </Link>
@@ -383,7 +383,7 @@ const Navbar = () => {
                   {/* Animated underline */}
                   <motion.div
                     layoutId="underline"
-                    className={`absolute left-0 bottom-0 h-[2px] bg-amber-600`}
+                    className={`absolute left-0 bottom-0 h-[2px] bg-[#DDC57A]`}
                     initial={false}
                     animate={{
                       width: isActive ? '100%' : '0%',
@@ -413,8 +413,8 @@ const Navbar = () => {
                     <Link
                       to={page.path}
                       className={`text-[x-small] ${activePage === page.name
-                          ? 'text-amber-600'
-                          : 'text-gray-600 hover:text-amber-600'
+                          ? 'text-[#DDC57A]'
+                          : 'text-gray-600 hover:text-[#DDC57A]'
                         }`}
                       onClick={() => setMenuOpen(false)}
                     >

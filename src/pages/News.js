@@ -71,7 +71,7 @@ const News = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={newsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-[#f9f7f4] border-8 border-[#f4f1eb] shadow-sm hover:shadow-md transition-shadow duration-300 group cursor-pointer flex flex-col"
+                className="bg-[#f9f7f4] border-[12px] border-[#f4f1eb] shadow-sm hover:shadow-md transition-shadow duration-300 group cursor-pointer flex flex-col"
               >
                 {/* Image */}
                 <div className="overflow-hidden h-[400px]">

@@ -75,7 +75,7 @@ const Checkout = () => {
           {cartItems.length === 0 ? (
             <div className="text-center text-gray-500">
               <p>Your cart is empty.</p>
-              <Link to="/shop" className="text-amber-600 hover:underline">
+              <Link to="/shop" className="text-[#DDC57A] hover:underline">
                 Continue Shopping →
               </Link>
             </div>

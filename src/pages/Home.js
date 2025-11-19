@@ -166,7 +166,7 @@ const Home = () => {
                     {/* <motion.button
                       initial={{ y: 20, opacity: 0 }}
                       whileHover={{ y: 0, opacity: 1 }}
-                      className="bg-white text-gray-900 px-6 py-2 text-xs tracking-wider hover:bg-amber-600 hover:text-white transition-colors"
+                      className="bg-white text-gray-900 px-6 py-2 text-xs tracking-wider hover:bg-[#DDC57A] hover:text-white transition-colors"
                     >
                       VIEW DETAILS
                     </motion.button> */}
@@ -239,8 +239,8 @@ const Home = () => {
       </section>
 
       {/* Category Carousel - Smaller Squares */}
-      <section ref={collectionRef} className="py-20 px-4 sm:px-20 bg-white overflow-hidden">
-        <div className="max-w-8xl mx-auto">
+      <section ref={collectionRef} className="py-20  bg-white overflow-hidden">
+        <div className="max-w-screen mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 50 }}
             animate={collectionInView ? { opacity: 1, y: 0 } : {}}
@@ -311,16 +311,16 @@ const Home = () => {
             initial={{ opacity: 0, y: 40 }}
             animate={collectionInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.8, delay: 1.2 }}
-            className="text-center mt-20 max-w-3xl mx-auto"
+            className="text-center mt-20 max-w-7xl mx-auto"
           >
             {/* <div className="flex justify-center mb-4">
               {[...Array(5)].map((_, i) => (
                 <Star key={i} size={20} className="fill-amber-500 text-amber-500" />
               ))}
             </div> */}
-            <p className="text-gray-700 text-[32px] font-garamond leading-relaxed mb-4">
+            <p className="text-gray-700 text-[40px] font-garamond leading-relaxed mb-4">
             “From the packaging to the fragrance, everything feels luxurious. The aromas are rich, complex, and the candle burns beautifully.”            </p>
-            {/* <p className="text-amber-600 font-medium text-sm tracking-wider">
+            {/* <p className="text-[#DDC57A] font-medium text-sm tracking-wider">
               — SARAH M., VERIFIED CUSTOMER
             </p> */}
           </motion.div>
@@ -345,7 +345,7 @@ const Home = () => {
             initial={{ opacity: 0, y: 50 }}
             animate={blogInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="bg-[#f9f7f4] border-8 border-[#f4f1eb] shadow-sm hover:shadow-md transition-shadow duration-300 group cursor-pointer flex flex-col"
+            className="bg-[#f9f7f4] border-[12px] border-[#ffffff] shadow-sm hover:shadow-md transition-shadow duration-300 group cursor-pointer flex flex-col"
           >
             {/* Image */}
             <div className="overflow-hidden h-[400px]">

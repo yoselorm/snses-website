@@ -212,9 +212,9 @@ const Shop = () => {
                 max={maxPrice}
                 value={priceRange.max}
                 onChange={(e) => handlePriceChange(e.target.value)}
-                className="w-48 accent-amber-600 cursor-pointer"
+                className="w-48 accent-[#DDC57A] cursor-pointer"
               />
-              <span className="text-sm font-medium text-amber-600 font-sans">
+              <span className="text-sm font-medium text-[#DDC57A] font-sans">
                 £{priceRange.max}
               </span>
             </div>
@@ -248,7 +248,7 @@ const Shop = () => {
         {/* Products Grid */}
         {loading ? (
           <div className="flex items-center justify-center h-64">
-            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600"></div>
+            <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#DDC57A]"></div>
           </div>
         ) : displayProducts?.length > 0 ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -285,38 +285,40 @@ const Shop = () => {
                     <button
                       onClick={(e) => handleAddToWishlist(e, product.productToken)}
                       disabled={wishlistLoading || inWishlist}
-                      className={`absolute top-3 right-3 rounded-full p-2 shadow-md transition z-10 ${
-                        inWishlist
-                          ? 'bg-amber-600 cursor-default'
-                          : 'bg-white hover:bg-amber-50'
-                      }`}
-                      title={
-                        inWishlist
-                          ? 'Already in wishlist'
-                          : 'Add to wishlist'
-                      }
+                      className={`absolute top-3 right-3 rounded-full p-2 shadow-md transition z-10 ${inWishlist ? 'bg-[#DDC57A] cursor-default' : 'bg-white hover:bg-amber-50'
+                        }`}
+                      title={inWishlist ? 'Already in wishlist' : 'Add to wishlist'}
                     >
                       <Heart
                         size={18}
                         className={
                           inWishlist
                             ? 'text-white fill-white'
-                            : 'text-gray-600 hover:text-amber-600'
+                            : 'text-gray-600 hover:text-[#DDC57A]'
                         }
                       />
                     </button>
+
+                    {/* ⭐ Bestseller Tag */}
+                    {product.productName?.toLowerCase().includes('north') && (
+                      <span className="absolute top-3 right-16 bg-[#DDC57A] text-white text-xs px-2 py-1 rounded shadow-md z-10">
+                        Bestseller
+                      </span>
+                    )}
                   </div>
 
+
                   {/* Info */}
-                  <div className="p-4">
+                  <div className="p-4 text-center">
                     <h3 className="text-sm font-medium text-gray-800 mb-1 uppercase tracking-wide">
                       {product.productName}
                     </h3>
+
                     <p className="text-xs text-gray-500 mb-3 line-clamp-2">
                       {product.description || 'No description available'}
                     </p>
 
-                    <div className="flex items-center justify-between">
+                    <div className="flex flex-col items-center justify-center gap-4">
                       <span className="text-sm text-gray-900 font-sans">
                         £{parseFloat(product.price || 0).toFixed(2)}
                       </span>
@@ -330,6 +332,7 @@ const Shop = () => {
                       </button>
                     </div>
                   </div>
+
                 </motion.div>
               );
             })}

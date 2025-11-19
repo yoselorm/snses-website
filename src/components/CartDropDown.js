@@ -78,7 +78,7 @@ const CartDropdown = ({ isOpen, onClose }) => {
                       <div>
                         <p className="text-sm font-medium text-gray-800">{item.productName || item.name}</p>
                         <p className="text-xs text-gray-500">Qty: {item.quantity}</p>
-                        <p className="text-sm text-amber-600 font-sans">
+                        <p className="text-sm text-[#DDC57A] font-sans">
                         £{(parseFloat(item.price || 0) * (item.quantity || 1)).toFixed(2)}
                         </p>
                       </div>

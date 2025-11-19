@@ -125,7 +125,7 @@ const ProductDetail = () => {
   if (loading) {
     return (
       <div className="min-h-screen bg-[#f4f1eb] flex items-center justify-center">
-        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-amber-600"></div>
+        <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-[#DDC57A]"></div>
       </div>
     );
   }
@@ -137,7 +137,7 @@ const ProductDetail = () => {
           <p className="text-xl text-gray-600 mb-4">Product not found</p>
           <button
             onClick={() => navigate('/shop')}
-            className="bg-amber-600 text-white px-6 py-2 rounded hover:bg-amber-700"
+            className="bg-[#DDC57A] text-white px-6 py-2 rounded hover:bg-amber-700"
           >
             Back to Shop
           </button>

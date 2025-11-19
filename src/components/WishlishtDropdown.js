@@ -55,7 +55,7 @@ const WishlistDropdown = ({ isOpen, onClose }) => {
             <div className="text-center py-8 text-gray-500">
               Kindly{" "}
               <span
-                className="text-amber-600 font-semibold cursor-pointer"
+                className="text-[#DDC57A] font-semibold cursor-pointer"
                 onClick={onClose}
               >
                 login
