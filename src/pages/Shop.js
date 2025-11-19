@@ -327,7 +327,7 @@ const Shop = () => {
                         onClick={(e) => handleAddToCart(e, product)}
                         className="bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] px-4 py-2 rounded text-sm transition flex items-center gap-2"
                       >
-                        <ShoppingCart size={16} />
+                        {/* <ShoppingCart size={16} /> */}
                         Add to Cart
                       </button>
                     </div>

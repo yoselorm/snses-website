@@ -16,7 +16,7 @@ const Home = () => {
   const collectionRef = useRef(null);
   const whoWeAreRef = useRef(null);
   const blogRef = useRef(null);
-  
+
   const [showNewsletter, setShowNewsletter] = useState(false);
 
   const dispatch = useDispatch();
@@ -30,7 +30,7 @@ const Home = () => {
 
   const heroOpacity = useTransform(scrollYProgress, [0, 0.4], [1, 0.7]);
   const heroScale = useTransform(scrollYProgress, [0, 0.2], [1, 0.95]);
-  
+
 
   const bestSellersInView = useInView(bestSellersRef, { once: true, amount: 0.3 });
   const collectionInView = useInView(collectionRef, { once: true, amount: 0.3 });
@@ -61,23 +61,24 @@ const Home = () => {
   const bestSellers = [
     {
       id: 1,
-      name: "Vanilla Dreams",
+      name: "The North",
       price: "$28",
       image: bestseller01
     },
     {
       id: 2,
-      name: "Lavender Bliss",
+      name: "Makola",
       price: "$32",
       image: bestseller02
     },
     {
       id: 3,
-      name: "Citrus Sunrise",
+      name: "Sobolo",
       price: "$30",
       image: bestseller03
     }
   ];
+  
 
   return (
     <div ref={containerRef} className="bg-[#000000] overflow-x-hidden">
@@ -105,18 +106,18 @@ const Home = () => {
           transition={{ duration: 1, delay: 0.5 }}
           className="relative z-10 text-center top-[250px] text-white px-4"
         >
-        <Link to='/shop'>
-        <motion.button
-            initial={{ opacity: 0, scale: 0.9 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6, delay: 1.2 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            className="bg-transparent text-amber-400 text-[9px] px-8 py-4 border border-amber-500 font-medium tracking-wider hover:bg-white transition-colors flex items-center gap-2 mx-auto"
-          >
-            EXPLORE
-            <ArrowRight size={20} />
-          </motion.button></Link>
+          <Link to='/shop'>
+            <motion.button
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.6, delay: 1.2 }}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              className="bg-transparent text-amber-400 text-[9px] px-8 py-4 border border-amber-500 font-medium tracking-wider hover:bg-white transition-colors flex items-center gap-2 mx-auto"
+            >
+              EXPLORE
+              <ArrowRight size={20} />
+            </motion.button></Link>
         </motion.div>
       </motion.section>
 
@@ -133,8 +134,8 @@ const Home = () => {
               BESTSELLERS
             </h2>
             <p className="text-gray-600 text-base font-garamond mb-4 ">
-            Discover our best-selling creations, where culture and craftsmanship meet to tell stories that linger
-                        </p>
+              Discover our best-selling creations, where culture and craftsmanship meet to tell stories that linger
+            </p>
           </motion.div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
@@ -147,44 +148,45 @@ const Home = () => {
                 whileHover={{ y: -10, transition: { duration: 0.3 } }}
                 className="group cursor-pointer"
               >
-                <div className="relative overflow-hidden bg-white shadow-lg mb-4">
-                  <div className="aspect-square overflow-hidden">
-                    <motion.img
-                      whileHover={{ scale: 1.1 }}
-                      transition={{ duration: 0.5 }}
-                      src={product.image}
-                      alt={product.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  <motion.div
-                    initial={{ opacity: 0 }}
-                    whileHover={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
-                    className="absolute inset-0 bg-black/40 flex items-center justify-center"
-                  >
-                    {/* <motion.button
+                <Link to='shop'>
+                  <div className="relative overflow-hidden bg-white shadow-lg mb-4">
+                    <div className="aspect-square overflow-hidden">
+                      <motion.img
+                        whileHover={{ scale: 1.1 }}
+                        transition={{ duration: 0.5 }}
+                        src={product.image}
+                        alt={product.name}
+                        className="w-full h-full object-cover"
+                      />
+                    </div>
+                    <motion.div
+                      initial={{ opacity: 0 }}
+                      whileHover={{ opacity: 1 }}
+                      transition={{ duration: 0.3 }}
+                      className="absolute inset-0 bg-black/40 flex items-center justify-center"
+                    >
+                      {/* <motion.button
                       initial={{ y: 20, opacity: 0 }}
                       whileHover={{ y: 0, opacity: 1 }}
                       className="bg-white text-gray-900 px-6 py-2 text-xs tracking-wider hover:bg-[#DDC57A] hover:text-white transition-colors"
                     >
                       VIEW DETAILS
                     </motion.button> */}
-                  </motion.div>
-                </div>
-                {/* <div className="text-center">
+                    </motion.div>
+                  </div></Link>
+                <div className="text-center">
                   <h3 className="text-lg font-garamond tracking-wide text-gray-900 mb-2 group-hover:text-amber-700 transition-colors">
                     {product.name}
                   </h3>
-                </div> */}
+                </div>
               </motion.div>
             ))}
           </div>
         </div>
       </section>
 
-       {/* Who We Are Section */}
-       <section ref={whoWeAreRef} className="py-20 px-4 sm:px-20 bg-[#f4f1eb]">
+      {/* Who We Are Section */}
+      <section ref={whoWeAreRef} className="py-20 px-4 sm:px-20 bg-[#f4f1eb]">
         <div className="max-w-7xl mx-auto">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left - Text Content */}
@@ -201,21 +203,21 @@ const Home = () => {
               </div>
 
               <p className="text-gray-700 leading-relaxed text-base font-garamond">
-              SNSES is a cultural archive crafted through scent and storytelling. We believe in the power of storytelling and the importance of preserving culture through modern mediums. Through meticulously designed fragrances and immersive experiences, SNSES brings Africa’s vibrant stories to life, weaving together tradition and turning each moment into a journey across the continent’s rich and layered cultural tapestry. Our creations celebrate culture, creativity, and the artistry of heritage, inviting you to explore a world where history and the senses converge.              </p>
+                SNSES is a cultural archive crafted through scent and storytelling. We believe in the power of storytelling and the importance of preserving culture through modern mediums. Through meticulously designed fragrances and immersive experiences, SNSES brings Africa’s vibrant stories to life, weaving together tradition and turning each moment into a journey across the continent’s rich and layered cultural tapestry. Our creations celebrate culture, creativity, and the artistry of heritage, inviting you to explore a world where history and the senses converge.              </p>
 
               <p className="text-gray-700 leading-relaxed text-base font-garamond">
-              Through every creation, SNSES honors Africa’s cultural legacy, transforming history, artistry, and tradition into fragrances and experiences that awaken the senses              </p>
+                Through every creation, SNSES honors Africa’s cultural legacy, transforming history, artistry, and tradition into fragrances and experiences that awaken the senses              </p>
 
-         
 
-             <Link to='/our-story'>
-             <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.95 }}
-                className="bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] px-8 py-3 text-xs tracking-wider transition mt-4"
-              >
-                LEARN MORE ABOUT US
-              </motion.button></Link>
+
+              <Link to='/our-story'>
+                <motion.button
+                  whileHover={{ scale: 1.05 }}
+                  whileTap={{ scale: 0.95 }}
+                  className="bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] px-8 py-3 text-xs tracking-wider transition mt-4"
+                >
+                  LEARN MORE ABOUT US
+                </motion.button></Link>
             </motion.div>
 
             {/* Right - Image */}
@@ -267,7 +269,7 @@ const Home = () => {
                 transition={{
                   repeat: Infinity,
                   repeatType: 'loop',
-                  duration: 25,
+                  duration: 20,
                   ease: 'linear',
                 }}
               >
@@ -276,30 +278,40 @@ const Home = () => {
                     key={index}
                     className="flex-shrink-0 w-[280px] group cursor-pointer"
                   >
-                    <div className="relative overflow-hidden shadow-lg aspect-square">
-                      <motion.img
-                        whileHover={{ scale: 1.1 }}
-                        transition={{ duration: 0.5 }}
-                        src={category.image || 'https://via.placeholder.com/300'}
-                        alt={category.name}
-                        className="w-full h-full object-cover"
-                      />
-                      <motion.div
-                        initial={{ opacity: 0 }}
-                        whileHover={{ opacity: 1 }}
-                        transition={{ duration: 0.3 }}
-                        className="absolute inset-0 bg-black/50 flex items-center justify-center"
-                      >
-                        <motion.h3
-                          initial={{ y: 20, opacity: 0 }}
-                          whileHover={{ y: 0, opacity: 1 }}
+                    <Link to="shop">
+                      <div className="relative overflow-hidden shadow-lg aspect-square">
+                        <motion.img
+                          whileHover={{ scale: 1.1 }}
+                          transition={{ duration: 0.5 }}
+                          src={category.image || 'https://via.placeholder.com/300'}
+                          alt={category.name}
+                          className="w-full h-full object-cover"
+                        />
+
+                        {/* Dark hover overlay */}
+                        <motion.div
+                          initial={{ opacity: 0 }}
+                          whileHover={{ opacity: 1 }}
                           transition={{ duration: 0.3 }}
-                          className="text-white font-garamond text-xl font-light tracking-widest"
+                          className="absolute inset-0 bg-black/50 flex items-center justify-center"
                         >
-                          {category.name}
-                        </motion.h3>
-                      </motion.div>
-                    </div>
+                          <motion.h3
+                            initial={{ y: 20, opacity: 0 }}
+                            whileHover={{ y: 0, opacity: 1 }}
+                            transition={{ duration: 0.3 }}
+                            className="text-white font-garamond text-xl font-light tracking-widest"
+                          >
+                            {category.category}
+                          </motion.h3>
+                        </motion.div>
+                      </div>
+
+                      {/* Category name below image */}
+                      <h3 className="mt-3 text-center font-garamond text-lg text-gray-800 tracking-wide">
+                        {category.category}
+                      </h3>
+                    </Link>
+
                   </div>
                 ))}
               </motion.div>
@@ -318,8 +330,8 @@ const Home = () => {
                 <Star key={i} size={20} className="fill-amber-500 text-amber-500" />
               ))}
             </div> */}
-            <p className="text-gray-700 text-[40px] font-garamond leading-relaxed mb-4">
-            “From the packaging to the fragrance, everything feels luxurious. The aromas are rich, complex, and the candle burns beautifully.”            </p>
+            <p className="text-gray-700 text-[20px] sm:text-[40px] font-garamond leading-relaxed mb-4">
+              “From the packaging to the fragrance, everything feels luxurious. The aromas are rich, complex, and the candle burns beautifully.”            </p>
             {/* <p className="text-[#DDC57A] font-medium text-sm tracking-wider">
               — SARAH M., VERIFIED CUSTOMER
             </p> */}
@@ -327,7 +339,7 @@ const Home = () => {
         </div>
       </section>
 
-     
+
 
       {/* Blog Section */}
       <section ref={blogRef} className="py-20 px-4 sm:px-16 bg-[#f4f1eb]">
@@ -340,60 +352,60 @@ const Home = () => {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-[2rem]">
             {displayedBlogs.map((post, index) => (
-            <motion.post
-            key={post._id}
-            initial={{ opacity: 0, y: 50 }}
-            animate={blogInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.6, delay: index * 0.1 }}
-            className="bg-[#f9f7f4] border-[12px] border-[#ffffff] shadow-sm hover:shadow-md transition-shadow duration-300 group cursor-pointer flex flex-col"
-          >
-            {/* Image */}
-            <div className="overflow-hidden h-[400px]">
-              <motion.img
-                whileHover={{ scale: 1.05 }}
-                transition={{ duration: 0.5 }}
-                src={post.image || "https://via.placeholder.com/600"}
-                alt={post.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-          
-            {/* Content */}
-            <div className="flex flex-col justify-between flex-1 px-8 py-10 text-center">
-              <div className="space-y-3">
-                <p className="text-[11px] tracking-widest text-gray-500 uppercase">
-                  {new Date(post.created_at).toLocaleDateString("en-GB", {
-                    weekday: "short",
-                    day: "2-digit",
-                    month: "long",
-                    year: "numeric",
-                  })}
-                </p>
-          
-                <h2 className="text-[15px] leading-snug font-medium text-gray-900 uppercase">
-                  {post.title}
-                </h2>
-          
-                {/* <p className="text-[11px] tracking-widest text-gray-700 uppercase">
+              <motion.post
+                key={post._id}
+                initial={{ opacity: 0, y: 50 }}
+                animate={blogInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: index * 0.1 }}
+                className="bg-[#ffffff] border-[12px] border-[#ffffff] shadow-sm hover:shadow-md transition-shadow duration-300 group cursor-pointer flex flex-col"
+              >
+                {/* Image */}
+                <div className="overflow-hidden h-[400px]">
+                  <motion.img
+                    whileHover={{ scale: 1.05 }}
+                    transition={{ duration: 0.5 }}
+                    src={post.image || "https://via.placeholder.com/600"}
+                    alt={post.title}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Content */}
+                <div className="flex flex-col justify-between flex-1 px-8 py-10 text-center">
+                  <div className="space-y-3">
+                    <h3 className="text-[11px] text-gray-500 uppercase font-garamond">
+                      {new Date(post.created_at).toLocaleDateString("en-GB", {
+                        weekday: "short",
+                        day: "2-digit",
+                        month: "long",
+                        year: "numeric",
+                      })}
+                    </h3>
+
+                    <h2 className="text-[15px] leading-snug font-extrabold uppercase font-metro-nova">
+                      {post.title}
+                    </h2>
+
+                    {/* <p className="text-[11px] tracking-widest text-gray-700 uppercase">
                   {post.category || "SNSES NEWS"}
                 </p> */}
-          
-                <p className="text-sm text-gray-700 leading-relaxed line-clamp-3">
-                  {post.excerpt || post.content?.slice(0, 150) + "..."}
-                </p>
-              </div>
-          
-              <div className="mt-8">
-                <Link
-                  to={`/blog/${post.id}`}
-                  className="inline-block border border-gray-900 text-gray-900 text-[12px] tracking-widest px-6 py-2 hover:bg-gray-900 hover:text-white transition-colors"
-                >
-                  READ MORE
-                </Link>
-              </div>
-            </div>
-          </motion.post>
-          
+
+                    <p className="text-sm text-gray-700 leading-relaxed line-clamp-3">
+                      {post.excerpt || post.content?.slice(0, 150) + "..."}
+                    </p>
+                  </div>
+
+                  <div className="mt-8">
+                    <Link
+                      to={`/blog/${post.id}`}
+                      className="inline-block border border-gray-900 text-gray-900 text-[12px] tracking-widest px-6 py-2 hover:bg-gray-900 hover:text-white transition-colors"
+                    >
+                      READ MORE
+                    </Link>
+                  </div>
+                </div>
+              </motion.post>
+
             ))}
           </div>
 

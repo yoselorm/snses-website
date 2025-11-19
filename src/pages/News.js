@@ -71,7 +71,7 @@ const News = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={newsInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}
-                className="bg-[#f9f7f4] border-[12px] border-[#f4f1eb] shadow-sm hover:shadow-md transition-shadow duration-300 group cursor-pointer flex flex-col"
+                className="bg-[#ffffff] border-[12px] border-[#ffffff] shadow-sm hover:shadow-md transition-shadow duration-300 group cursor-pointer flex flex-col"
               >
                 {/* Image */}
                 <div className="overflow-hidden h-[400px]">
@@ -87,16 +87,16 @@ const News = () => {
                 {/* Content */}
                 <div className="flex flex-col justify-between flex-1 px-8 py-10 text-center">
                   <div className="space-y-3">
-                    <p className="text-[11px] tracking-widest text-gray-500 uppercase">
+                    <h3 className="text-[11px] text-gray-500 uppercase font-garamond">
                       {new Date(article.created_at).toLocaleDateString("en-GB", {
                         weekday: "short",
                         day: "2-digit",
                         month: "long",
                         year: "numeric",
                       })}
-                    </p>
+                    </h3>
               
-                    <h2 className="text-[15px] leading-snug font-medium text-gray-900 uppercase">
+                    <h2 className="text-[15px] leading-snug font-medium text-gray-900 uppercase font-metro-nova">
                       {article.title}
                     </h2>
              

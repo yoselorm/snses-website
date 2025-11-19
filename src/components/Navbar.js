@@ -234,14 +234,14 @@ const Navbar = () => {
           </div>
 
           {/* Center Logo */}
-          <div className="sm:flex items-center hidden ">
+          <div className="flex items-center sm:ml-12">
             <Link to="/" className="flex items-center">
               <img src={logo} alt="SNSES Logo" className="h-[68px] w-auto" />
             </Link>
           </div>
 
           {/* Right Section */}
-          <div className="flex items-center gap-2 sm:gap-6">
+          <div className="flex items-center gap-2 sm:gap-4">
             {/* Search */}
             <div ref={searchContainerRef} className="relative">
               <motion.div
@@ -327,7 +327,7 @@ const Navbar = () => {
 
             {/* Wishlist Button */}
             <button
-              className="flex items-center gap-2 text-[#f6e6c7] hover:text-[#e3c27b] transition relative"
+              className="hidden sm:flex items-center gap-2 text-[#f6e6c7] hover:text-[#e3c27b] transition relative"
               onClick={() => {
                 setIsWishlistOpen(!isWishlistOpen);
                 setIsCartOpen(false);
@@ -340,7 +340,7 @@ const Navbar = () => {
 
             {/* Cart Button */}
             <button
-              className="flex items-center gap-2 text-[#f6e6c7] hover:text-[#e3c27b] transition relative"
+              className="hidden sm:flex items-center gap-2 text-[#f6e6c7] hover:text-[#e3c27b] transition relative"
               onClick={() => {
                 setIsCartOpen(!isCartOpen);
                 setIsWishlistOpen(false);
@@ -361,99 +361,100 @@ const Navbar = () => {
             </button>
           </div>
         </div>
-      
 
-      {/* Navigation Menu */}
-      <div className="">
-        <div className="max-w-7xl mx-auto px-4">
-          {/* Desktop Nav */}
-          <ul className="hidden sm:flex items-center justify-center gap-20 py-4">
-            {pages.map((page) => {
-              const isActive = activePage === page.name;
-              return (
-                <li key={page.name} className="relative group">
-                  <Link
-                    to={page.path}
-                    className={`text-[11px] font-thin ${isActive ? 'text-[#DDC57A]' : 'text-[#f6e6c7]'
-                      } hover:text-[#DDC57A] transition`}
-                  >
-                    {page.name}
-                  </Link>
 
-                  {/* Animated underline */}
-                  <motion.div
-                    layoutId="underline"
-                    className={`absolute left-0 bottom-0 h-[2px] bg-[#DDC57A]`}
-                    initial={false}
-                    animate={{
-                      width: isActive ? '100%' : '0%',
-                    }}
-                    transition={{
-                      duration: 0.4,
-                      ease: 'easeInOut',
-                    }}
-                  />
-                </li>
-              );
-            })}
-          </ul>
-
-          {/* Mobile Dropdown Menu */}
-          <AnimatePresence>
-            {menuOpen && (
-              <motion.ul
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.3 }}
-                className="flex flex-col sm:hidden items-center gap-4 py-4 bg-white border-t border-gray-100"
-              >
-                {pages.map((page) => (
-                  <li key={page.name}>
+        {/* Navigation Menu */}
+        <div className="">
+          <div className="max-w-7xl mx-auto px-4">
+            {/* Desktop Nav */}
+            <ul className="hidden sm:flex items-center justify-center gap-20 py-4">
+              {pages.map((page) => {
+                const isActive = activePage === page.name;
+                return (
+                  <li key={page.name} className="relative group">
                     <Link
                       to={page.path}
-                      className={`text-[x-small] ${activePage === page.name
-                          ? 'text-[#DDC57A]'
-                          : 'text-gray-600 hover:text-[#DDC57A]'
-                        }`}
-                      onClick={() => setMenuOpen(false)}
+                      className={`text-[11px] font-thin ${isActive ? 'text-[#DDC57A]' : 'text-[#f6e6c7]'
+                        } hover:text-[#DDC57A] transition`}
                     >
                       {page.name}
                     </Link>
+
+                    {/* Animated underline */}
+                    <motion.div
+                      layoutId="underline"
+                      className={`absolute left-0 bottom-0 h-[2px] bg-[#DDC57A]`}
+                      initial={false}
+                      animate={{
+                        width: isActive ? '100%' : '0%',
+                      }}
+                      transition={{
+                        duration: 0.4,
+                        ease: 'easeInOut',
+                      }}
+                    />
                   </li>
-                ))}
-              </motion.ul>
-            )}
-          </AnimatePresence>
+                );
+              })}
+            </ul>
+
+            {/* Mobile Dropdown Menu */}
+            <AnimatePresence>
+              {menuOpen && (
+                <motion.ul
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -10 }}
+                  transition={{ duration: 0.3 }}
+                  className="flex flex-col sm:hidden items-center gap-4 py-4 bg-white border-t border-gray-100"
+                >
+                  {/* Pages */}
+                  {pages.map((page) => (
+                    <li key={page.name}>
+                      <Link
+                        to={page.path}
+                        className={`text-[x-small] ${activePage === page.name
+                            ? 'text-[#DDC57A]'
+                            : 'text-gray-600 hover:text-[#DDC57A]'
+                          }`}
+                        onClick={() => setMenuOpen(false)}
+                      >
+                        {page.name}
+                      </Link>
+                    </li>
+                  ))}
+
+                  {/* Wishlist Mobile */}
+                  <li
+                    className="flex items-center gap-2 text-gray-600 hover:text-[#DDC57A] cursor-pointer"
+                    onClick={() => {
+                      setIsWishlistOpen(true);
+                      setMenuOpen(false);
+                    }}
+                  >
+                    <Heart size={18} />
+                    <span className="text-sm">Wishlist</span>
+                  </li>
+
+                  {/* Cart Mobile */}
+                  <li
+                    className="flex items-center gap-2 text-gray-600 hover:text-[#DDC57A] cursor-pointer"
+                    onClick={() => {
+                      setIsCartOpen(true);
+                      setMenuOpen(false);
+                    }}
+                  >
+                    <ShoppingCart size={18} />
+                    <span className="text-sm">Cart ({cartCount})</span>
+                  </li>
+                </motion.ul>
+              )}
+
+            </AnimatePresence>
+          </div>
         </div>
       </div>
-      </div>
 
-      {/* 🛒 Cart Dropdown */}
-      {/* <AnimatePresence>
-        {isCartOpen && (
-          <motion.div
-            initial={{ opacity: 0, scale: 0.8, y: -10 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.8, y: -10 }}
-            transition={{ duration: 0.35, ease: 'easeInOut' }}
-            className="absolute right-4 top-20 bg-white border border-gray-200 rounded-lg shadow-xl p-6 w-80"
-          >
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="font-semibold text-lg">Your Cart ({cartCount})</h3>
-              <button
-                onClick={() => setIsCartOpen(false)}
-                className="text-gray-500 hover:text-gray-700"
-              >
-                ×
-              </button>
-            </div>
-            <div className="text-center py-8 text-gray-500">
-              Shopping cart is empty!
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence> */}
       <CartDropdown isOpen={isCartOpen} onClose={() => setIsCartOpen(false)} />
 
 
