@@ -214,7 +214,7 @@ const Shop = () => {
                 onChange={(e) => handlePriceChange(e.target.value)}
                 className="w-48 accent-[#DDC57A] cursor-pointer"
               />
-              <span className="text-sm font-medium text-[#DDC57A] font-sans">
+              <span className="text-sm font-medium  font-sans">
                 £{priceRange.max}
               </span>
             </div>
