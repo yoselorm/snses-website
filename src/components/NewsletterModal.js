@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import newsletterImg from "../assets/newsletter.jpg"; // Replace with your background image
+import newsletterImg from "../assets/newsletter.jpg"; 
+import logo from '../assets/logozz.png';
 
 const NewsletterModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");
@@ -38,7 +39,7 @@ const NewsletterModal = ({ isOpen, onClose }) => {
             </div>
 
             {/* Right Section - Form */}
-            <div className="w-full md:w-1/2 bg-[#4b0c0c] text-[#d4af37] text-center flex flex-col justify-center items-center px-6 py-10  relative">
+            <div className="w-full md:w-1/2 bg-[#4b0c0c] text-[#d4af37] text-center flex flex-col justify-center items-center px-6 py-10 relative">
               {/* Close Button */}
               <button
                 onClick={onClose}
@@ -47,8 +48,12 @@ const NewsletterModal = ({ isOpen, onClose }) => {
                 x
               </button>
 
-              {/* Logo */}
-              <h2 className="text-3xl font-semibold tracking-[0.2em] mb-6">SNSES</h2>
+              {/* Logo Image */}
+              <img 
+                src={logo} 
+                alt="SNSES Logo" 
+                className="h-16 w-auto mb-6 object-contain"
+              />
 
               {/* Offer */}
               <p className="text-lg font-light mb-6 text-[#e6c76e]">

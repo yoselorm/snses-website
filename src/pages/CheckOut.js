@@ -1,9 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import visa from '../assets/card-icons.jpg';
-// import mastercard from '../assets/cards/mastercard.png';
-// import amex from '../assets/cards/amex.png';
-// import paypal from '../assets/cards/paypal.png';
 
 const Checkout = () => {
   const [cartItems, setCartItems] = useState([]);

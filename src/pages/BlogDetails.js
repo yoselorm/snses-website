@@ -55,7 +55,7 @@ const BlogDetail = () => {
           <img
             src={singleBlog.image}
             alt={singleBlog.title}
-            className="w-full h-[400px] object-cover shadow-md"
+            className="w-full h-[400px] object-contain shadow-md"
           />
         </div>
       )}
