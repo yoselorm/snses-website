@@ -135,7 +135,7 @@ const Navbar = () => {
 
   return (
     <nav className="font-metro-nova tracking-[1px] w-full bg-[#f4f1eb]  sticky top-0 left-0 z-50 shadow-sm">
-      <div className="bg-[#f5edd4] py-2 overflow-hidden relative font-garamond">
+      <div className="bg-[#f5edd4] py-[2px] overflow-hidden relative font-garamond">
         <motion.div
           animate={{
             x: [0, -1000]

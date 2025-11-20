@@ -62,19 +62,19 @@ const Home = () => {
     {
       id: 1,
       name: "The North",
-      price: "$28",
+      price: "£28",
       image: bestseller01
     },
     {
       id: 2,
       name: "Makola",
-      price: "$32",
+      price: "£32",
       image: bestseller02
     },
     {
       id: 3,
       name: "Sobolo",
-      price: "$30",
+      price: "£30",
       image: bestseller03
     }
   ];
@@ -175,8 +175,11 @@ const Home = () => {
                     </motion.div>
                   </div></Link>
                 <div className="text-center">
-                  <h3 className="text-lg font-garamond tracking-wide text-gray-900 mb-2 group-hover:text-amber-700 transition-colors">
+                  <h3 className="text-lg font-garamond tracking-wide text-gray-900 mb-2 group-hover:text-amber-700 transition-colors uppercase">
                     {product.name}
+                  </h3>
+                  <h3 className="text-lg tracking-wide font-sans text-gray-900 mb-2 group-hover:text-amber-700 transition-colors uppercase">
+                    {product.price}
                   </h3>
                 </div>
               </motion.div>
