@@ -77,6 +77,21 @@ export const fetchSingleOrder = createAsyncThunk(
 );
 
 
+export const updateOrderStatus = createAsyncThunk(
+  'orders/updateOrderStatus',
+  async ({ payId, status }, { rejectWithValue }) => {
+    try {
+      const response = await axios.put(`${api_url_v1}/setOrderStatus`, {
+        payId,
+        status
+      });
+      return response.data.data || response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || error.message);
+    }
+  }
+);
+
 
 const orderSlice = createSlice({
   name: "order",
@@ -87,6 +102,9 @@ const orderSlice = createSlice({
     loading: false,
     error: null,
     success: false,
+    updateLoading: false,
+    updateError: null,
+    updateSuccess: false
   },
   reducers: {
     clearSingleOrder: (state) => {
@@ -99,6 +117,11 @@ const orderSlice = createSlice({
     clearOrderError: (state) => {
       state.error = null;
     },
+    clearUpdateStatus: (state) => {
+      state.updateLoading = false;
+      state.updateError = null;
+      state.updateSuccess = false;
+    }
   },
   extraReducers: (builder) => {
     builder
@@ -148,9 +171,32 @@ const orderSlice = createSlice({
         state.error = action.payload;
       })
 
+      //update status
+      .addCase(updateOrderStatus.pending, (state) => {
+        state.updateLoading = true;
+        state.updateError = null;
+        state.updateSuccess = false;
+      })
+      .addCase(updateOrderStatus.fulfilled, (state, action) => {
+        state.updateLoading = false;
+        state.updateSuccess = true;
+        // Update the order in the state
+        const index = state.orders.findIndex(
+          order => order.payId === action.payload.payId
+        );
+        if (index !== -1) {
+          state.orders[index].status = action.payload.status;
+        }
+      })
+      .addCase(updateOrderStatus.rejected, (state, action) => {
+        state.updateLoading = false;
+        state.updateError = action.payload;
+        state.updateSuccess = false;
+      });
+
 
   },
 });
 
-export const { clearSingleOrder, clearOrderCreated, clearOrderError } = orderSlice.actions;
+export const { clearSingleOrder, clearOrderCreated, clearOrderError, } = orderSlice.actions;
 export default orderSlice.reducer;

@@ -11,9 +11,11 @@ const Orders = () => {
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
+  const customerId = localStorage.getItem('snsesUserId')
+
 
   useEffect(() => {
-    dispatch(fetchUserOrders);
+    dispatch(fetchUserOrders(customerId));
   }, [dispatch]);
 
   const getStatusIcon = (status) => {
