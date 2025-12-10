@@ -142,6 +142,7 @@ const PaymentModal = ({ isOpen, clientSecret, orderId, amount, onClose }) => {
   }, [isOpen]);
 
 
+
   const options = {
     clientSecret,
     appearance: {
@@ -157,6 +158,8 @@ const PaymentModal = ({ isOpen, clientSecret, orderId, amount, onClose }) => {
       },
     },
   };
+
+  console.log(clientSecret)
 
 
   return (

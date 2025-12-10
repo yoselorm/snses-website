@@ -4,6 +4,8 @@ import { Calendar } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchBlogs } from "../redux/BlogSlice";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { api_url_v1 } from "../utils/config";
 
 const News = () => {
   const heroRef = useRef(null);
@@ -14,15 +16,21 @@ const News = () => {
   const dispatch = useDispatch();
   const { blogs, loading, error } = useSelector((state) => state.blogs);
 
-  // ✅ Pagination state
+  // Pagination state
   const [currentPage, setCurrentPage] = useState(1);
   const blogsPerPage = 6;
+
+  // Newsletter subscription state
+  const [email, setEmail] = useState("");
+  const [loadingNewsletter, setLoadingNewsletter] = useState(false);
+  const [status, setStatus] = useState(null);
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
     dispatch(fetchBlogs());
   }, [dispatch]);
 
-  // ✅ Pagination logic
+  // Pagination logic
   const indexOfLastBlog = currentPage * blogsPerPage;
   const indexOfFirstBlog = indexOfLastBlog - blogsPerPage;
   const currentBlogs = blogs?.slice(indexOfFirstBlog, indexOfLastBlog);
@@ -31,6 +39,53 @@ const News = () => {
   const handlePageChange = (pageNumber) => {
     setCurrentPage(pageNumber);
     window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  // Newsletter subscription handler
+  const handleSubscribe = async () => {
+    if (!email.trim()) {
+      setStatus('error');
+      setMessage('Please enter a valid email');
+      return;
+    }
+
+    setLoadingNewsletter(true);
+    setStatus(null);
+    setMessage("");
+
+    try {
+      const response = await axios.post(
+        `${api_url_v1}/addEmailToNewsletter`,
+        { email },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      setStatus('success');
+      setMessage(response.data?.message || 'Successfully subscribed!');
+      
+      // Reset after 3 seconds
+      setTimeout(() => {
+        setEmail("");
+        setStatus(null);
+        setMessage("");
+      }, 3000);
+
+    } catch (error) {
+      setStatus('error');
+      if (error.response?.data?.message) {
+        setMessage(error.response.data.message);
+      } else if (error.response?.status === 409) {
+        setMessage('This email is already subscribed');
+      } else {
+        setMessage(error.message || 'Failed to subscribe. Please try again.');
+      }
+    } finally {
+      setLoadingNewsletter(false);
+    }
   };
 
   return (
@@ -109,7 +164,6 @@ const News = () => {
                   <div className="mt-8">
                     <Link
                       to={`/blog/${article.id}`}
-                      // to={`/blog/${post.id}`}
                       className="inline-block border border-gray-900 text-gray-900 text-[12px] tracking-widest px-6 py-2 hover:bg-gray-900 hover:text-white transition-colors"
                     >
                       READ MORE
@@ -159,14 +213,45 @@ const News = () => {
               exclusive updates directly to your inbox.
             </p>
 
+            {/* Status Messages */}
+            {status === 'success' && (
+              <div className="max-w-lg mx-auto mb-4 p-3 bg-green-100 border border-green-400 rounded text-green-800 text-sm">
+                {message}
+              </div>
+            )}
+
+            {status === 'error' && (
+              <div className="max-w-lg mx-auto mb-4 p-3 bg-red-100 border border-red-400 rounded text-red-800 text-sm">
+                {message}
+              </div>
+            )}
+
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center max-w-lg mx-auto">
               <input
                 type="email"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 placeholder="Your email address"
-                className="w-full sm:flex-1 bg-[#f4f1eb] border-b-2 border-gray-300 py-3 px-4 text-gray-900 focus:outline-none focus:border-amber-700 transition"
+                disabled={loadingNewsletter}
+                className="w-full sm:flex-1 bg-[#f4f1eb] border-b-2 border-gray-300 py-3 px-4 text-gray-900 focus:outline-none focus:border-amber-700 transition disabled:bg-gray-200 disabled:cursor-not-allowed"
               />
-              <button className="bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] px-8 py-3 text-sm tracking-widest transition-colors whitespace-nowrap">
-                SUBSCRIBE
+              <button 
+                type="button"
+                onClick={handleSubscribe}
+                disabled={loadingNewsletter}
+                className="bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] px-8 py-3 text-sm tracking-widest transition-colors whitespace-nowrap disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
+              >
+                {loadingNewsletter ? (
+                  <>
+                    <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                    </svg>
+                    SUBSCRIBING...
+                  </>
+                ) : (
+                  'SUBSCRIBE'
+                )}
               </button>
             </div>
           </motion.div>

@@ -1,16 +1,63 @@
 import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import axios from "axios";
+import { api_url_v1 } from "../utils/config";
 import newsletterImg from "../assets/newsletter.jpg"; 
 import logo from '../assets/logozz.png';
 
 const NewsletterModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [status, setStatus] = useState(null); 
+  const [message, setMessage] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log("Subscribed:", email);
-    setEmail("");
-    onClose();
+    
+    if (!email.trim()) {
+      setStatus('error');
+      setMessage('Please enter a valid email');
+      return;
+    }
+
+    setLoading(true);
+    setStatus(null);
+    setMessage("");
+
+    try {
+      const response = await axios.post(
+        `${api_url_v1}/addEmailToNewsletter`,
+        { email },
+        {
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+
+      setStatus('success');
+      setMessage(response.data?.message || 'Successfully subscribed!');
+      
+      // Reset and close after 2 seconds
+      setTimeout(() => {
+        setEmail("");
+        setStatus(null);
+        setMessage("");
+        onClose();
+      }, 2000);
+
+    } catch (error) {
+      setStatus('error');
+      if (error.response?.data?.message) {
+        setMessage(error.response.data.message);
+      } else if (error.response?.status === 409) {
+        setMessage('This email is already subscribed');
+      } else {
+        setMessage(error.message || 'Failed to subscribe. Please try again.');
+      }
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -21,6 +68,11 @@ const NewsletterModal = ({ isOpen, onClose }) => {
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
+          onClick={(e) => {
+            if (e.target === e.currentTarget && !loading) {
+              onClose();
+            }
+          }}
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
@@ -43,7 +95,8 @@ const NewsletterModal = ({ isOpen, onClose }) => {
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="absolute top-3 right-4 text-gray-300 hover:text-white text-xl"
+                disabled={loading}
+                className="absolute top-3 right-4 text-gray-300 hover:text-white text-xl disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 x
               </button>
@@ -60,6 +113,19 @@ const NewsletterModal = ({ isOpen, onClose }) => {
                 Enjoy 10% Off Your First Order
               </p>
 
+              {/* Status Messages */}
+              {status === 'success' && (
+                <div className="w-full max-w-xs mb-4 p-3 bg-green-500/20 border border-green-500 rounded text-green-200 text-sm">
+                  {message}
+                </div>
+              )}
+
+              {status === 'error' && (
+                <div className="w-full max-w-xs mb-4 p-3 bg-red-500/20 border border-red-500 rounded text-red-200 text-sm">
+                  {message}
+                </div>
+              )}
+
               {/* Email Form */}
               <form
                 onSubmit={handleSubmit}
@@ -71,20 +137,33 @@ const NewsletterModal = ({ isOpen, onClose }) => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="Enter Your Email"
                   required
-                  className="w-full px-4 py-2 text-sm text-black bg-white placeholder-gray-500 outline-none"
+                  disabled={loading}
+                  className="w-full px-4 py-2 text-sm text-black bg-white placeholder-gray-500 outline-none disabled:bg-gray-200 disabled:cursor-not-allowed"
                 />
                 <button
                   type="submit"
-                  className="w-full bg-black text-white py-2 text-sm tracking-wide font-semibold hover:bg-gray-800 transition"
+                  disabled={loading}
+                  className="w-full bg-black text-white py-2 text-sm tracking-wide font-semibold hover:bg-gray-800 transition disabled:opacity-50 disabled:cursor-not-allowed flex items-center justify-center gap-2"
                 >
-                  SUBMIT
+                  {loading ? (
+                    <>
+                      <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                        <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                        <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                      </svg>
+                      SUBMITTING...
+                    </>
+                  ) : (
+                    'SUBMIT'
+                  )}
                 </button>
               </form>
 
               {/* No Thanks */}
               <button
                 onClick={onClose}
-                className="mt-4 text-sm underline text-[#e6c76e] hover:text-white"
+                disabled={loading}
+                className="mt-4 text-sm underline text-[#e6c76e] hover:text-white disabled:opacity-50 disabled:cursor-not-allowed"
               >
                 No Thanks
               </button>

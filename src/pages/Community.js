@@ -47,6 +47,9 @@ const Community = () => {
     }
   }, [statsInView]);
 
+
+  
+
   return (
     <div className="bg-[#f4f1eb] min-h-screen font-garamond">
       {/* HERO SECTION - Full width with overlay */}
