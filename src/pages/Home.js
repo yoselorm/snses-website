@@ -23,6 +23,7 @@ const Home = () => {
   const { categories } = useSelector((state) => state.categories);
   const { blogs } = useSelector((state) => state.blogs);
 
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ['start start', 'end end'],
@@ -265,7 +266,7 @@ const Home = () => {
             transition={{ duration: 1, delay: 0.7 }}
             className="relative"
           >
-            <div className="relative overflow-hidden w-full">
+           {categories?.length > 0 && <div className="relative overflow-hidden w-full">
               <motion.div
                 className="flex gap-6"
                 animate={{ x: ['0%', '-50%'] }}
@@ -318,7 +319,7 @@ const Home = () => {
                   </div>
                 ))}
               </motion.div>
-            </div>
+            </div>}
           </motion.div>
 
           {/* Customer Review */}

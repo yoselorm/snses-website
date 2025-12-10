@@ -5,6 +5,7 @@ import { Link } from 'react-router-dom';
 
 const CartDropdown = ({ isOpen, onClose }) => {
   const [cartItems, setCartItems] = useState([]);
+const userToken = localStorage.getItem('snsesCustomerToken');
 
   const loadCart = () => {
     const storedCart = JSON.parse(localStorage.getItem('snsesCart')) || [];
@@ -101,13 +102,14 @@ const CartDropdown = ({ isOpen, onClose }) => {
                   <span className="font-sans text-amber-700">£{total.toFixed(2)}</span>
                 </div>
 
-                <Link
+             { userToken?  <Link
                   to="/checkout"
                   onClick={onClose}
                   className="block w-full bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] text-center text-sm py-2 transition"
                 >
                   Proceed to Checkout
-                </Link>
+                </Link>:<p>Kindly sign in to complete purchase</p>
+                }
               </div>
             </>
           )}

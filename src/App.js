@@ -16,6 +16,8 @@ import FAQs from './pages/Faqs'
 import DeliveryReturns from './pages/DeliveryReturns'
 import TermsConditions from './pages/TermsConditions'
 import PrivacyPolicy from './pages/PrivacyPolicy'
+import OrderSuccess from './pages/OrderSuccess'
+import MyOrders from './pages/MyOrder'
 
 const App = () => {
   return (
@@ -37,6 +39,9 @@ const App = () => {
         <Route path="/delivery-returns" element={<DeliveryReturns />} />
         <Route path="/terms" element={<TermsConditions />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
+        <Route path="/order-success/:orderId" element={<OrderSuccess />} />
+        <Route path="/orders" element={<MyOrders />} />
+
 
       </Routes>
 

@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import visa from '../assets/card-icons.jpg';
+import { createOrder } from '../redux/OrderSlice';
+import { useDispatch, useSelector } from 'react-redux';
+import PaymentModal from '../components/PaymentModal';
 
 const Checkout = () => {
   const [cartItems, setCartItems] = useState([]);
@@ -10,9 +13,20 @@ const Checkout = () => {
     phone: '',
     address: '',
     city: '',
-    country: 'Ghana', 
+    country: 'Ghana',
     notes: '',
   });
+  const [showPaymentForm, setShowPaymentForm] = useState(false);
+  const [paymentDetails, setPaymentDetails] = useState({
+    clientSecret: '',
+    orderId: '',
+    amount: '',
+
+  });
+
+  const customerId = localStorage.getItem('snsesUserId')
+  const dispatch = useDispatch()
+  const { loading, error, success, orderCreated } = useSelector((state) => state.orders);
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem('snsesCart')) || [];
@@ -58,9 +72,50 @@ const Checkout = () => {
       return;
     }
 
-    alert('Proceeding to payment...');
+    if (cartItems.length === 0) {
+      alert('Your cart is empty.');
+      return;
+    }
+    const orderData = {
+      customerId: customerId,
+      amount: subtotal,
+      orders: cartItems.map((item) => ({
+        productToken: item.productToken,
+        qty: item.quantity || 1,
+        amount: parseFloat(item.price || 0) * (item.quantity || 1),
+        productName: item.productName || item.name,
+        productImage: item.image
+      })),
+      delivery: {
+        fname: name,
+        email: email,
+        phone: phone,
+        address: address,
+        city: city,
+        country: country,
+        addNote: formData.notes || ''
+      }
+    };
+
+
+    dispatch(createOrder(orderData));
+
+    // alert('Proceeding to payment...');
     // 🚀 Stripe checkout integration goes here
   };
+
+  useEffect(() => {
+    if (success && orderCreated) {
+      setPaymentDetails({
+        clientSecret: orderCreated?.clientSecret,
+        orderId: orderCreated?.id,
+        amount: subtotal,
+      });
+      setShowPaymentForm(true);
+    }
+  }, [success, orderCreated,dispatch]);
+
+
 
   return (
     <div className="min-h-screen py-12 px-4 md:px-12 font-garamond">
@@ -92,7 +147,7 @@ const Checkout = () => {
                     <div>
                       <p className="font-semibold text-gray-800">{item.productName || item.name}</p>
                       <p className="text-sm text-gray-500 font-sans">
-                      £{(parseFloat(item.price || 0) * (item.quantity || 1)).toFixed(2)}
+                        £{(parseFloat(item.price || 0) * (item.quantity || 1)).toFixed(2)}
                       </p>
                       <div className="flex items-center mt-2">
                         <button
@@ -236,16 +291,38 @@ const Checkout = () => {
               </div>
             </div>
 
+
             <button
               type="button"
               onClick={handleCheckout}
-              className="mt-6 w-full bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] font-semibold py-3 transition"
+              disabled={loading || cartItems.length === 0}
+              className="mt-6 w-full bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] font-semibold py-3 transition disabled:opacity-50 disabled:cursor-not-allowed"
             >
-              Proceed to Payment
+              {loading ? (
+                <span className="flex items-center justify-center gap-2">
+                  <svg className="animate-spin h-5 w-5" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
+                  </svg>
+                  Creating Order...
+                </span>
+              ) : (
+                'Proceed to Payment'
+              )}
             </button>
           </form>
         </div>
       </div>
+
+      {showPaymentForm && paymentDetails && (
+        <PaymentModal 
+        isOpen={showPaymentForm}
+        clientSecret={paymentDetails.clientSecret}
+        orderId={paymentDetails.orderId}
+        amount={paymentDetails.amount}
+        onClose={() => setShowPaymentForm(false)}
+        />
+      )}
     </div>
   );
 };
