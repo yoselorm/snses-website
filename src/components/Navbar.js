@@ -4,7 +4,7 @@ import { useLocation, Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutCustomer } from '../redux/AuthSlice';
-import logo from '../assets/logozz.png';
+import logo from '../assets/logozzz.png';
 import AuthModal from './AuthModal';
 import WishlistDropdown from './WishlishtDropdown';
 import CartDropdown from './CartDropDown';
@@ -234,7 +234,7 @@ const Navbar = () => {
           </div>
 
           {/* Center Logo */}
-          <div className="flex items-center sm:ml-12">
+          <div className="flex items-center -ml-12">
             <Link to="/" className="flex items-center">
               <img src={logo} alt="SNSES Logo" className="h-[68px] w-auto" />
             </Link>

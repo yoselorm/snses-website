@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { Instagram, Facebook, Twitter, Mail } from 'lucide-react';
-import logo from '../assets/logozz.png';
+import logo from '../assets/logozzz.png';
 import { Link } from 'react-router-dom';
 import { FaPinterest, FaTiktok } from "react-icons/fa";
 

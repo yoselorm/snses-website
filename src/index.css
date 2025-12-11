@@ -13,4 +13,8 @@
     font-family: 'garamond';
     src: url('assets/garamond.ttf');
 }
+@font-face {
+    font-family: 'jost';
+    src: url('assets/Jost-ExtraLightItalic.ttf');
+}
 

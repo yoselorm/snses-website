@@ -5,7 +5,8 @@
     extend: {
       fontFamily:{
         'metro-nova':['metro-nova','sans-serif'],
-        'garamond':['garamond','sans-serif']
+        'garamond':['garamond','sans-serif'],
+        'jost':['jost','sans-serif']
       },
       keyframes: {
         marquee: {

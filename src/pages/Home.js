@@ -179,7 +179,7 @@ const Home = () => {
                   <h3 className="text-lg font-garamond tracking-wide text-gray-900 mb-2 group-hover:text-amber-700 transition-colors uppercase">
                     {product.name}
                   </h3>
-                  <h3 className="text-lg tracking-wide font-sans text-gray-900 mb-2 group-hover:text-amber-700 transition-colors uppercase">
+                  <h3 className="text-lg tracking-wide font-jost text-gray-900 mb-2 group-hover:text-amber-700 transition-colors uppercase ">
                     {product.price}
                   </h3>
                 </div>

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { api_url_v1 } from "../utils/config";
 import newsletterImg from "../assets/newsletter.jpg"; 
-import logo from '../assets/logozz.png';
+import logo from '../assets/logozzz.png';
 
 const NewsletterModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");
