@@ -83,11 +83,11 @@ export const getWishlist = createAsyncThunk(
 // ✅ Remove from wishlist
 export const removeFromWishlist = createAsyncThunk(
   'products/removeFromWishlist',
-  async ({ customerId, productToken }, { rejectWithValue }) => {
+  async ({ wishId }, { rejectWithValue }) => {
     try {
       const customerToken = localStorage.getItem('snsesCustomerToken');
-      const response = await axios.post(`${api_url_v1}/removeWishlist`, 
-        { customerId, productToken },
+      const response = await axios.post(`${api_url_v1}/deleteWishlist`, 
+        {wishId},
         {
           headers: {
             'Content-Type': 'application/json',
@@ -95,7 +95,7 @@ export const removeFromWishlist = createAsyncThunk(
           }
         }
       );
-      return productToken; 
+      return wishId; 
     } catch (error) {
       return rejectWithValue(error.response?.data?.message || 'Failed to remove from wishlist');
     }
@@ -253,7 +253,7 @@ const productSlice = createSlice({
       .addCase(removeFromWishlist.fulfilled, (state, action) => {
         state.wishlistLoading = false;
         state.wishlist = state.wishlist.filter(
-          item => item.productToken !== action.payload
+          item => item.wishId !== action.payload
         );
         state.message = 'Removed from wishlist successfully';
         state.wishlistSuccess = true;

@@ -25,8 +25,8 @@ const WishlistDropdown = ({ isOpen, onClose }) => {
     }
   }, [isOpen, token, dispatch]);
 
-  const handleDelete = (productToken) => {
-    dispatch(removeFromWishlist(productToken));
+  const handleDelete = (wishId) => {
+    dispatch(removeFromWishlist({wishId}));
   };
 
   return (
@@ -98,7 +98,7 @@ const WishlistDropdown = ({ isOpen, onClose }) => {
 
                     {/* 🗑️ Delete Button */}
                     <button
-                      onClick={() => handleDelete(item.productToken)}
+                      onClick={() => handleDelete(item.wishId)}
                       className="text-red-500 hover:text-red-700 transition"
                       title="Remove"
                     >

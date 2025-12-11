@@ -376,14 +376,15 @@ const ProductDetail = () => {
                             Cruelty-Free & Vegan<br />Using Soy Blend Wax
                           </div>
                         </div>
-                        <div className="text-center flex-1">
+
+                       { selectedProduct.burn_duration && <div className="text-center flex-1">
                           <div className="w-12 h-12 mx-auto mb-2 flex items-center justify-center">
                             <Clock className="w-8 h-8 text-gray-700" />
                           </div>
                           <div className="text-[10px] text-gray-600 leading-tight">
-                            Up to 80 Hours Burn<br />Time
+                            Up to {selectedProduct.burn_duration} Burn<br />Time
                           </div>
-                        </div>
+                        </div>}
                         <div className="text-center flex-1">
                           <div className="w-12 h-12 mx-auto mb-2 flex items-center justify-center">
                             <Sparkles className="w-8 h-8 text-gray-700" />
@@ -397,7 +398,7 @@ const ProductDetail = () => {
                             <MapPin className="w-8 h-8 text-gray-700" />
                           </div>
                           <div className="text-[10px] text-gray-600 leading-tight">
-                            Made in the USA
+                            Made in the UK
                           </div>
                         </div>
                         <div className="text-center flex-1">
@@ -422,7 +423,7 @@ const ProductDetail = () => {
                         {selectedProduct.width && <li>Diameter: {selectedProduct.width}</li>}
                         {selectedProduct.height && <li>Height: {selectedProduct.height}</li>}
                         {selectedProduct.weight && <li>Net Weight: {selectedProduct.weight}</li>}
-                        {selectedProduct.burn_duration && <li>Burn Time: {selectedProduct.burn_duration}</li>}
+                        {/* {selectedProduct.burn_duration && <li>Burn Time: {selectedProduct.burn_duration}</li>} */}
                         <li>
                           All SNSES Candle products are vegan, gluten and cruelty-free, and contain no phthalates or
                           parabens.
