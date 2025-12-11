@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Package, Search, Filter, Download, Eye, CheckCircle, Clock, XCircle, Truck, X, MapPin, Phone, Mail, User } from 'lucide-react';
+import { Package, Search, Filter, Eye, CheckCircle, Clock, XCircle, Truck, X, MapPin, Phone, Mail, User, Calendar } from 'lucide-react';
 import { fetchUserOrders } from '../redux/OrderSlice';
 
 const Orders = () => {
@@ -8,15 +8,87 @@ const Orders = () => {
   const { orders, loading } = useSelector((state) => state.orders);
   const [searchTerm, setSearchTerm] = useState('');
   const [statusFilter, setStatusFilter] = useState('all');
+  const [dateFilter, setDateFilter] = useState('all');
+  const [customStartDate, setCustomStartDate] = useState('');
+  const [customEndDate, setCustomEndDate] = useState('');
   const [selectedOrder, setSelectedOrder] = useState(null);
   const [showModal, setShowModal] = useState(false);
 
-  const customerId = localStorage.getItem('snsesUserId')
-
+  const customerId = localStorage.getItem('snsesUserId');
 
   useEffect(() => {
     dispatch(fetchUserOrders(customerId));
   }, [dispatch]);
+
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit'
+    }).format(date);
+  };
+
+  const formatDateShort = (dateString) => {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat('en-GB', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    }).format(date);
+  };
+
+  const isDateInRange = (orderDate) => {
+    const date = new Date(orderDate);
+    const today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    switch (dateFilter) {
+      case 'today':
+        const todayEnd = new Date(today);
+        todayEnd.setHours(23, 59, 59, 999);
+        return date >= today && date <= todayEnd;
+      
+      case 'yesterday':
+        const yesterday = new Date(today);
+        yesterday.setDate(yesterday.getDate() - 1);
+        const yesterdayEnd = new Date(yesterday);
+        yesterdayEnd.setHours(23, 59, 59, 999);
+        return date >= yesterday && date <= yesterdayEnd;
+      
+      case 'last7days':
+        const last7days = new Date(today);
+        last7days.setDate(last7days.getDate() - 7);
+        return date >= last7days;
+      
+      case 'last30days':
+        const last30days = new Date(today);
+        last30days.setDate(last30days.getDate() - 30);
+        return date >= last30days;
+      
+      case 'thisMonth':
+        const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+        return date >= monthStart;
+      
+      case 'lastMonth':
+        const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+        const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0, 23, 59, 59, 999);
+        return date >= lastMonthStart && date <= lastMonthEnd;
+      
+      case 'custom':
+        if (!customStartDate && !customEndDate) return true;
+        const start = customStartDate ? new Date(customStartDate) : new Date(0);
+        const end = customEndDate ? new Date(customEndDate) : new Date();
+        end.setHours(23, 59, 59, 999);
+        return date >= start && date <= end;
+      
+      case 'all':
+      default:
+        return true;
+    }
+  };
 
   const getStatusIcon = (status) => {
     switch (status) {
@@ -59,8 +131,9 @@ const Orders = () => {
       order.deliveryDetails?.email?.toLowerCase().includes(searchTerm.toLowerCase());
     
     const matchesStatus = statusFilter === 'all' || order.status === statusFilter;
+    const matchesDate = isDateInRange(order.date);
     
-    return matchesSearch && matchesStatus;
+    return matchesSearch && matchesStatus && matchesDate;
   }) || [];
 
   const handleViewOrder = (order) => {
@@ -73,12 +146,13 @@ const Orders = () => {
     setSelectedOrder(null);
   };
 
-
-
-
   const getTotalItems = (orders) => {
     return orders?.reduce((sum, item) => sum + item.qty, 0) || 0;
   };
+
+  // const getTotalSpent = () => {
+  //   return filteredOrders.reduce((sum, order) => sum + parseFloat(order.amount), 0);
+  // };
 
   if (loading) {
     return (
@@ -97,25 +171,29 @@ const Orders = () => {
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-2">My Orders</h1>
+          <p className="text-gray-600">Track and manage your orders</p>
         </div>
+
+    
 
         {/* Filters and Search */}
         <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
-          <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0">
-            <div className="flex-1 max-w-md">
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
-                <input
-                  type="text"
-                  placeholder="Search by payment ID, customer, or email..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
-                />
+          <div className="space-y-4">
+            {/* First Row: Search and Status Filter */}
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between space-y-3 md:space-y-0 md:space-x-4">
+              <div className="flex-1 max-w-md">
+                <div className="relative">
+                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                  <input
+                    type="text"
+                    placeholder="Search by payment ID, name, or email..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="w-full pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                  />
+                </div>
               </div>
-            </div>
-            
-            <div className="flex items-center space-x-3">
+              
               <div className="flex items-center space-x-2">
                 <Filter size={18} className="text-gray-600" />
                 <select
@@ -131,11 +209,48 @@ const Orders = () => {
                   <option value="cancelled">Cancelled</option>
                 </select>
               </div>
-              
-              {/* <button className="flex items-center space-x-2 px-4 py-2 bg-amber-600 text-white rounded-lg hover:bg-amber-700 transition-colors">
-                <Download size={18} />
-                <span>Export</span>
-              </button> */}
+            </div>
+
+            {/* Second Row: Date Filter */}
+            <div className="flex flex-col md:flex-row md:items-center space-y-3 md:space-y-0 md:space-x-4">
+              <div className="flex items-center space-x-2">
+                <Calendar size={18} className="text-gray-600" />
+                <select
+                  value={dateFilter}
+                  onChange={(e) => setDateFilter(e.target.value)}
+                  className="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                >
+                  <option value="all">All Time</option>
+                  <option value="today">Today</option>
+                  <option value="yesterday">Yesterday</option>
+                  <option value="last7days">Last 7 Days</option>
+                  <option value="last30days">Last 30 Days</option>
+                  <option value="thisMonth">This Month</option>
+                  <option value="lastMonth">Last Month</option>
+                  <option value="custom">Custom Range</option>
+                </select>
+              </div>
+
+              {/* Custom Date Range */}
+              {dateFilter === 'custom' && (
+                <div className="flex flex-col md:flex-row md:items-center space-y-2 md:space-y-0 md:space-x-2">
+                  <input
+                    type="date"
+                    value={customStartDate}
+                    onChange={(e) => setCustomStartDate(e.target.value)}
+                    className="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                    placeholder="Start Date"
+                  />
+                  <span className="text-gray-600 hidden md:inline">to</span>
+                  <input
+                    type="date"
+                    value={customEndDate}
+                    onChange={(e) => setCustomEndDate(e.target.value)}
+                    className="border border-gray-300 rounded-lg px-4 py-2 focus:ring-2 focus:ring-amber-500 focus:border-transparent"
+                    placeholder="End Date"
+                  />
+                </div>
+              )}
             </div>
           </div>
         </div>
@@ -147,7 +262,7 @@ const Orders = () => {
               <thead className="bg-gray-50 border-b border-gray-200">
                 <tr>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Payment ID</th>
-                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Customer</th>
+                  <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Date</th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Items</th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Total Amount</th>
                   <th className="px-6 py-4 text-left text-xs font-semibold text-gray-600 uppercase tracking-wider">Location</th>
@@ -161,6 +276,7 @@ const Orders = () => {
                     <td colSpan="7" className="px-6 py-12 text-center">
                       <Package className="mx-auto text-gray-400 mb-3" size={48} />
                       <p className="text-gray-600">No orders found</p>
+                      <p className="text-sm text-gray-500 mt-1">Try adjusting your filters</p>
                     </td>
                   </tr>
                 ) : (
@@ -171,8 +287,10 @@ const Orders = () => {
                       </td>
                       <td className="px-6 py-4">
                         <div>
-                          <p className="font-medium text-gray-900">{order.deliveryDetails?.fname}</p>
-                          <p className="text-sm text-gray-500">{order.deliveryDetails?.email}</p>
+                          <p className="font-medium text-gray-900">{formatDateShort(order.date)}</p>
+                          <p className="text-sm text-gray-500">
+                            {new Date(order.date).toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' })}
+                          </p>
                         </div>
                       </td>
                       <td className="px-6 py-4">
@@ -218,7 +336,13 @@ const Orders = () => {
           <div className="bg-white rounded-2xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
             {/* Modal Header */}
             <div className="sticky top-0 bg-white border-b border-gray-200 px-6 py-4 flex items-center justify-between">
-              <h2 className="text-2xl font-bold text-gray-900">Order Details</h2>
+              <div>
+                <h2 className="text-2xl font-bold text-gray-900">Order Details</h2>
+                <p className="text-sm text-gray-600 mt-1 flex items-center">
+                  <Calendar size={14} className="mr-1" />
+                  {formatDate(selectedOrder.date)}
+                </p>
+              </div>
               <button 
                 onClick={handleCloseModal}
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
@@ -234,7 +358,10 @@ const Orders = () => {
                   <p className="text-sm text-gray-600 mb-1">Payment ID</p>
                   <p className="font-mono text-sm text-gray-900">{selectedOrder.payId}</p>
                 </div>
-           
+                <div>
+                  <p className="text-sm text-gray-600 mb-2">Order Status</p>
+                  {getStatusBadge(selectedOrder.status)}
+                </div>
               </div>
 
               {/* Customer Information */}
