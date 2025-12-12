@@ -261,10 +261,8 @@ const Checkout = () => {
                   className="mt-1 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-amber-500 focus:border-amber-500 bg-white"
                 >
                   <option value="Ghana">Ghana</option>
-                  <option value="Nigeria">Nigeria</option>
-                  <option value="Kenya">Kenya</option>
-                  <option value="South Africa">South Africa</option>
-                  <option value="Other">Other</option>
+                  <option value="Nigeria">UK</option>
+                  <option value="Kenya">USA</option>
                 </select>
               </div>
             </div>
