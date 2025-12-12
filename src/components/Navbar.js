@@ -28,15 +28,16 @@ const Navbar = () => {
 
   const isAuthenticated = !!token;
 
-  // Mock product data - replace with your actual products
-  const allProducts = [
-    { id: 1, name: 'African Print Dress', category: 'Dresses', price: 89.99 },
-    { id: 2, name: 'Kente Cloth Shirt', category: 'Shirts', price: 65.00 },
-    { id: 3, name: 'Ankara Skirt', category: 'Skirts', price: 55.00 },
-    { id: 4, name: 'Dashiki Top', category: 'Tops', price: 45.00 },
-    { id: 5, name: 'African Jewelry Set', category: 'Accessories', price: 35.00 },
-    { id: 6, name: 'Adire Fabric', category: 'Fabrics', price: 25.00 },
-  ];
+  // // Mock product data - replace with your actual products
+  // const allProducts = [
+  //   { id: 1, name: 'African Print Dress', category: 'Dresses', price: 89.99 },
+  //   { id: 2, name: 'Kente Cloth Shirt', category: 'Shirts', price: 65.00 },
+  //   { id: 3, name: 'Ankara Skirt', category: 'Skirts', price: 55.00 },
+  //   { id: 4, name: 'Dashiki Top', category: 'Tops', price: 45.00 },
+  //   { id: 5, name: 'African Jewelry Set', category: 'Accessories', price: 35.00 },
+  //   { id: 6, name: 'Adire Fabric', category: 'Fabrics', price: 25.00 },
+  // ];
+  const allProducts = useSelector((state)=>state.products.products)
 
   const pages = [
     { name: 'HOME', path: '/' },
@@ -44,6 +45,8 @@ const Navbar = () => {
     { name: 'OUR STORY', path: '/our-story' },
     { name: 'COMMUNITY', path: '/community' },
   ];
+
+  console.log(allProducts)
 
   const activePage = pages.find(p => p.path === location.pathname)?.name;
 
@@ -91,9 +94,9 @@ const Navbar = () => {
       return;
     }
 
-    const filtered = allProducts.filter(product =>
-      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.category.toLowerCase().includes(searchQuery.toLowerCase())
+    const filtered = allProducts?.filter(product =>
+      product?.productName.toLowerCase().includes(searchQuery?.toLowerCase()) 
+      // product.category.toLowerCase().includes(searchQuery.toLowerCase())
     );
     setSearchResults(filtered);
   }, [searchQuery]);
@@ -243,7 +246,7 @@ const Navbar = () => {
           {/* Right Section */}
           <div className="flex items-center gap-2 sm:gap-4">
             {/* Search */}
-            <div ref={searchContainerRef} className="relative">
+            {allProducts?.length > 0 && <div ref={searchContainerRef} className="relative">
               <motion.div
                 initial={false}
                 animate={{
@@ -292,29 +295,42 @@ const Navbar = () => {
                   >
                     {searchResults.length > 0 ? (
                       <div className="py-2">
-                        <div className="px-4 py-2 text-xs text-gray-500 font-semibold uppercase">
-                          {searchResults.length} Result{searchResults.length !== 1 ? 's' : ''}
-                        </div>
-                        {searchResults.map((product) => (
-                          <button
-                            key={product.id}
-                            className="w-full px-4 py-3 hover:bg-gray-50 text-left border-b border-gray-100 last:border-b-0 transition"
-                            onClick={() => {
-                              console.log('Selected:', product.name);
-                              setIsSearchOpen(false);
-                              setSearchQuery('');
-                            }}
-                          >
-                            <div className="font-medium text-gray-900 text-sm">{product.name}</div>
-                            <div className="flex items-center justify-between mt-1">
-                              <span className="text-xs text-gray-500">{product.category}</span>
-                              <span className="text-sm font-semibold text-[#DDC57A]">
-                                ${product.price.toFixed(2)}
-                              </span>
-                            </div>
-                          </button>
-                        ))}
+                      <div className="px-4 py-2 text-xs text-gray-500 font-semibold uppercase">
+                        {searchResults.length} Result{searchResults.length !== 1 ? 's' : ''}
                       </div>
+                      {searchResults.map((product) => (
+                        <button
+                          key={product.id}
+                          className="w-full px-4 py-3 hover:bg-gray-50 text-left border-b border-gray-100 last:border-b-0 transition"
+                          onClick={() => {
+                            console.log('Selected:', product.name);
+                            setIsSearchOpen(false);
+                            setSearchQuery('');
+                          }}
+                        >
+                          <div className="flex items-center gap-3">
+                            {/* Product Image */}
+                            {product?.images?.main_image && (
+                              <img 
+                                src={product.images.main_image} 
+                                alt={product?.productName}
+                                className="w-12 h-12 object-cover rounded"
+                              />
+                            )}
+                            
+                            {/* Product Details */}
+                            <div className="flex-1">
+                              <div className="font-medium text-gray-900 text-sm">{product?.productName}</div>
+                              <div className="flex items-center justify-between mt-1">
+                                <span className="text-sm font-semibold text-[#DDC57A]">
+                                  ${product?.price}
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        </button>
+                      ))}
+                    </div>
                     ) : (
                       <div className="px-4 py-8 text-center text-gray-500 text-sm">
                         No products found for "{searchQuery}"
@@ -323,7 +339,7 @@ const Navbar = () => {
                   </motion.div>
                 )}
               </AnimatePresence>
-            </div>
+            </div>}
 
             {/* Wishlist Button */}
             <button
