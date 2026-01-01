@@ -2,6 +2,9 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import News from './News';
 import { Link } from 'react-router-dom';
+import comm01 from '../assets/comm01.jpeg'
+import comm02 from '../assets/comm02.jpeg'
+import comm03 from '../assets/comm03.jpeg'
 
 const Community = () => {
   const heroRef = useRef(null);
@@ -13,6 +16,7 @@ const Community = () => {
   const statsInView = useInView(statsRef, { once: true, amount: 0.5 });
   const galleryInView = useInView(galleryRef, { once: true, amount: 0.2 });
   const valuesInView = useInView(valuesRef, { once: true, amount: 0.3 });
+  const images = [comm01,comm03,comm02]
 
   // Stats with count-up animation
   const stats = [
@@ -105,17 +109,13 @@ const Community = () => {
       <section ref={galleryRef} className="py-20 px-4 bg-white">
         <div className="max-w-7xl mx-auto">
           <div className="grid md:grid-cols-3 gap-8">
-            {[
-              'https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?w=600&h=500&fit=crop',
-              'https://images.unsplash.com/photo-1586075010923-2dd4570fb338?w=600&h=500&fit=crop',
-              'https://images.unsplash.com/photo-1590874103328-eac38a683ce7?w=600&h=500&fit=crop',
-            ].map((image, index) => (
+            {images.map((image, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
                 animate={galleryInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
-                className="bg-gray-300 overflow-hidden shadow-lg h-80 group"
+                className="bg-gray-300 overflow-hidden shadow-lg h-100 group"
               >
                 <img
                   src={image}

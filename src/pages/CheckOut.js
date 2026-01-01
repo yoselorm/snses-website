@@ -13,20 +13,35 @@ const Checkout = () => {
     phone: '',
     address: '',
     city: '',
-    country: 'Ghana',
+    country: 'UK',
     notes: '',
   });
+  const [shippingMethod, setShippingMethod] = useState('standard');
   const [showPaymentForm, setShowPaymentForm] = useState(false);
   const [paymentDetails, setPaymentDetails] = useState({
     clientSecret: '',
     orderId: '',
     amount: '',
-
   });
 
-  const customerId = localStorage.getItem('snsesUserId')
-  const dispatch = useDispatch()
+  const customerId = localStorage.getItem('snsesUserId');
+  const dispatch = useDispatch();
   const { loading, error, success, orderCreated } = useSelector((state) => state.orders);
+
+  const SHIPPING_OPTIONS = {
+    standard: {
+      name: 'Standard Shipping',
+      cost: 4.95,
+      description: '3–5 business days'
+    },
+    express: {
+      name: 'Express Shipping',
+      cost: 8.95,
+      description: '1–2 business days'
+    }
+  };
+
+  const isUK = formData.country === 'UK';
 
   useEffect(() => {
     const stored = JSON.parse(localStorage.getItem('snsesCart')) || [];
@@ -61,6 +76,9 @@ const Checkout = () => {
     return acc + price * quantity;
   }, 0);
 
+  const shippingCost = isUK ? SHIPPING_OPTIONS[shippingMethod].cost : 0;
+  const total = subtotal + shippingCost;
+
   const handleChange = (e) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }));
   };
@@ -76,9 +94,18 @@ const Checkout = () => {
       alert('Your cart is empty.');
       return;
     }
+
+    // Check if international shipping is selected
+    if (country !== 'UK') {
+      alert('International shipping is not available yet. Currently, we only ship within the UK.');
+      return;
+    }
+
     const orderData = {
       customerId: customerId,
-      amount: subtotal,
+      amount: total,
+      // shippingCost: shippingCost,
+      // shippingMethod: SHIPPING_OPTIONS[shippingMethod].name,
       orders: cartItems.map((item) => ({
         productToken: item.productToken,
         qty: item.quantity || 1,
@@ -97,11 +124,7 @@ const Checkout = () => {
       }
     };
 
-
     dispatch(createOrder(orderData));
-
-    // alert('Proceeding to payment...');
-    // 🚀 Stripe checkout integration goes here
   };
 
   useEffect(() => {
@@ -109,13 +132,11 @@ const Checkout = () => {
       setPaymentDetails({
         clientSecret: orderCreated?.clientSecret,
         orderId: orderCreated?.id,
-        amount: subtotal,
+        amount: total,
       });
       setShowPaymentForm(true);
     }
-  }, [success, orderCreated,dispatch]);
-
-
+  }, [success, orderCreated, dispatch, total]);
 
   return (
     <div className="min-h-screen py-12 px-4 md:px-12 font-garamond">
@@ -176,9 +197,21 @@ const Checkout = () => {
                 </div>
               ))}
 
-              <div className="flex justify-between items-center pt-4 border-t">
-                <p className="text-lg font-semibold text-gray-700">Subtotal:</p>
-                <p className="text-base font-sans text-amber-700">£{subtotal.toFixed(2)}</p>
+              <div className="space-y-3 pt-4 border-t">
+                <div className="flex justify-between items-center">
+                  <p className="text-sm text-gray-600">Subtotal:</p>
+                  <p className="text-sm font-sans text-gray-800">£{subtotal.toFixed(2)}</p>
+                </div>
+                {isUK && (
+                  <div className="flex justify-between items-center">
+                    <p className="text-sm text-gray-600">Shipping:</p>
+                    <p className="text-sm font-sans text-gray-800">£{shippingCost.toFixed(2)}</p>
+                  </div>
+                )}
+                <div className="flex justify-between items-center pt-3 border-t">
+                  <p className="text-lg font-semibold text-gray-700">Total:</p>
+                  <p className="text-lg font-sans text-amber-700">£{total.toFixed(2)}</p>
+                </div>
               </div>
             </div>
           )}
@@ -222,7 +255,7 @@ const Checkout = () => {
                   value={formData.phone}
                   onChange={handleChange}
                   className="mt-1 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-amber-500 focus:border-amber-500"
-                  placeholder="+233..."
+                  placeholder="+44..."
                 />
               </div>
             </div>
@@ -248,7 +281,7 @@ const Checkout = () => {
                   value={formData.city}
                   onChange={handleChange}
                   className="mt-1 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-amber-500 focus:border-amber-500"
-                  placeholder="Accra"
+                  placeholder="London"
                 />
               </div>
 
@@ -260,12 +293,67 @@ const Checkout = () => {
                   onChange={handleChange}
                   className="mt-1 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-amber-500 focus:border-amber-500 bg-white"
                 >
+                  <option value="UK">UK</option>
                   <option value="Ghana">Ghana</option>
-                  <option value="Nigeria">UK</option>
-                  <option value="Kenya">USA</option>
+                  <option value="USA">USA</option>
                 </select>
               </div>
             </div>
+
+            {/* SHIPPING OPTIONS */}
+            {isUK ? (
+              <div className="pt-2">
+                <label className="block text-sm font-medium text-gray-600 mb-3">Shipping Method</label>
+                <div className="space-y-3">
+                  <label className="flex items-start p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition">
+                    <input
+                      type="radio"
+                      name="shipping"
+                      value="standard"
+                      checked={shippingMethod === 'standard'}
+                      onChange={(e) => setShippingMethod(e.target.value)}
+                      className="mt-1 mr-3 accent-amber-600"
+                    />
+                    <div className="flex-1">
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium text-gray-800">Standard Shipping</span>
+                        <span className="font-semibold text-gray-800 font-sans">£4.95</span>
+                      </div>
+                      <p className="text-sm text-gray-500 mt-1">Orders processed within 3–5 business days</p>
+                    </div>
+                  </label>
+
+                  <label className="flex items-start p-4 border-2 rounded-lg cursor-pointer hover:bg-gray-50 transition">
+                    <input
+                      type="radio"
+                      name="shipping"
+                      value="express"
+                      checked={shippingMethod === 'express'}
+                      onChange={(e) => setShippingMethod(e.target.value)}
+                      className="mt-1 mr-3 accent-amber-600"
+                    />
+                    <div className="flex-1">
+                      <div className="flex justify-between items-center">
+                        <span className="font-medium text-gray-800">Express Shipping</span>
+                        <span className="font-semibold text-gray-800 font-sans">£8.95</span>
+                      </div>
+                      <p className="text-sm text-gray-500 mt-1">Orders processed within 1–2 business days</p>
+                    </div>
+                  </label>
+                </div>
+              </div>
+            ) : (
+              <div className="pt-2">
+                <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg">
+                  <p className="text-sm font-medium text-amber-800">
+                    🌍 International Shipping Not Available
+                  </p>
+                  <p className="text-sm text-amber-700 mt-1">
+                    We currently only ship within the UK. International shipping (5-14 business days) will be available soon.
+                  </p>
+                </div>
+              </div>
+            )}
 
             <div>
               <label className="block text-sm font-medium text-gray-600">Additional Notes</label>
@@ -280,15 +368,10 @@ const Checkout = () => {
             </div>
 
             <div className="pt-4">
-              {/* <p className="text-sm text-gray-600 mb-2">We accept:</p> */}
               <div className="flex items-center gap-3">
                 <img src={visa} alt="Visa" className="h-6" />
-                {/* <img src={mastercard} alt="MasterCard" className="h-6" />
-                <img src={amex} alt="Amex" className="h-6" />
-                <img src={paypal} alt="PayPal" className="h-6" /> */}
               </div>
             </div>
-
 
             <button
               type="button"
@@ -314,11 +397,11 @@ const Checkout = () => {
 
       {showPaymentForm && paymentDetails && (
         <PaymentModal 
-        isOpen={showPaymentForm}
-        clientSecret={paymentDetails.clientSecret}
-        orderId={paymentDetails.orderId}
-        amount={paymentDetails.amount}
-        onClose={() => setShowPaymentForm(false)}
+          isOpen={showPaymentForm}
+          clientSecret={paymentDetails.clientSecret}
+          orderId={paymentDetails.orderId}
+          amount={paymentDetails.amount}
+          onClose={() => setShowPaymentForm(false)}
         />
       )}
     </div>

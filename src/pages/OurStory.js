@@ -2,6 +2,15 @@ import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
 import founder from '../assets/owner.jpeg'
 import { Link } from 'react-router-dom';
+import videoreplace from '../assets/videoreplace.jpeg';
+import snsesmak from '../assets/snses-mak.jpeg';
+import snsesnorth from '../assets/snses-north.jpeg';
+import allProducts from '../assets/allproducts.jpeg';
+import snsessupportcom from '../assets/snsessupportcom.jpeg';
+import bhc01 from '../assets/bhc01.jpeg';
+import bhc02 from '../assets/bhc02.jpeg';
+import bhc03 from '../assets/bhc03.jpeg';
+
 
 const OurStory = () => {
   const topRef = useRef(null);
@@ -10,6 +19,8 @@ const OurStory = () => {
   const valuesRef = useRef(null);
   const communityRef = useRef(null);
   const craftRef = useRef(null);
+  const images = [snsesmak, allProducts, snsesnorth]
+  const bhcImages =[bhc01,bhc03,bhc02]
 
   const topInView = useInView(topRef, { once: true, amount: 0.3 });
   const founderInView = useInView(founderRef, { once: true, amount: 0.3 });
@@ -39,12 +50,12 @@ const OurStory = () => {
               animate={topInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="bg-[#1a1f3a] text-white p-8 mb-8">
-                <p className="leading-relaxed text-[16px]">
-                  A video to showcase the beautiful story of Ghana. Like storytelling through moments, laughters,
-                  food, history, the women in the north doing shea butter, Ghana's coastal shores, makola's business
-                  and vibrance etc and at the end SNSES candle will be presented at the end.
-                </p>
+              <div className="bg-[#1a1f3a] text-white mb-8">
+
+                <img
+                  src={videoreplace}
+                  className='w-full h-full object-cover'
+                />
               </div>
             </motion.div>
 
@@ -156,17 +167,20 @@ const OurStory = () => {
             </p>
           </motion.div>
 
-
           <div className="grid md:grid-cols-3 gap-8 mb-16">
-            {[1, 2, 3].map((item, index) => (
+            {images.map((img, index) => (
               <motion.div
-                key={item}
+                key={index}
                 initial={{ opacity: 0, y: 50 }}
                 animate={valuesInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.5 + index * 0.2 }}
                 className="bg-gray-200 overflow-hidden shadow-lg h-64 flex items-center justify-center"
               >
-                <p className="text-gray-600 text-center px-6">Picture of products<br />(refer to Montroi)</p>
+                <img
+                  src={img}
+                  alt={`Image ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
               </motion.div>
             ))}
           </div>
@@ -183,7 +197,10 @@ const OurStory = () => {
               transition={{ duration: 0.8 }}
               className="bg-gray-200 overflow-hidden shadow-lg h-96 flex items-center justify-center"
             >
-              <p className="text-gray-600 text-center px-6">Picture of products<br />(refer to Montroi)</p>
+              <img
+                src={snsessupportcom}
+                className='w-full h-full object-cover'
+              />
             </motion.div>
 
             <motion.div
@@ -205,13 +222,13 @@ const OurStory = () => {
                 For us, SNSES is more than a brand — it is a community. Every piece you bring into your space contributes to preserving culture, empowering the next generation, and inspiring the leaders and creators of tomorrow.
               </p>
               <div className="text-center pt-8">
-              <Link to='/community'>
-                <button className="bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] px-8 py-3 transition-colors text-[16px] tracking-wider">
-                  Learn more
-                </button></Link>
-            </div>
+                <Link to='/community'>
+                  <button className="bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] px-8 py-3 transition-colors text-[16px] tracking-wider">
+                    Learn more
+                  </button></Link>
+              </div>
             </motion.div>
-          
+
           </div>
 
 
@@ -231,7 +248,7 @@ const OurStory = () => {
           </motion.h2>
 
           <div className="grid md:grid-cols-3 gap-8 mb-12">
-            {['Picture of artisans', 'Picture of products\n(refer to Montroi)', 'Picture of products\n(refer to Montroi)'].map((text, index) => (
+            {bhcImages.map((img, index) => (
               <motion.div
                 key={index}
                 initial={{ opacity: 0, y: 50 }}
@@ -239,7 +256,11 @@ const OurStory = () => {
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.2 }}
                 className="bg-[#1a1f3a] overflow-hidden shadow-lg h-80 flex items-center justify-center group hover:scale-105 transition-transform duration-300"
               >
-                <p className="text-white text-center px-6 whitespace-pre-line">{text}</p>
+                  <img
+                  src={img}
+                  alt={`Image ${index + 1}`}
+                  className="w-full h-full object-cover"
+                />
               </motion.div>
             ))}
           </div>

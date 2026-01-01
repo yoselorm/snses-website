@@ -185,7 +185,7 @@ const Navbar = () => {
                   className="flex items-center gap-2 text-[#f6e6c7] hover:text-[#e3c27b] transition"
                 >
                   <User size={20} />
-                  <span className="text-sm font-medium">My Account</span>
+                <span className="text-sm font-medium hidden sm:block">My Account</span>
                 </button>
 
                 {/* User Dropdown Menu */}
@@ -237,7 +237,7 @@ const Navbar = () => {
           </div>
 
           {/* Center Logo */}
-          <div className="flex items-center -ml-12">
+          <div className="flex items-center sm:-ml-12">
             <Link to="/" className="flex items-center">
               <img src={logo} alt="SNSES Logo" className="h-[68px] w-auto" />
             </Link>

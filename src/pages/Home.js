@@ -8,7 +8,8 @@ import { Link } from 'react-router-dom';
 import NewsletterModal from '../components/NewsletterModal';
 import bestseller01 from '../assets/bestseller01.jpeg'
 import bestseller02 from '../assets/bestseller02.jpeg'
-import bestseller03 from '../assets/bestseller03.jpeg'
+import bestseller03 from '../assets/bestseller03.jpeg';
+import wwa from '../assets/wwa.jpeg'
 
 const Home = () => {
   const containerRef = useRef(null);
@@ -233,7 +234,7 @@ const Home = () => {
             >
               <div className="relative overflow-hidden shadow-2xl">
                 <img
-                  src="https://images.unsplash.com/photo-1583225214464-9296029427aa?w=800"
+                  src={wwa}
                   alt="Our Craftsmanship"
                   className="w-full h-[600px] object-cover"
                 />
