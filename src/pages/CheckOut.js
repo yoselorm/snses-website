@@ -104,8 +104,8 @@ const Checkout = () => {
     const orderData = {
       customerId: customerId,
       amount: total,
-      // shippingCost: shippingCost,
-      // shippingMethod: SHIPPING_OPTIONS[shippingMethod].name,
+      shippingPrice: shippingCost,
+      shippingType: SHIPPING_OPTIONS[shippingMethod].name,
       orders: cartItems.map((item) => ({
         productToken: item.productToken,
         qty: item.quantity || 1,
