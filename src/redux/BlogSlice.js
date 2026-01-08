@@ -37,6 +37,9 @@ export const fetchSingleBlog = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${localStorage.getItem("adminToken")}`,
           },
+          params: {
+            _cb: Date.now(), // cache buster
+          }
         }
       );
       return response.data.data;

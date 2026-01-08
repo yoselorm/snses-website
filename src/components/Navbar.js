@@ -8,6 +8,8 @@ import logo from '../assets/logozzz.png';
 import AuthModal from './AuthModal';
 import WishlistDropdown from './WishlishtDropdown';
 import CartDropdown from './CartDropDown';
+import { api_url_v1 } from '../utils/config';
+import axios from 'axios';
 
 const Navbar = () => {
   const location = useLocation();
@@ -25,8 +27,16 @@ const Navbar = () => {
   const searchInputRef = useRef(null);
   const searchContainerRef = useRef(null);
   const userMenuRef = useRef(null);
+  const [announcement, setAnnouncement] = useState('');
+
 
   const isAuthenticated = !!token;
+  const getToken = () => {
+    if (typeof window !== 'undefined') {
+      return localStorage.getItem('adminToken');
+    }
+    return null;
+  };
 
   // // Mock product data - replace with your actual products
   // const allProducts = [
@@ -46,8 +56,29 @@ const Navbar = () => {
     { name: 'COMMUNITY', path: '/community' },
   ];
 
-  console.log(allProducts)
+  const fetchAnnouncement = async () => {
+    try {
+      const token = getToken();
+      const res = await axios.get(`${api_url_v1}/getAnnouncement`, {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+        params: {
+          _cb: Date.now(), // cache buster
+        }
+      });
 
+      if (res.data?.data?.body) {
+        setAnnouncement(res.data.data.body);
+      }
+    } catch (err) {
+      console.error('Failed to fetch announcement');
+    }
+  };
+
+  useEffect(() => {
+      fetchAnnouncement();
+  }, []);
   const activePage = pages.find(p => p.path === location.pathname)?.name;
 
   // Handle logout
@@ -138,27 +169,23 @@ const Navbar = () => {
 
   return (
     <nav className="font-metro-nova tracking-[1px] w-full bg-[#f4f1eb]  sticky top-0 left-0 z-50 shadow-sm">
-      <div className="bg-[#d4c6a8] py-[2px] overflow-hidden relative font-garamond">
-        <motion.div
-          animate={{
-            x: [0, -1000]
-          }}
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear"
-          }}
-          className="whitespace-nowrap text-sm font-medium"
-        >
-          Enjoy 15% off with two or more items & free shipping on all orders.
-          &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
-          Enjoy 15% off with two or more items & free shipping on all orders.
-          &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
-          Enjoy 15% off with two or more items & free shipping on all orders.
-          &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
-          Enjoy 15% off with two or more items & free shipping on all orders.
-        </motion.div>
-      </div>
+   <div className="bg-[#d4c6a8] py-[2px] overflow-hidden relative font-garamond">
+      <motion.div
+        animate={{ x: ['100%', '-100%'] }}
+        transition={{
+          duration: 20,
+          repeat: Infinity,
+          ease: 'linear',
+        }}
+        className="whitespace-nowrap text-sm font-medium"
+      >
+        {announcement}
+        &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+        {announcement}
+        &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+        {announcement}
+      </motion.div>
+    </div>
 
       <div className='w-full bg-[#4b0c0c] text-[#d4af37] '>
         {/* Top Bar */}

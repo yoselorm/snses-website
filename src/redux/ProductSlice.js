@@ -29,6 +29,9 @@ export const getProductsByCategory = createAsyncThunk(
         headers: {
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`,
+        },
+        params: {
+          _cb: Date.now(), // cache buster
         }
       });
       return response.data.data;
@@ -72,6 +75,9 @@ export const getWishlist = createAsyncThunk(
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${customerToken}`,
         },
+        params: {
+          _cb: Date.now(), // cache buster
+        }
       });
       return response.data.data;
     } catch (error) {

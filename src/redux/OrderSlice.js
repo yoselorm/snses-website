@@ -13,6 +13,7 @@ export const createOrder = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${localStorage.getItem("snsesCustomerToken")}`,
           },
+          
         }
       );
       return response.data.data || response.data;
@@ -37,6 +38,9 @@ export const fetchUserOrders = createAsyncThunk(
               Authorization: `Bearer ${localStorage.getItem("snsesCustomerToken")}`,
               "Content-Type": "application/json",
             },
+            params: {
+              _cb: Date.now(), // cache buster
+            }
           }
         );
   
@@ -64,6 +68,9 @@ export const fetchSingleOrder = createAsyncThunk(
           headers: {
             Authorization: `Bearer ${localStorage.getItem("snsesCustomerToken")}`,
           },
+          params: {
+            _cb: Date.now(), // cache buster
+          }
         }
       );
       return response.data.data || response.data;
