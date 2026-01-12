@@ -208,11 +208,11 @@ const ProductDetail = () => {
             </div>
 
             {/* Main Image */}
-            <div className="flex-1 aspect-square bg-white overflow-hidden">
+            <div className="flex-1 aspect-square bg-transparent overflow-hidden">
               <img
                 src={selectedImage || '/placeholder-product.png'}
                 alt={selectedProduct.productName}
-                className="w-full h-full object-cover"
+                className="object-contain"
               />
             </div>
           </div>

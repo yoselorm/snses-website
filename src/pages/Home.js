@@ -9,7 +9,7 @@ import NewsletterModal from '../components/NewsletterModal';
 import bestseller01 from '../assets/bestseller01.jpeg'
 import bestseller02 from '../assets/bestseller02.jpeg'
 import bestseller03 from '../assets/bestseller03.jpeg';
-import wwa from '../assets/wwa.jpeg'
+import wwa from '../assets/whoweare.jpeg'
 
 const Home = () => {
   const containerRef = useRef(null);
@@ -64,19 +64,19 @@ const Home = () => {
     {
       id: 1,
       name: "The North",
-      price: "£28",
+      price: "£49",
       image: bestseller01
     },
     {
       id: 2,
       name: "Makola",
-      price: "£32",
+      price: "£49",
       image: bestseller02
     },
     {
       id: 3,
       name: "Sobolo",
-      price: "£30",
+      price: "£49",
       image: bestseller03
     }
   ];
@@ -270,15 +270,15 @@ const Home = () => {
            {categories?.length > 0 && <div className="relative overflow-hidden w-full">
               <motion.div
                 className="flex gap-6"
-                animate={{ x: ['0%', '-50%'] }}
+                animate={{ x: [0, -((categories.length * (280 + 24)))] }}
                 transition={{
                   repeat: Infinity,
                   repeatType: 'loop',
-                  duration: 20,
+                  duration: categories.length * 3,
                   ease: 'linear',
                 }}
               >
-                {[...categories, ...categories]?.map((category, index) => (
+                {[...categories,...categories, ...categories]?.map((category, index) => (
                   <div
                     key={index}
                     className="flex-shrink-0 w-[280px] group cursor-pointer"

@@ -1,12 +1,12 @@
 import React, { useRef } from 'react';
 import { motion, useInView } from 'framer-motion';
-import founder from '../assets/owner.jpeg'
+import founder from '../assets/founder.jpeg'
 import { Link } from 'react-router-dom';
 import videoreplace from '../assets/videoreplace.jpeg';
 import snsesmak from '../assets/snses-mak.jpeg';
-import snsesnorth from '../assets/snses-north.jpeg';
+import storycard from '../assets/storycard.jpeg';
 import allProducts from '../assets/allproducts.jpeg';
-import snsessupportcom from '../assets/snsessupportcom.jpeg';
+import snsessupportcom from '../assets/snsescomm.jpeg';
 import bhc01 from '../assets/bhc01.jpeg';
 import bhc02 from '../assets/bhc02.jpeg';
 import bhc03 from '../assets/bhc03.jpeg';
@@ -19,8 +19,8 @@ const OurStory = () => {
   const valuesRef = useRef(null);
   const communityRef = useRef(null);
   const craftRef = useRef(null);
-  const images = [snsesmak, allProducts, snsesnorth]
-  const bhcImages =[bhc01,bhc03,bhc02]
+  const images = [snsesmak, , storycard,allProducts]
+  const bhcImages =[bhc01,bhc02,bhc03]
 
   const topInView = useInView(topRef, { once: true, amount: 0.3 });
   const founderInView = useInView(founderRef, { once: true, amount: 0.3 });
@@ -139,11 +139,11 @@ const OurStory = () => {
               transition={{ duration: 0.8, delay: 0.5 }}
               className="relative"
             >
-              <div className="bg-gray-300 overflow-hidden shadow-xl h-[600px]">
+              <div className="bg-transparent w-fit overflow-hidden shadow-xl ">
                 <img
                   src={founder}
                   alt="Founder"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-contain"
                 />
               </div>
             </motion.div>
@@ -195,11 +195,11 @@ const OurStory = () => {
               initial={{ opacity: 0, x: -50 }}
               animate={communityInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8 }}
-              className="bg-gray-200 overflow-hidden shadow-lg h-96 flex items-center justify-center"
+              className="bg-gray-200 overflow-hidden shadow-lg h-full flex items-center justify-center"
             >
               <img
                 src={snsessupportcom}
-                className='w-full h-full object-cover'
+                className='w-full h-full object-contain'
               />
             </motion.div>
 

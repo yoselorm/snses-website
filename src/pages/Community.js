@@ -2,9 +2,11 @@ import React, { useRef, useState, useEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import News from './News';
 import { Link } from 'react-router-dom';
-import comm01 from '../assets/comm01.jpeg'
+import comm04 from '../assets/comm01.jpeg'
 import comm02 from '../assets/comm02.jpeg'
+import comm01 from '../assets/ourcommcard.jpeg'
 import comm03 from '../assets/comm03.jpeg'
+import hero from '../assets/ourcomm.jpeg'
 
 const Community = () => {
   const heroRef = useRef(null);
@@ -21,8 +23,8 @@ const Community = () => {
   // Stats with count-up animation
   const stats = [
     { number: 100, label: 'KIDS EMPOWERED' },
-    { number: 50, label: 'YOUNG ARTISANS TRAINED' },
-    { number: 12, label: 'COMMUNITIES IMPACTED' },
+    { number: 10, label: 'YOUNG ARTISANS TRAINED' },
+    { number: 5, label: 'COMMUNITIES IMPACTED' },
   ];
 
   const [counts, setCounts] = useState(stats.map(() => 0));
@@ -62,11 +64,11 @@ const Community = () => {
         className="relative w-full h-[50vh] flex items-center justify-center text-center"
       >
         <img
-          src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=1920&h=1080&fit=crop"
+          src={hero}
           alt="Community"
           className="absolute inset-0 w-full h-full object-cover"
         />
-        <div className="absolute inset-0 bg-black/50" /> {/* dark overlay */}
+        <div className="absolute inset-0 bg-black/40" /> {/* dark overlay */}
 
         <motion.div
           initial={{ opacity: 0, y: 30 }}
