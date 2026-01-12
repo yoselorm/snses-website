@@ -8,7 +8,7 @@ const OrderSuccess = () => {
   const { orderId } = useParams();
   const dispatch = useDispatch();
   const { orderCreated, loading } = useSelector((state) => state.orders);
-  console.log(orderCreated)
+  const userToken = localStorage.getItem('snsesCustomerToken');
 
 //   useEffect(() => {
 //     if (orderId) {
@@ -107,12 +107,12 @@ const OrderSuccess = () => {
           >
             Continue Shopping
           </Link>
-          <Link
+       { userToken &&  <Link
             to="/orders"
             className="px-6 py-3 border-2 border-[#4b0c0c] text-[#4b0c0c] hover:bg-[#4b0c0c] hover:text-[#f1e7c7] font-semibold rounded-lg text-center transition"
           >
             View All Orders
-          </Link>
+          </Link>}
         </div>
       </div>
     </div>

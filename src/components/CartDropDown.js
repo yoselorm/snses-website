@@ -5,7 +5,6 @@ import { Link } from 'react-router-dom';
 
 const CartDropdown = ({ isOpen, onClose }) => {
   const [cartItems, setCartItems] = useState([]);
-const userToken = localStorage.getItem('snsesCustomerToken');
 
   const loadCart = () => {
     const storedCart = JSON.parse(localStorage.getItem('snsesCart')) || [];

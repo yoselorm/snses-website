@@ -50,40 +50,40 @@ const Orders = () => {
         const todayEnd = new Date(today);
         todayEnd.setHours(23, 59, 59, 999);
         return date >= today && date <= todayEnd;
-      
+
       case 'yesterday':
         const yesterday = new Date(today);
         yesterday.setDate(yesterday.getDate() - 1);
         const yesterdayEnd = new Date(yesterday);
         yesterdayEnd.setHours(23, 59, 59, 999);
         return date >= yesterday && date <= yesterdayEnd;
-      
+
       case 'last7days':
         const last7days = new Date(today);
         last7days.setDate(last7days.getDate() - 7);
         return date >= last7days;
-      
+
       case 'last30days':
         const last30days = new Date(today);
         last30days.setDate(last30days.getDate() - 30);
         return date >= last30days;
-      
+
       case 'thisMonth':
         const monthStart = new Date(today.getFullYear(), today.getMonth(), 1);
         return date >= monthStart;
-      
+
       case 'lastMonth':
         const lastMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
         const lastMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0, 23, 59, 59, 999);
         return date >= lastMonthStart && date <= lastMonthEnd;
-      
+
       case 'custom':
         if (!customStartDate && !customEndDate) return true;
         const start = customStartDate ? new Date(customStartDate) : new Date(0);
         const end = customEndDate ? new Date(customEndDate) : new Date();
         end.setHours(23, 59, 59, 999);
         return date >= start && date <= end;
-      
+
       case 'all':
       default:
         return true;
@@ -125,14 +125,14 @@ const Orders = () => {
   };
 
   const filteredOrders = orders?.filter(order => {
-    const matchesSearch = 
+    const matchesSearch =
       order.payId?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       order.deliveryDetails?.fname?.toLowerCase().includes(searchTerm.toLowerCase()) ||
       order.deliveryDetails?.email?.toLowerCase().includes(searchTerm.toLowerCase());
-    
+
     const matchesStatus = statusFilter === 'all' || order.status === statusFilter;
     const matchesDate = isDateInRange(order.date);
-    
+
     return matchesSearch && matchesStatus && matchesDate;
   }) || [];
 
@@ -174,7 +174,7 @@ const Orders = () => {
           <p className="text-gray-600">Track and manage your orders</p>
         </div>
 
-    
+
 
         {/* Filters and Search */}
         <div className="bg-white rounded-lg border border-gray-200 p-4 mb-6">
@@ -193,7 +193,7 @@ const Orders = () => {
                   />
                 </div>
               </div>
-              
+
               <div className="flex items-center space-x-2">
                 <Filter size={18} className="text-gray-600" />
                 <select
@@ -309,7 +309,7 @@ const Orders = () => {
                         {getStatusBadge(order.status)}
                       </td>
                       <td className="px-6 py-4">
-                        <button 
+                        <button
                           onClick={() => handleViewOrder(order)}
                           className="p-2 text-gray-600 hover:text-amber-600 hover:bg-amber-50 rounded-lg transition-colors"
                         >
@@ -343,7 +343,7 @@ const Orders = () => {
                   {formatDate(selectedOrder.date)}
                 </p>
               </div>
-              <button 
+              <button
                 onClick={handleCloseModal}
                 className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
               >
@@ -358,15 +358,15 @@ const Orders = () => {
                   <p className="text-sm text-gray-600 mb-1">Payment ID</p>
                   <p className="font-mono text-sm text-gray-900">{selectedOrder.payId}</p>
                 </div>
-               <div>
-               <div className='mb-2'>
-                  <p className="text-sm text-gray-600 mb-2">Order Status</p>
-                  {getStatusBadge(selectedOrder.status)}
+                <div>
+                  <div className='mb-2'>
+                    <p className="text-sm text-gray-600 mb-2">Order Status</p>
+                    {getStatusBadge(selectedOrder.status)}
+                  </div>
+                  <div className=''>
+                    <p className='text-sm text-gray-600'>{selectedOrder.shippingType}</p>
+                  </div>
                 </div>
-                <div className=''>
-                  <p className='text-sm text-gray-600'>{selectedOrder.shippingType}</p>
-                </div>
-               </div>
               </div>
 
               {/* Customer Information */}

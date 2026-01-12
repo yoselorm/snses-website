@@ -14,7 +14,6 @@ const ProductDetail = () => {
     (state) => state.products
   );
   const { token } = useSelector((state) => state.customer);
-  console.log(selectedProduct)
 
   const [selectedImage, setSelectedImage] = useState('');
   const [quantity, setQuantity] = useState(1);
@@ -39,6 +38,7 @@ const ProductDetail = () => {
     if (selectedProduct?.images) {
       const mainImage = selectedProduct.images.main_image;
       const backupImage = selectedProduct.images.backup_image;
+      const otherImages = selectedProduct.images?.otherImages
 
       setSelectedImage(mainImage);
 
@@ -46,8 +46,9 @@ const ProductDetail = () => {
       const thumbs = [];
       if (mainImage) thumbs.push(mainImage);
       if (backupImage) thumbs.push(backupImage);
-      if (mainImage) thumbs.push(mainImage);
-      if (backupImage) thumbs.push(backupImage);
+      if (otherImages && otherImages.length > 0) {
+        thumbs.push(...otherImages); 
+      }
 
       setThumbnails(thumbs);
     }
