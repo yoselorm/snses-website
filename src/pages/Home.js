@@ -240,7 +240,7 @@ const Home = () => {
                     {product.name}
                   </h3>
                   <h3 className="text-lg tracking-wide font-jost text-gray-900 mb-2 group-hover:text-amber-700 transition-colors uppercase ">
-                    {product.price}
+                    {product.displayPrice}
                   </h3>
                 </div>
               </motion.div>
