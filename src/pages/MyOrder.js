@@ -358,10 +358,15 @@ const Orders = () => {
                   <p className="text-sm text-gray-600 mb-1">Payment ID</p>
                   <p className="font-mono text-sm text-gray-900">{selectedOrder.payId}</p>
                 </div>
-                <div>
+               <div>
+               <div className='mb-2'>
                   <p className="text-sm text-gray-600 mb-2">Order Status</p>
                   {getStatusBadge(selectedOrder.status)}
                 </div>
+                <div className=''>
+                  <p className='text-sm text-gray-600'>{selectedOrder.shippingType}</p>
+                </div>
+               </div>
               </div>
 
               {/* Customer Information */}

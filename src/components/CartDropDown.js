@@ -102,14 +102,14 @@ const userToken = localStorage.getItem('snsesCustomerToken');
                   <span className="font-sans text-amber-700">£{total.toFixed(2)}</span>
                 </div>
 
-             { userToken?  <Link
+            <Link
                   to="/checkout"
                   onClick={onClose}
                   className="block w-full bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] text-center text-sm py-2 transition"
                 >
                   Proceed to Checkout
-                </Link>:<p>Kindly sign in to complete purchase</p>
-                }
+                </Link>
+                
               </div>
             </>
           )}

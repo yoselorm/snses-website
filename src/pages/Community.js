@@ -66,7 +66,7 @@ const Community = () => {
         <img
           src={hero}
           alt="Community"
-          className="absolute inset-0 w-full h-full object-cover"
+          className="absolute inset-0 w-full h-full object-cover object-center"
         />
         <div className="absolute inset-0 bg-black/40" /> {/* dark overlay */}
 
@@ -77,10 +77,7 @@ const Community = () => {
           className="relative z-10 text-white px-6"
         >
           <h1 className="text-5xl md:text-6xl font-light mb-6">Our Global Community</h1>
-          <p className="max-w-2xl mx-auto text-base md:text-lg mb-8">
-            Celebrating craftsmanship, culture, and collaboration — where creativity connects
-            hearts across continents.
-          </p>
+        
         
         </motion.div>
       </section>

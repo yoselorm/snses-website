@@ -10,6 +10,7 @@ import snsessupportcom from '../assets/snsescomm.jpeg';
 import bhc01 from '../assets/bhc01.jpeg';
 import bhc02 from '../assets/bhc02.jpeg';
 import bhc03 from '../assets/bhc03.jpeg';
+import signature from '../assets/k_signature.png'
 
 
 const OurStory = () => {
@@ -119,17 +120,23 @@ const OurStory = () => {
               className="space-y-6 text-gray-700"
             >
               <p className="leading-relaxed text-[16px] ">
-                When I created SNSES, I didn’t set out to build just another brand. From a young age, I’ve always had a creative mind and a deep love for storytelling. Being born and raised in Ghana, I grew up surrounded by the richness of culture, history, and artistry that shaped the way I see the world. I knew that whatever I created had to reflect that depth — not just through products, but through stories brought to life.
+              When I created SNSES, I didn’t set out to build just another brand. From a young age, I’ve always had a creative mind and a deep love for storytelling. Being born and raised in Ghana, I grew up surrounded by the richness of culture, history, and artistry that shaped the way I see the world. I knew that whatever I created had to reflect that depth not just through products, but through stories brought to life.
               </p>
               <p className="leading-relaxed text-[16px]">
-                I wanted SNSES to be more than something you buy — I wanted it to be something you experience. Each carefully crafted piece carries a connection to Ghana and to Africa’s wider narrative. It’s about celebrating heritage reimagined through craftsmanship.              </p>
-              <p className="leading-relaxed text-[16px]">
-                From the beginning, my vision has been to work with local artisans whose expertise and creativity breathe authenticity into every creation. Together, we craft pieces that embody luxury, depth, and meaning — creations that transform spaces.
+              I wanted SNSES to be more than something you buy. I wanted it to be something you experience. Each carefully crafted piece carries a connection to Ghana and to Africa’s wider narrative. It’s about celebrating heritage reimagined through craftsmanship.
               </p>
               <p className="leading-relaxed text-[16px]">
-                SNSES exists to tell stories. My hope is that each SNSES piece fills your home creating moments you’ll carry with you always.              </p>
-              <div className="pt-6">
+              From the beginning, my vision has been to work with local artisans whose expertise and creativity breathe authenticity into every creation. Together, we craft pieces that embody luxury, depth, and meaning. We craft creations that transform spaces.
+              </p>
+              <p className="leading-relaxed text-[16px]">
+              SNSES exists to tell stories. My hope is that each SNSES piece fills your home creating moments you’ll carry with you always.                           </p>
+              <div className="flex flex-col pt-6">
                 <p className="text-[16px] font-thin italic text-gray-800">With gratitude and love..</p>
+                <img
+                src={signature}
+                alt='signature'
+                className='h-20 w-40'
+                />
               </div>
             </motion.div>
 

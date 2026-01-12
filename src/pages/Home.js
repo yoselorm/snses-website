@@ -1,5 +1,5 @@
 import React, { useRef, useEffect, useState } from 'react';
-import { motion, useScroll, useTransform, useInView } from 'framer-motion';
+import { motion, useScroll, useTransform, useInView, AnimatePresence } from 'framer-motion';
 import { ArrowRight, Star } from 'lucide-react';
 import { useSelector, useDispatch } from 'react-redux';
 import { fetchCategories } from '../redux/CategorySlice';
@@ -9,7 +9,7 @@ import NewsletterModal from '../components/NewsletterModal';
 import bestseller01 from '../assets/bestseller01.jpeg'
 import bestseller02 from '../assets/bestseller02.jpeg'
 import bestseller03 from '../assets/bestseller03.jpeg';
-import wwa from '../assets/whoweare.jpeg'
+import wwa from '../assets/wwa.jpeg'
 
 const Home = () => {
   const containerRef = useRef(null);
@@ -19,6 +19,8 @@ const Home = () => {
   const blogRef = useRef(null);
 
   const [showNewsletter, setShowNewsletter] = useState(false);
+  const [cartMessage, setCartMessage] = useState(null);
+
 
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
@@ -63,27 +65,85 @@ const Home = () => {
   const bestSellers = [
     {
       id: 1,
-      name: "The North",
-      price: "£49",
-      image: bestseller01
+      productToken: "north-candle-001",
+      productName: "THE NORTH",
+      price: 49,
+      images: {
+        main_image: bestseller01
+      },
+      // Keep these for display if needed
+      displayPrice: "£49",
+      name: "The North"
     },
     {
       id: 2,
-      name: "Makola",
-      price: "£49",
-      image: bestseller02
+      productToken: "makola-candle-002",
+      productName: "MAKOLA",
+      price: 49,
+      images: {
+        main_image: bestseller02
+      },
+      displayPrice: "£49",
+      name: "Makola"
     },
     {
       id: 3,
-      name: "Sobolo",
-      price: "£49",
-      image: bestseller03
+      productToken: "sobolo-candle-003",
+      productName: "SOBOLO",
+      price: 49,
+      images: {
+        main_image: bestseller03
+      },
+      displayPrice: "£49",
+      name: "Sobolo"
     }
   ];
-  
+
+  const handleAddToCart = (e, product) => {
+    e.stopPropagation();
+
+    const existingCart = JSON.parse(localStorage.getItem('snsesCart')) || [];
+
+    const existingItemIndex = existingCart.findIndex(
+      (item) => item.productName === product.productName
+    );
+
+    if (existingItemIndex >= 0) {
+      existingCart[existingItemIndex].quantity += 1;
+    } else {
+      existingCart.push({
+        productToken: product.productToken,
+        productName: product.productName,
+        price: parseFloat(product.price || 0),
+        image: product.images?.main_image || '/placeholder-product.png',
+        quantity: 1,
+      });
+    }
+
+    localStorage.setItem('snsesCart', JSON.stringify(existingCart));
+    window.dispatchEvent(new CustomEvent('snses_cart_updated', { detail: existingCart }));
+
+    // ✅ Show top popup message
+    setCartMessage(`${product.productName} added to cart`);
+    setTimeout(() => setCartMessage(null), 3000);
+  };
 
   return (
     <div ref={containerRef} className="bg-[#000000] overflow-x-hidden">
+            <AnimatePresence>
+        {cartMessage && (
+          <motion.div
+            key="cartMessage"
+            initial={{ y: -50, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: -50, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed top-6 left-1/2 -translate-x-1/2 bg-green-600 text-white px-6 py-3 rounded-md shadow-lg z-50 text-sm"
+          >
+            {cartMessage}
+          </motion.div>
+        )}
+      </AnimatePresence>
       {/* Hero Section */}
       <motion.section
         style={{ opacity: heroOpacity, scale: heroScale }}
@@ -150,32 +210,31 @@ const Home = () => {
                 whileHover={{ y: -10, transition: { duration: 0.3 } }}
                 className="group cursor-pointer"
               >
-                <Link to='shop'>
+                <div>
                   <div className="relative overflow-hidden bg-white shadow-lg mb-4">
                     <div className="aspect-square overflow-hidden">
                       <motion.img
                         whileHover={{ scale: 1.1 }}
                         transition={{ duration: 0.5 }}
-                        src={product.image}
+                        src={product.images.main_image}
                         alt={product.name}
                         className="w-full h-full object-cover"
                       />
                     </div>
-                    <motion.div
-                      initial={{ opacity: 0 }}
-                      whileHover={{ opacity: 1 }}
-                      transition={{ duration: 0.3 }}
-                      className="absolute inset-0 bg-black/40 flex items-center justify-center"
-                    >
-                      {/* <motion.button
-                      initial={{ y: 20, opacity: 0 }}
-                      whileHover={{ y: 0, opacity: 1 }}
-                      className="bg-white text-gray-900 px-6 py-2 text-xs tracking-wider hover:bg-[#DDC57A] hover:text-white transition-colors"
-                    >
-                      VIEW DETAILS
-                    </motion.button> */}
-                    </motion.div>
-                  </div></Link>
+                    <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                      <motion.button
+                        initial={{ y: 20, opacity: 0 }}
+                        whileHover={{ scale: 1.05 }}
+                        animate={{ y: 0, opacity: 1 }}
+                        transition={{ duration: 0.3 }}
+                        onClick={(e) => handleAddToCart(e, product)}
+                        className="bg-white text-gray-900 px-6 py-2 text-xs tracking-wider hover:bg-[#DDC57A] hover:text-white transition-colors"
+                      >
+                        ADD TO CART
+                      </motion.button>
+                    </div>
+                  </div>
+                </div>
                 <div className="text-center">
                   <h3 className="text-lg font-garamond tracking-wide text-gray-900 mb-2 group-hover:text-amber-700 transition-colors uppercase">
                     {product.name}
@@ -188,6 +247,8 @@ const Home = () => {
             ))}
           </div>
         </div>
+
+
       </section>
 
       {/* Who We Are Section */}
@@ -267,7 +328,7 @@ const Home = () => {
             transition={{ duration: 1, delay: 0.7 }}
             className="relative"
           >
-           {categories?.length > 0 && <div className="relative overflow-hidden w-full">
+            {categories?.length > 0 && <div className="relative overflow-hidden w-full">
               <motion.div
                 className="flex gap-6"
                 animate={{ x: [0, -((categories.length * (280 + 24)))] }}
@@ -278,7 +339,7 @@ const Home = () => {
                   ease: 'linear',
                 }}
               >
-                {[...categories,...categories, ...categories]?.map((category, index) => (
+                {[...categories, ...categories, ...categories]?.map((category, index) => (
                   <div
                     key={index}
                     className="flex-shrink-0 w-[280px] group cursor-pointer"
