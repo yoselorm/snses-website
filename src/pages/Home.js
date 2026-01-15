@@ -6,9 +6,9 @@ import { fetchCategories } from '../redux/CategorySlice';
 import { fetchBlogs } from '../redux/BlogSlice';
 import { Link } from 'react-router-dom';
 import NewsletterModal from '../components/NewsletterModal';
-import bestseller01 from '../assets/bestseller01.jpeg'
-import bestseller02 from '../assets/bestseller02.jpeg'
-import bestseller03 from '../assets/bestseller03.jpeg';
+import bestseller01 from '../assets/bestnorth.jpeg'
+import bestseller02 from '../assets/bestmakola.jpeg'
+import bestseller03 from '../assets/bestsobolo.jpeg';
 import bestseller04 from '../assets/bestseller04.jpeg';
 import wwa from '../assets/wwa.jpeg'
 
@@ -70,7 +70,7 @@ const Home = () => {
       productName: "THE NORTH",
       price: 49,
       images: {
-        main_image: bestseller04
+        main_image: bestseller01
       },
       // Keep these for display if needed
       displayPrice: "£49",
