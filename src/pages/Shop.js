@@ -300,11 +300,11 @@ const Shop = () => {
                     </button>
 
                     {/* ⭐ Bestseller Tag */}
-                    {product.productName?.toLowerCase().includes('north') && (
+                    {/* {product.productName?.toLowerCase().includes('north') && (
                       <span className="absolute top-3 right-16 bg-[#DDC57A] text-white text-xs px-2 py-1 rounded shadow-md z-10">
                         Bestseller
                       </span>
-                    )}
+                    )} */}
                   </div>
 
 

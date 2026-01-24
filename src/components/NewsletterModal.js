@@ -2,8 +2,9 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import axios from "axios";
 import { api_url_v1 } from "../utils/config";
-import newsletterImg from "../assets/newsletter.jpg"; 
+import newsletterImg from "../assets/comm03.jpeg"; 
 import logo from '../assets/logozzz.png';
+import { Link } from "react-router-dom";
 
 const NewsletterModal = ({ isOpen, onClose }) => {
   const [email, setEmail] = useState("");
@@ -171,11 +172,11 @@ const NewsletterModal = ({ isOpen, onClose }) => {
               {/* Terms */}
               <p className="text-[11px] text-gray-300 mt-6 max-w-sm leading-snug">
                 By entering your email, you agree to our{" "}
-                <a href="#" className="underline text-[#e6c76e]">
+                <Link to='/privacy' className="underline text-[#e6c76e]">
                   Terms and Conditions
-                </a>{" "}
+                </Link>{" "}
                 &{" "}
-                <a href="#" className="underline text-[#e6c76e]">
+                <a href="/terms" className="underline text-[#e6c76e]">
                   Privacy Policy
                 </a>.
               </p>

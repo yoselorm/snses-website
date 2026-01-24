@@ -169,23 +169,42 @@ const Navbar = () => {
 
   return (
     <nav className="font-metro-nova tracking-[1px] w-full bg-[#f4f1eb]  sticky top-0 left-0 z-50 shadow-sm">
-   <div className="bg-[#d4c6a8] py-[2px] overflow-hidden relative font-garamond">
-      <motion.div
-        animate={{ x: ['100%', '-100%'] }}
-        transition={{
-          duration: 20,
-          repeat: Infinity,
-          ease: 'linear',
-        }}
-        className="whitespace-nowrap text-sm font-medium"
-      >
-        {announcement}
-        &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
-        {announcement}
-        &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
-        {announcement}
-      </motion.div>
-    </div>
+<div className="bg-[#d4c6a8] py-[2px] overflow-hidden relative font-garamond">
+  <motion.div
+    animate={{ x: [0, '-50%'] }}
+    transition={{
+      duration: 40,
+      repeat: Infinity,
+      ease: 'linear',
+    }}
+    className="whitespace-nowrap text-sm font-medium flex"
+  >
+    <span className="inline-block">
+      {announcement}
+      &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+      {announcement}
+      &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+    </span>
+    <span className="inline-block">
+      {announcement}
+      &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+      {announcement}
+      &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+    </span>
+    <span className="inline-block">
+      {announcement}
+      &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+      {announcement}
+      &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+    </span>
+    <span className="inline-block">
+      {announcement}
+      &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+      {announcement}
+      &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+    </span>
+  </motion.div>
+</div>
 
       <div className='w-full bg-[#4b0c0c] text-[#d4af37] '>
         {/* Top Bar */}
