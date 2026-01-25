@@ -62,7 +62,7 @@ const BlogDetail = () => {
 
       {/* Blog Content */}
       <div
-        className="prose prose-lg max-w-none text-gray-700 leading-relaxed font-sans"
+        className="prose prose-lg max-w-none text-gray-700"
         dangerouslySetInnerHTML={{ __html: singleBlog.body }}
       />
     </div>
