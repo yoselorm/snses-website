@@ -9,7 +9,7 @@ import {
 } from "../redux/ProductSlice";
 import { Trash2 } from "lucide-react";
 
-const WishlistDropdown = ({ isOpen, onClose }) => {
+const WishlistDropdown = ({ isOpen, onClose, onOpenAuth }) => {
   const dispatch = useDispatch();
   const token = localStorage.getItem("snsesCustomerToken");
 
@@ -29,6 +29,11 @@ const WishlistDropdown = ({ isOpen, onClose }) => {
     dispatch(removeFromWishlist({wishId}));
   };
 
+  const handleLoginClick = () => {
+    onClose(); // Close wishlist dropdown
+    onOpenAuth(); // Open auth modal
+  };
+
   return (
     <AnimatePresence>
       {isOpen && (
@@ -37,7 +42,7 @@ const WishlistDropdown = ({ isOpen, onClose }) => {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.8, y: -10 }}
           transition={{ duration: 0.35, ease: "easeInOut" }}
-          className="absolute right-28 top-20 bg-white border border-gray-200 rounded-xl shadow-2xl p-6 w-80 z-50"
+          className="absolute sm:right-28 top-20 bg-white border border-gray-200 shadow-2xl p-6 w-full  sm:w-80 z-50 "
         >
           <div className="flex items-center justify-between mb-4">
             <h3 className="font-semibold text-lg text-gray-800">
@@ -55,8 +60,8 @@ const WishlistDropdown = ({ isOpen, onClose }) => {
             <div className="text-center py-8 text-gray-500">
               Kindly{" "}
               <span
-                className="text-[#DDC57A] font-semibold cursor-pointer"
-                onClick={onClose}
+                className="text-[#DDC57A] font-semibold cursor-pointer hover:underline"
+                onClick={handleLoginClick}
               >
                 login
               </span>{" "}
@@ -90,9 +95,9 @@ const WishlistDropdown = ({ isOpen, onClose }) => {
                         <p className="text-sm font-medium text-gray-800">
                           {product.productName}
                         </p>
-                        <p className="text-xs text-gray-500">
+                        {/* <p className="text-xs text-gray-500">
                           {product.category?.category || "No category"}
-                        </p>
+                        </p> */}
                       </div>
                     </div>
 
@@ -115,6 +120,7 @@ const WishlistDropdown = ({ isOpen, onClose }) => {
           )}
         </motion.div>
       )}
+      
     </AnimatePresence>
   );
 };

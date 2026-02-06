@@ -25,7 +25,7 @@ const FAQs = () => {
         },
         {
           question: "Can I change or cancel my order after placing it?",
-          answer: "If your order hasn't been dispatched yet, we may be able to amend or cancel it. Please contact us as soon as possible at snsessupport@gmail.com with your order number. Once an order has been shipped, we're unable to make changes."
+          answer: "If your order hasn't been dispatched yet, we may be able to amend or cancel it. Please contact us as soon as possible at support@houseofsnses.com with your order number. Once an order has been shipped, we're unable to make changes."
         },
         {
           question: "Will I receive an order confirmation?",
@@ -50,7 +50,7 @@ const FAQs = () => {
         },
         {
           question: "What happens if my parcel is delayed or missing?",
-          answer: "If your order hasn't arrived within the expected timeframe, please contact us at snsessupport@gmail.com, and we'll investigate with the courier."
+          answer: "If your order hasn't arrived within the expected timeframe, please contact us at support@houseofsnses.com, and we'll investigate with the courier."
         }
       ]
     },
@@ -63,7 +63,7 @@ const FAQs = () => {
         },
         {
           question: "How do I return an item?",
-          answer: "To start a return, email us at snsessupport@gmail.com with your order number and reason for return. We'll provide instructions and a return address. Return shipping costs are the customer's responsibility unless the item is faulty or incorrect."
+          answer: "To start a return, email us at support@houseofsnses.com with your order number and reason for return. We'll provide instructions and a return address. Return shipping costs are the customer's responsibility unless the item is faulty or incorrect."
         },
         {
           question: "When will I receive my refund?",
@@ -71,7 +71,7 @@ const FAQs = () => {
         },
         {
           question: "Can I exchange an item?",
-          answer: "We only replace items if they're defective or damaged. If you need an exchange for the same item, please contact us at snsessupport@gmail.com before sending it back to confirm availability. This is subject to shipping costs incurred by the buyer."
+          answer: "We only replace items if they're defective or damaged. If you need an exchange for the same item, please contact us at support@houseofsnses.com before sending it back to confirm availability. This is subject to shipping costs incurred by the buyer."
         }
       ]
     },
@@ -91,8 +91,8 @@ const FAQs = () => {
           answer: "Our products are manufactured in the UK and Ghana."
         },
         {
-          question: "How do I find my correct size?",
-          answer: "You can find a Size Guide on each product page. If you're unsure, contact us at snsesgroup@gmail.com, and our team will be happy to help."
+          question: "Size Guide",
+          answer: "You can find a Size Guide on each product page. If you're unsure, contact us at info@houseofsnses.com, and our team will be happy to help."
         }
       ]
     },
@@ -118,7 +118,7 @@ const FAQs = () => {
       questions: [
         {
           question: "How can I contact SNSES?",
-          answer: "You can reach our support team by email at snsessupport@gmail.com. We aim to respond to all enquiries within 24–48 hours (Monday–Friday)."
+          answer: "You can reach our support team by email at support@houseofsnses.com. We aim to respond to all enquiries within 24–48 hours (Monday–Friday)."
         }
       ]
     }
@@ -228,7 +228,7 @@ const FAQs = () => {
             Our support team is here to help you with any enquiries.
           </p>
           <a
-            href="mailto:snsessupport@gmail.com"
+            href="mailto:support@houseofsnses.com"
             className="inline-block bg-gray-900 text-white px-8 py-3 text-xs tracking-widest hover:bg-gray-800 transition-colors"
           >
             CONTACT SUPPORT

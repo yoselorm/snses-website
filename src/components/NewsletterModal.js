@@ -111,7 +111,7 @@ const NewsletterModal = ({ isOpen, onClose }) => {
 
               {/* Offer */}
               <p className="text-lg font-light mb-6 text-[#e6c76e]">
-                Enjoy 10% Off Your First Order
+                Subscribe to our mailing list to receive exclusive offers
               </p>
 
               {/* Status Messages */}

@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { User, Heart, ShoppingCart, X, Search, LogOut } from 'lucide-react';
-import { useLocation, Link } from 'react-router-dom';
+import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { logoutCustomer } from '../redux/AuthSlice';
@@ -10,12 +10,13 @@ import WishlistDropdown from './WishlishtDropdown';
 import CartDropdown from './CartDropDown';
 import { api_url_v1 } from '../utils/config';
 import axios from 'axios';
+import { setSelectedProduct } from '../redux/ProductSlice';
 
 const Navbar = () => {
   const location = useLocation();
   const dispatch = useDispatch();
+  const navigate = useNavigate()
   const { currentUser } = useSelector((state) => state.customer);
-  const token = localStorage.getItem('snsesCustomerToken')
   const [isCartOpen, setIsCartOpen] = useState(false);
   const [isWishlistOpen, setIsWishlistOpen] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -28,6 +29,7 @@ const Navbar = () => {
   const searchContainerRef = useRef(null);
   const userMenuRef = useRef(null);
   const [announcement, setAnnouncement] = useState('');
+  const token = localStorage.getItem('snsesCustomerToken')
 
 
   const isAuthenticated = !!token;
@@ -38,15 +40,7 @@ const Navbar = () => {
     return null;
   };
 
-  // // Mock product data - replace with your actual products
-  // const allProducts = [
-  //   { id: 1, name: 'African Print Dress', category: 'Dresses', price: 89.99 },
-  //   { id: 2, name: 'Kente Cloth Shirt', category: 'Shirts', price: 65.00 },
-  //   { id: 3, name: 'Ankara Skirt', category: 'Skirts', price: 55.00 },
-  //   { id: 4, name: 'Dashiki Top', category: 'Tops', price: 45.00 },
-  //   { id: 5, name: 'African Jewelry Set', category: 'Accessories', price: 35.00 },
-  //   { id: 6, name: 'Adire Fabric', category: 'Fabrics', price: 25.00 },
-  // ];
+
   const allProducts = useSelector((state)=>state.products.products)
 
   const pages = [
@@ -55,6 +49,13 @@ const Navbar = () => {
     { name: 'OUR STORY', path: '/our-story' },
     { name: 'COMMUNITY', path: '/community' },
   ];
+
+
+   const handleProductClick = (product) => {
+      dispatch(setSelectedProduct(product));
+      navigate(`/product/${product.productToken}`);
+    };
+
 
   const fetchAnnouncement = async () => {
     try {
@@ -85,6 +86,8 @@ const Navbar = () => {
   const handleLogout = () => {
     dispatch(logoutCustomer());
     setIsUserMenuOpen(false);
+    navigate('/', { replace: true })
+
   };
 
   // inside Navbar component (replace existing cartCount usage)
@@ -167,8 +170,13 @@ const Navbar = () => {
     }
   };
 
+  // Handler to open auth modal from wishlist
+  const handleOpenAuthModal = () => {
+    setIsAuthModalOpen(true);
+  };
+
   return (
-    <nav className="font-metro-nova tracking-[1px] w-full bg-[#f4f1eb]  sticky top-0 left-0 z-50 shadow-sm">
+    <nav className="font-metro-nova tracking-[1px] w-full bg-[#f4f1eb] sticky top-0 left-0 z-50 shadow-sm">
 <div className="bg-[#d4c6a8] py-[2px] overflow-hidden relative font-garamond">
   <motion.div
     animate={{ x: [0, '-50%'] }}
@@ -203,6 +211,18 @@ const Navbar = () => {
       {announcement}
       &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
     </span>
+    <span className="inline-block">
+      {announcement}
+      &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+      {announcement}
+      &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+    </span>
+    <span className="inline-block">
+      {announcement}
+      &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+      {announcement}
+      &nbsp;&nbsp;&nbsp;•&nbsp;&nbsp;&nbsp;
+    </span>
   </motion.div>
 </div>
 
@@ -210,14 +230,14 @@ const Navbar = () => {
         {/* Top Bar */}
         <div className="max-w-7xl mx-auto px-4 py-3 flex items-center justify-between ">
           {/* Left Section */}
-          <div className="flex items-center gap-6">
+          <div className="flex items-center gap-6 flex-1 justify-start">
             {!isAuthenticated ? (
               <button
                 onClick={() => setIsAuthModalOpen(true)}
                 className="flex items-center gap-2 text-[#f6e6c7] hover:text-[#e3c27b] transition"
               >
                 <User size={20} />
-                <span className="text-sm font-medium">Sign In</span>
+                <span className="text-sm font-medium hidden sm:block">Sign In</span>
               </button>
             ) : (
               <div ref={userMenuRef} className="relative">
@@ -273,7 +293,7 @@ const Navbar = () => {
                         className="flex items-center gap-2 w-full px-4 py-2 text-sm text-red-600 hover:bg-red-50 transition border-t border-gray-100"
                       >
                         <LogOut size={16} />
-                        Logout
+                        Sign Out
                       </button>
                     </motion.div>
                   )}
@@ -283,14 +303,14 @@ const Navbar = () => {
           </div>
 
           {/* Center Logo */}
-          <div className="flex items-center sm:-ml-12">
+          <div className={`flex items-center justify-center flex-shrink-0 transition-opacity duration-300 ${isSearchOpen ? 'opacity-0 sm:opacity-100 pointer-events-none sm:pointer-events-auto' : 'opacity-100'}`}>
             <Link to="/" className="flex items-center">
               <img src={logo} alt="SNSES Logo" className="h-[68px] w-auto" />
             </Link>
           </div>
 
           {/* Right Section */}
-          <div className="flex items-center gap-2 sm:gap-4">
+          <div className="flex items-center gap-2 sm:gap-4 flex-1 justify-end">
             {/* Search */}
             {allProducts?.length > 0 && <div ref={searchContainerRef} className="relative">
               <motion.div
@@ -349,8 +369,8 @@ const Navbar = () => {
                           key={product.id}
                           className="w-full px-4 py-3 hover:bg-gray-50 text-left border-b border-gray-100 last:border-b-0 transition"
                           onClick={() => {
-                            console.log('Selected:', product.name);
-                            setIsSearchOpen(false);
+                            handleProductClick(product)    
+                         setIsSearchOpen(false);
                             setSearchQuery('');
                           }}
                         >
@@ -468,7 +488,7 @@ const Navbar = () => {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.3 }}
-                  className="flex flex-col sm:hidden items-center gap-4 py-4 bg-white border-t border-gray-100"
+                  className="flex flex-col sm:hidden items-center gap-4 py-4 bg-[#4b0c0c] border-t border-[#d4af37]/20 font-garamond absolute top-full left-0 w-full z-40"
                 >
                   {/* Pages */}
                   {pages.map((page) => (
@@ -477,7 +497,7 @@ const Navbar = () => {
                         to={page.path}
                         className={`text-[x-small] ${activePage === page.name
                             ? 'text-[#DDC57A]'
-                            : 'text-gray-600 hover:text-[#DDC57A]'
+                            : 'text-[#f6e6c7] hover:text-[#DDC57A]'
                           }`}
                         onClick={() => setMenuOpen(false)}
                       >
@@ -486,9 +506,12 @@ const Navbar = () => {
                     </li>
                   ))}
 
+                  {/* Separator Line */}
+                  <div className="w-3/4 h-px bg-[#d4af37]/30 my-2"></div>
+
                   {/* Wishlist Mobile */}
                   <li
-                    className="flex items-center gap-2 text-gray-600 hover:text-[#DDC57A] cursor-pointer"
+                    className="flex items-center gap-2 text-[#f6e6c7] hover:text-[#DDC57A] cursor-pointer"
                     onClick={() => {
                       setIsWishlistOpen(true);
                       setMenuOpen(false);
@@ -500,7 +523,7 @@ const Navbar = () => {
 
                   {/* Cart Mobile */}
                   <li
-                    className="flex items-center gap-2 text-gray-600 hover:text-[#DDC57A] cursor-pointer"
+                    className="flex items-center gap-2 text-[#f6e6c7] hover:text-[#DDC57A] cursor-pointer"
                     onClick={() => {
                       setIsCartOpen(true);
                       setMenuOpen(false);
@@ -524,6 +547,7 @@ const Navbar = () => {
       <WishlistDropdown
         isOpen={isWishlistOpen}
         onClose={() => setIsWishlistOpen(false)}
+        onOpenAuth={handleOpenAuthModal}
       />
 
 

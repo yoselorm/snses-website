@@ -10,7 +10,7 @@ const ProductDetail = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const { selectedProduct, loading, wishlistLoading, wishlistSuccess, wishlistError } = useSelector(
+  const { selectedProduct, loading, wishlistLoading, wishlistSuccess, wishlistError, error } = useSelector(
     (state) => state.products
   );
   const { token } = useSelector((state) => state.customer);
@@ -26,28 +26,28 @@ const ProductDetail = () => {
   const [cartMessage, setCartMessage] = useState(null);
   const [thumbnails, setThumbnails] = useState([]);
 
-  // Fetch product if not in state
-  // useEffect(() => {
-  //   if (!selectedProduct || selectedProduct.productToken !== productToken) {
-  //     dispatch(getProductByToken(productToken));
-  //   }
-  // }, [dispatch, productToken, selectedProduct]);
+  // Fetch product by token - ALWAYS fetch when component mounts or productToken changes
+  useEffect(() => {
+    if (productToken) {
+      dispatch(getProductByToken(productToken));
+    }
+  }, [dispatch, productToken]);
 
   // Set up images when product loads
   useEffect(() => {
     if (selectedProduct?.images) {
       const mainImage = selectedProduct.images.main_image;
       const backupImage = selectedProduct.images.backup_image;
-      const otherImages = selectedProduct.images?.otherImages
+      const otherImages = selectedProduct.images?.otherImages;
 
       setSelectedImage(mainImage);
 
-      // Create thumbnails array - repeat main and backup images
+      // Create thumbnails array
       const thumbs = [];
       if (mainImage) thumbs.push(mainImage);
       if (backupImage) thumbs.push(backupImage);
       if (otherImages && otherImages.length > 0) {
-        thumbs.push(...otherImages); 
+        thumbs.push(...otherImages);
       }
 
       setThumbnails(thumbs);
@@ -97,13 +97,13 @@ const ProductDetail = () => {
       setTimeout(() => setCartMessage(null), 2500);
       return;
     }
-  
+
     if (selectedProduct?.isInWishlist) {
       setCartMessage('This item is already in your wishlist');
       setTimeout(() => setCartMessage(null), 2500);
       return;
     }
-  
+
     dispatch(
       addToWishlist({
         customerId: localStorage.getItem('snsesUserId'),
@@ -111,7 +111,6 @@ const ProductDetail = () => {
       })
     );
   };
-  
 
   // Clear messages
   useEffect(() => {
@@ -123,6 +122,7 @@ const ProductDetail = () => {
     }
   }, [wishlistSuccess, wishlistError, dispatch]);
 
+  // Show loading state
   if (loading) {
     return (
       <div className="min-h-screen bg-[#f4f1eb] flex items-center justify-center">
@@ -131,11 +131,12 @@ const ProductDetail = () => {
     );
   }
 
-  if (!selectedProduct) {
+  // Show error or "not found" only after loading is complete and there's no product
+  if (!loading && (!selectedProduct || error)) {
     return (
       <div className="min-h-screen bg-[#f4f1eb] flex items-center justify-center">
         <div className="text-center">
-          <p className="text-xl text-gray-600 mb-4">Product not found</p>
+          <p className="text-xl text-gray-600 mb-4">{error || 'Product not found'}</p>
           <button
             onClick={() => navigate('/shop')}
             className="bg-[#DDC57A] text-white px-6 py-2 rounded hover:bg-amber-700"
@@ -147,12 +148,10 @@ const ProductDetail = () => {
     );
   }
 
-  // Format price with GBP symbol - using HTML entity or fallback
-  const formatPrice = (price) => {
-    const amount = parseFloat(price || 0).toFixed(2);
-    // Return with pound sign - will render as text
-    return `£${amount}`;
-  };
+  // Don't render the main content until we have a product
+  if (!selectedProduct) {
+    return null;
+  }
 
   return (
     <div className="min-h-screen bg-[#f4f1eb] font-garamond">
@@ -200,8 +199,9 @@ const ProductDetail = () => {
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(img)}
-                  className={`w-full aspect-square border-2 overflow-hidden transition ${selectedImage === img ? 'border-gray-800' : 'border-gray-300'
-                    }`}
+                  className={`w-full aspect-square border-2 overflow-hidden transition ${
+                    selectedImage === img ? 'border-gray-800' : 'border-gray-300'
+                  }`}
                 >
                   <img src={img} alt={`View ${idx + 1}`} className="w-full h-full object-cover" />
                 </button>
@@ -234,7 +234,6 @@ const ProductDetail = () => {
 
             {/* Size Selection with Input */}
 
-
             {/* Quantity */}
             <div className="flex items-center gap-3">
               <button
@@ -253,30 +252,30 @@ const ProductDetail = () => {
             </div>
 
             {/* Add to Cart */}
-           <div className='flex flex-col gap-4'>
-           <button
-              onClick={handleAddToCart}
-              className="w-full bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] py-3 text-sm font-semibold transition tracking-wider uppercase"
-            >
-              Add to Cart
-            </button>
-            {/* Add to Wishlist */}
-            <button
-              onClick={handleAddToWishlist}
-              disabled={selectedProduct?.isInWishlist || wishlistLoading}
-              className={`w-full py-3 text-sm font-semibold uppercase tracking-wider transition ${selectedProduct?.isInWishlist || wishlistLoading
-                  ? 'text-[#4b0c0c] bg-[#f1e7c7]  cursor-not-allowed'
-                  : 'text-[#4b0c0c] bg-[#f1e7c7] hover:bg-[#f3e6bb] hover:shadow'
+            <div className='flex flex-col gap-4'>
+              <button
+                onClick={handleAddToCart}
+                className="w-full bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] py-3 text-sm font-semibold transition tracking-wider uppercase"
+              >
+                Add to Cart
+              </button>
+              {/* Add to Wishlist */}
+              <button
+                onClick={handleAddToWishlist}
+                disabled={selectedProduct?.isInWishlist || wishlistLoading}
+                className={`w-full py-3 text-sm font-semibold uppercase tracking-wider transition ${
+                  selectedProduct?.isInWishlist || wishlistLoading
+                    ? 'text-[#4b0c0c] bg-[#f1e7c7]  cursor-not-allowed'
+                    : 'text-[#4b0c0c] bg-[#f1e7c7] hover:bg-[#f3e6bb] hover:shadow'
                 }`}
-            >
-              {wishlistLoading
-                ? 'Adding...'
-                : selectedProduct?.isInWishlist
-                  ? 'Already in Wishlist'
-                  : 'Add to Wishlist'}
-            </button>
-           </div>
-
+              >
+                {wishlistLoading
+                  ? 'Adding...'
+                  : selectedProduct?.isInWishlist
+                    ? 'Already in Wishlist'
+                    : 'Add to Wishlist'}
+              </button>
+            </div>
 
             {/* Accordion Sections */}
             <div className="space-y-1 border-t pt-6">
@@ -378,7 +377,7 @@ const ProductDetail = () => {
                           </div>
                         </div>
 
-                       { selectedProduct.burn_duration && <div className="text-center flex-1">
+                        {selectedProduct.burn_duration && <div className="text-center flex-1">
                           <div className="w-12 h-12 mx-auto mb-2 flex items-center justify-center">
                             <Clock className="w-8 h-8 text-gray-700" />
                           </div>

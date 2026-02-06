@@ -31,7 +31,7 @@ const OurStory = () => {
   const craftInView = useInView(craftRef, { once: true, amount: 0.3 });
 
   return (
-    <div className="bg-[#ffffff] min-h-screen ">
+    <div className="bg-[#ffffff] min-h-screen overflow-x-hidden">
       {/* Top Section - Side by Side */}
       <section ref={topRef} className="py-20 px-4">
         <div className="max-w-7xl mx-auto">
@@ -51,10 +51,10 @@ const OurStory = () => {
               animate={topInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.2 }}
             >
-              <div className="bg-[#1a1f3a] text-white mb-8">
-
+              <div className="bg-[#1a1f3a] text-white mb-8 w-full">
                 <img
                   src={videoreplace}
+                  alt="SNSES Story"
                   className='w-full h-full object-cover'
                 />
               </div>
@@ -75,7 +75,7 @@ const OurStory = () => {
                   At SNSES, we focus on the subtle, the unexpected, and the details that often go unnoticed - the moments and textures that carry the fullest stories. Each creation turns ordinary spaces into experiences that invite a connection.
                 </p>
                 <p >
-                  Through these layers, SNSES brings the essence of my home “Ghana” to the spaces you inhabit, creating a deeper connection to the stories that surround us and redefining the experience of luxury.
+                  Through these layers, SNSES brings the essence of my home "Ghana" to the spaces you inhabit, creating a deeper connection to the stories that surround us and redefining the experience of luxury.
                 </p>
               </div>
             </motion.div>
@@ -92,8 +92,8 @@ const OurStory = () => {
             transition={{ duration: 0.8 }}
             className="text-center"
           >
-            <p className="text-gray-600 leading-relaxed text-[26px] font-garamond">
-              “We create more than products. We craft experiences. Each piece is designed to resonate deeply, evoking emotion and inviting you to engage with, and immerse yourself in, the story woven through every detail.”
+            <p className="text-gray-600 leading-relaxed text-xl sm:text-[26px] font-garamond">
+              "We create more than products. We craft experiences. Each piece is designed to resonate deeply, evoking emotion and inviting you to engage with, and immerse yourself in, the story woven through every detail."
             </p>
 
           </motion.div>
@@ -120,22 +120,22 @@ const OurStory = () => {
               className="space-y-6 text-gray-700"
             >
               <p className="leading-relaxed text-[16px] ">
-              When I created SNSES, I didn’t set out to build just another brand. From a young age, I’ve always had a creative mind and a deep love for storytelling. Being born and raised in Ghana, I grew up surrounded by the richness of culture, history, and artistry that shaped the way I see the world. I knew that whatever I created had to reflect that depth not just through products, but through stories brought to life.
+              When I created SNSES, I didn't set out to build just another brand. From a young age, I've always had a creative mind and a deep love for storytelling. Being born and raised in Ghana, I grew up surrounded by the richness of culture, history, and artistry that shaped the way I see the world. I knew that whatever I created had to reflect that depth not just through products, but through stories brought to life.
               </p>
               <p className="leading-relaxed text-[16px]">
-              I wanted SNSES to be more than something you buy. I wanted it to be something you experience. Each carefully crafted piece carries a connection to Ghana and to Africa’s wider narrative. It’s about celebrating heritage reimagined through craftsmanship.
+              I wanted SNSES to be more than something you buy. I wanted it to be something you experience. Each carefully crafted piece carries a connection to Ghana and to Africa's wider narrative. It's about celebrating heritage reimagined through craftsmanship.
               </p>
               <p className="leading-relaxed text-[16px]">
               From the beginning, my vision has been to work with local artisans whose expertise and creativity breathe authenticity into every creation. Together, we craft pieces that embody luxury, depth, and meaning. We craft creations that transform spaces.
               </p>
               <p className="leading-relaxed text-[16px]">
-              SNSES exists to tell stories. My hope is that each SNSES piece fills your home creating moments you’ll carry with you always.                           </p>
+              SNSES exists to tell stories. My hope is that each SNSES piece fills your home creating moments you'll carry with you always.                           </p>
               <div className="flex flex-col pt-6">
                 <p className="text-[16px] font-thin italic text-gray-800">With gratitude and love..</p>
                 <img
                 src={signature}
                 alt='signature'
-                className='h-20 w-40'
+                className='h-20 w-40 object-contain'
                 />
               </div>
             </motion.div>
@@ -144,9 +144,9 @@ const OurStory = () => {
               initial={{ opacity: 0, x: 50 }}
               animate={founderInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8, delay: 0.5 }}
-              className="relative"
+              className="relative w-full"
             >
-              <div className="bg-transparent w-fit overflow-hidden shadow-xl ">
+              <div className="bg-transparent w-full overflow-hidden shadow-xl">
                 <img
                   src={founder}
                   alt="Founder"
@@ -181,7 +181,7 @@ const OurStory = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={valuesInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.5 + index * 0.2 }}
-                className="bg-gray-200 overflow-hidden shadow-lg h-64 flex items-center justify-center"
+                className="bg-gray-200 overflow-hidden shadow-lg h-64 flex items-center justify-center w-full"
               >
                 <img
                   src={img}
@@ -202,11 +202,12 @@ const OurStory = () => {
               initial={{ opacity: 0, x: -50 }}
               animate={communityInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.8 }}
-              className="bg-gray-200 overflow-hidden shadow-lg h-full flex items-center justify-center"
+              className="bg-gray-200 overflow-hidden shadow-lg h-full flex items-center justify-center w-full"
             >
               <img
                 src={snsessupportcom}
-                className='w-full h-full object-contain'
+                alt="SNSES Community Support"
+                className='w-full h-full object-cover'
               />
             </motion.div>
 
@@ -261,11 +262,11 @@ const OurStory = () => {
                 initial={{ opacity: 0, y: 50 }}
                 animate={craftInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: 0.3 + index * 0.2 }}
-                className="bg-[#1a1f3a] overflow-hidden shadow-lg h-80 flex items-center justify-center group hover:scale-105 transition-transform duration-300"
+                className="bg-[#1a1f3a] overflow-hidden shadow-lg h-80 flex items-center justify-center group hover:scale-105 transition-transform duration-300 w-full"
               >
                   <img
                   src={img}
-                  alt={`Image ${index + 1}`}
+                  alt={`Behind the craft ${index + 1}`}
                   className="w-full h-full object-cover"
                 />
               </motion.div>

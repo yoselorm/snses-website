@@ -11,6 +11,7 @@ import bestseller02 from '../assets/bestmakola.jpeg'
 import bestseller03 from '../assets/bestsobolo.jpeg';
 import bestseller04 from '../assets/bestseller04.jpeg';
 import wwa from '../assets/wwa.jpeg'
+import { getBestsellers } from '../redux/ProductSlice';
 
 const Home = () => {
   const containerRef = useRef(null);
@@ -26,6 +27,7 @@ const Home = () => {
   const dispatch = useDispatch();
   const { categories } = useSelector((state) => state.categories);
   const { blogs } = useSelector((state) => state.blogs);
+  const {bestSellers} = useSelector((state)=> state.products);
 
 
   const { scrollYProgress } = useScroll({
@@ -46,6 +48,7 @@ const Home = () => {
   useEffect(() => {
     dispatch(fetchCategories());
     dispatch(fetchBlogs());
+    dispatch(getBestsellers());
   }, [dispatch]);
 
   // Newsletter popup (session storage)
@@ -62,43 +65,6 @@ const Home = () => {
 
   const displayedBlogs = blogs?.slice(0, 3) || [];
 
-  // Best seller products (mock data - replace with your actual data)
-  const bestSellers = [
-    {
-      id: 1,
-      productToken: "north-candle-001",
-      productName: "THE NORTH",
-      price: 49,
-      images: {
-        main_image: bestseller01
-      },
-      // Keep these for display if needed
-      displayPrice: "£49",
-      name: "The North"
-    },
-    {
-      id: 2,
-      productToken: "makola-candle-002",
-      productName: "MAKOLA",
-      price: 49,
-      images: {
-        main_image: bestseller02
-      },
-      displayPrice: "£49",
-      name: "Makola"
-    },
-    {
-      id: 3,
-      productToken: "sobolo-candle-003",
-      productName: "SOBOLO",
-      price: 49,
-      images: {
-        main_image: bestseller03
-      },
-      displayPrice: "£49",
-      name: "Sobolo"
-    }
-  ];
 
   const handleAddToCart = (e, product) => {
     e.stopPropagation();
@@ -217,7 +183,7 @@ const Home = () => {
                       <motion.img
                         whileHover={{ scale: 1.1 }}
                         transition={{ duration: 0.5 }}
-                        src={product.images.main_image}
+                        src={product?.images?.otherImages[0]}
                         alt={product.name}
                         className="w-full h-full object-cover"
                       />
@@ -238,10 +204,10 @@ const Home = () => {
                 </div>
                 <div className="text-center">
                   <h3 className="text-lg font-garamond tracking-wide text-gray-900 mb-2 group-hover:text-amber-700 transition-colors uppercase">
-                    {product.name}
+                    {product?.productName}
                   </h3>
                   <h3 className="text-lg tracking-wide font-jost text-gray-900 mb-2 group-hover:text-amber-700 transition-colors uppercase ">
-                    {product.displayPrice}
+                  £{product?.price}
                   </h3>
                 </div>
               </motion.div>
@@ -418,9 +384,9 @@ const Home = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-[2rem]">
-            {displayedBlogs.map((post, index) => (
+            {displayedBlogs?.map((post, index) => (
               <motion.post
-                key={post._id}
+                key={post.id}
                 initial={{ opacity: 0, y: 50 }}
                 animate={blogInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: index * 0.1 }}

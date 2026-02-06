@@ -49,8 +49,8 @@ const PrivacyPolicy = () => {
       content: [
         "Company name: SNSES GROUP Ltd",
         "Company number: 16341586",
-        "Registered address: Longshoreman House, E16, United Kingdom",
-        "Email: snsesgroup@gmail.com",
+        "Registered address: E16, United Kingdom",
+        "Email: info@houseofsnses.com",
         "Website: www.houseofsnses.com",
         "",
         "For the purposes of data protection law, SNSES Ltd is the data controller of your personal data."
@@ -156,7 +156,7 @@ const PrivacyPolicy = () => {
         "Withdraw consent (where processing is based on consent)",
         "Request data portability in a structured, machine-readable format"
       ],
-      contactInfo: "To exercise any of these rights, please contact us at snsesgroup@gmail.com",
+      contactInfo: "To exercise any of these rights, please contact us at info@houseofsnses.com",
       additional: [
         "We will respond to your request within one month as required by law.",
         "",
@@ -340,9 +340,9 @@ const PrivacyPolicy = () => {
 
               {section.contactInfo && (
                 <p className="text-sm text-gray-700 leading-relaxed mt-4">
-                  {section.contactInfo.split('snsesgroup@gmail.com')[0]}
-                  <a href="mailto:snsesgroup@gmail.com" className="underline hover:text-gray-900">
-                    snsesgroup@gmail.com
+                  {section.contactInfo.split('info@houseofsnses.com')[0]}
+                  <a href="mailto:info@houseofsnses.com" className="underline hover:text-gray-900">
+                    info@houseofsnses.com
                   </a>
                 </p>
               )}
@@ -390,14 +390,14 @@ const PrivacyPolicy = () => {
               <div className="flex flex-col md:flex-row md:items-center md:justify-center md:gap-12 gap-4 text-sm text-gray-700">
                 <div className="flex items-center justify-center gap-3">
                   <Mail className="w-5 h-5 text-gray-600" />
-                  <a href="mailto:snsesgroup@gmail.com" className="hover:text-gray-900 transition-colors">
-                    snsesgroup@gmail.com
+                  <a href="mailto:info@houseofsnses.com" className="hover:text-gray-900 transition-colors">
+                    info@houseofsnses.com
                   </a>
                 </div>
                 
                 <div className="flex items-center justify-center gap-3">
                   <MapPin className="w-5 h-5 text-gray-600" />
-                  <span>Longshoreman House, E16, United Kingdom</span>
+                  <span>E16, United Kingdom</span>
                 </div>
               </div>
 

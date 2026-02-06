@@ -12,6 +12,7 @@ const Checkout = () => {
     email: '',
     phone: '',
     address: '',
+    postcode: '',
     city: '',
     country: 'UK',
     notes: '',
@@ -84,9 +85,14 @@ const Checkout = () => {
   };
 
   const handleCheckout = () => {
-    const { name, email, phone, address, city, country } = formData;
+    const { name, email, phone, address, city, country,postcode } = formData;
     if (!name || !email || !phone || !address || !city || !country) {
       alert('Please fill in all delivery details.');
+      return;
+    }
+
+    if ((country === 'UK' || country === 'USA') && !postcode) {
+      alert('Please enter your postcode.');
       return;
     }
 
@@ -117,7 +123,10 @@ const Checkout = () => {
         fname: name,
         email: email,
         phone: phone,
-        address: address,
+        address:
+          country === 'UK' || country === 'USA'
+            ? `${address}, ${postcode}`
+            : address,
         city: city,
         country: country,
         addNote: formData.notes || ''
@@ -217,7 +226,6 @@ const Checkout = () => {
           )}
         </div>
 
-        {/* RIGHT: DELIVERY DETAILS */}
         <div className="p-8">
           <h2 className="text-2xl font-bold mb-6 text-gray-800">Delivery Details</h2>
 
@@ -271,6 +279,22 @@ const Checkout = () => {
                 placeholder="Street name, house number"
               />
             </div>
+            {(formData.country === 'UK' || formData.country === 'USA') && (
+              <div>
+                <label className="block text-sm font-medium text-gray-600">
+                  {formData.country === 'USA' ? 'ZIP Code' : 'Postcode'}
+                </label>
+                <input
+                  type="text"
+                  name="postcode"
+                  value={formData.postcode}
+                  onChange={handleChange}
+                  className="mt-1 w-full border border-gray-300 rounded-lg p-2.5 focus:ring-amber-500 focus:border-amber-500"
+                  placeholder={formData.country === 'USA' ? '90210' : 'SW1A 1AA'}
+                />
+              </div>
+            )}
+
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               <div>
@@ -396,7 +420,7 @@ const Checkout = () => {
       </div>
 
       {showPaymentForm && paymentDetails && (
-        <PaymentModal 
+        <PaymentModal
           isOpen={showPaymentForm}
           clientSecret={paymentDetails.clientSecret}
           orderId={paymentDetails.orderId}

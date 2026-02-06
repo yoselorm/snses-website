@@ -16,12 +16,12 @@ const DeliveryReturns = () => {
   const shippingOptions = [
     {
       method: 'Standard Shipping',
-      time: '3–7 business days',
+      time: '3–5 business days',
       cost: 'Calculated at checkout'
     },
     {
       method: 'Express Shipping',
-      time: '1–3 business days',
+      time: '1–2 business days',
       cost: 'Calculated at checkout'
     },
     {
@@ -165,7 +165,7 @@ const DeliveryReturns = () => {
               <ol className="space-y-3 text-sm text-gray-700">
                 <li className="flex items-start">
                   <span className="font-medium mr-3">1.</span>
-                  <span>Email our customer support team at snsessupport@gmail.com with your order number and reason for return.</span>
+                  <span>Email our customer support team at support@houseofsnses.com with your order number and reason for return.</span>
                 </li>
                 <li className="flex items-start">
                   <span className="font-medium mr-3">2.</span>
@@ -202,7 +202,7 @@ const DeliveryReturns = () => {
               <div className="bg-[#f4f1eb] p-6">
                 <h3 className="text-lg font-medium text-gray-900 mb-4">Exchanges</h3>
                 <p className="text-sm text-gray-700 leading-relaxed">
-                  We only replace items if they're defective or damaged. If you need an exchange for the same item, please contact us at snsessupport@gmail.com before sending it back to confirm availability. This is subject to shipping costs incurred by the buyer.
+                  We only replace items if they're defective or damaged. If you need an exchange for the same item, please contact us at support@houseofsnses.com before sending it back to confirm availability. This is subject to shipping costs incurred by the buyer.
                 </p>
               </div>
 
@@ -232,8 +232,8 @@ const DeliveryReturns = () => {
             <div className="flex flex-col md:flex-row items-center justify-center gap-8 text-sm text-gray-700">
               <div className="flex items-center gap-3">
                 <Mail className="w-5 h-5 text-gray-600" />
-                <a href="mailto:snsessupport@gmail.com" className="hover:text-gray-900 transition-colors">
-                  snsessupport@gmail.com
+                <a href="mailto:support@houseofsnses.com" className="hover:text-gray-900 transition-colors">
+                  support@houseofsnses.com
                 </a>
               </div>
               

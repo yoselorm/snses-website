@@ -171,10 +171,10 @@ const ContactUs = () => {
                   <div>
                     <h3 className="text-sm tracking-wide text-gray-900 mb-2">EMAIL</h3>
                     <a 
-                      href="mailto:info@snses.com" 
+                      href="mailto:info@houseofsnses.com" 
                       className="text-gray-700 hover:text-amber-700 transition"
                     >
-                      info@snses.com
+                      info@houseofsnses.com
                     </a>
                   </div>
                 </motion.div>

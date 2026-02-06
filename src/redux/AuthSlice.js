@@ -77,6 +77,10 @@ const customerSlice = createSlice({
         state.loading = false;
         state.success = true;
         state.customers.push(action.payload);
+        state.token = action.payload.token || null;
+        state.currentUser = action.payload.customerInfo;
+
+
       })
       .addCase(addCustomer.rejected, (state, action) => {
         state.loading = false;
@@ -89,7 +93,6 @@ const customerSlice = createSlice({
         state.success = false;
       })
       .addCase(loginCustomer.fulfilled, (state, action) => {
-        console.log(action.payload)
         state.loading = false;
         state.success = true;
         state.currentUser = action.payload.customerInfo;

@@ -20,6 +20,21 @@ export const getProducts = createAsyncThunk(
   }
 );
 
+export const getBestsellers = createAsyncThunk(
+  'products/getBestsellers',
+  async (_, { rejectWithValue }) => {
+    try {
+      const response = await axios.get(`${api_url_v1}/bestSellers`, {
+        headers: { 'Content-Type': 'application/json' },
+        params: { _cb: new Date().getTime() }
+      });
+      return response.data.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || 'Failed to fetch products');
+    }
+  }
+);
+
 // Get products by category
 export const getProductsByCategory = createAsyncThunk(
   'products/getProductsByCategory',
@@ -31,7 +46,7 @@ export const getProductsByCategory = createAsyncThunk(
           'Authorization': `Bearer ${token}`,
         },
         params: {
-          _cb: Date.now(), // cache buster
+          _cb: Date.now(), 
         }
       });
       return response.data.data;
@@ -112,8 +127,8 @@ export const getProductByToken = createAsyncThunk(
   'products/getProductByToken',
   async (productToken, { rejectWithValue }) => {
     try {
-      const response = await axios.get(
-        `${process.env.REACT_APP_API_URL}/products`,{productToken}
+      const response = await axios.post(
+        `${api_url_v1}/getProductData`,{productToken}
       );
       return response.data.data; 
     } catch (error) {
@@ -128,6 +143,7 @@ export const getProductByToken = createAsyncThunk(
 const initialState = {
   products: [],
   filteredProducts: [],
+  bestSellers:[],
   selectedProduct: null,
   loading: false,
   error: null,
@@ -139,6 +155,7 @@ const initialState = {
   wishlistLoading: false,
   wishlistSuccess: false,
   wishlistError: null,
+
 };
 
 // Create slice
@@ -202,6 +219,22 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
+
+      //Get all best sellers
+      .addCase(getBestsellers.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getBestsellers.fulfilled, (state, action) => {
+        state.loading = false;
+        state.bestSellers = action.payload;
+        state.bestSellers = action.payload;
+        state.error = null;
+      })
+      .addCase(getBestsellers.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
       
       // Get products by category
       .addCase(getProductsByCategory.pending, (state) => {
@@ -224,7 +257,7 @@ const productSlice = createSlice({
         state.wishlistError = null;
         state.wishlistSuccess = false;
       })
-      .addCase(addToWishlist.fulfilled, (state) => {
+      .addCase(addToWishlist.fulfilled, (state,action) => {
         state.wishlistLoading = false;
         state.wishlistSuccess = true;
         state.message = 'Added to wishlist successfully';

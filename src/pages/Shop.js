@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Heart, ShoppingCart } from 'lucide-react';
+import { Heart, Loader, Loader2, ShoppingCart } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
@@ -22,6 +22,7 @@ const Shop = () => {
     wishlistLoading,
     wishlistSuccess,
     wishlistError,
+    message
   } = useSelector((state) => state.products);
   const { token } = useSelector((state) => state.customer);
 
@@ -30,7 +31,7 @@ const Shop = () => {
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
   const [maxPrice, setMaxPrice] = useState(1000);
   const [wishlistProductTokens, setWishlistProductTokens] = useState(new Set());
-  const [cartMessage, setCartMessage] = useState(null); // ✅ for notification
+  const [cartMessage, setCartMessage] = useState(null); 
 
   // Fetch products and wishlist on mount
   useEffect(() => {
@@ -39,7 +40,6 @@ const Shop = () => {
       dispatch(getWishlist(localStorage.getItem('snsesUserId')));
     }
   }, [dispatch, token]);
-
   // Extract wishlist product tokens for quick lookup
   useEffect(() => {
     if (wishlist && Array.isArray(wishlist)) {
@@ -49,6 +49,7 @@ const Shop = () => {
       setWishlistProductTokens(tokens);
     }
   }, [wishlist]);
+  
 
   // Calculate max price from products
   useEffect(() => {
@@ -230,7 +231,7 @@ const Shop = () => {
               exit={{ opacity: 0, y: -10 }}
               className="mb-4 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded text-sm"
             >
-              Added to wishlist successfully!
+              {message}
             </motion.div>
           )}
           {wishlistError && (
@@ -289,7 +290,7 @@ const Shop = () => {
                         }`}
                       title={inWishlist ? 'Already in wishlist' : 'Add to wishlist'}
                     >
-                      <Heart
+                 <Heart
                         size={18}
                         className={
                           inWishlist

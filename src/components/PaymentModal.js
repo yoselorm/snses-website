@@ -22,7 +22,7 @@ const CheckoutForm = ({ clientSecret, orderId, amount, onClose }) => {
 
     // Check payment status on mount
     stripe.retrievePaymentIntent(clientSecret).then(({ paymentIntent }) => {
-      switch (paymentIntent.status) {
+      switch (paymentIntent?.status) {
         case 'succeeded':
           setMessage('Payment succeeded!');
           break;
@@ -159,7 +159,6 @@ const PaymentModal = ({ isOpen, clientSecret, orderId, amount, onClose }) => {
     },
   };
 
-  console.log(clientSecret)
 
 
   return (

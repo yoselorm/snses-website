@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import Home from './pages/Home'
@@ -18,12 +18,18 @@ import TermsConditions from './pages/TermsConditions'
 import PrivacyPolicy from './pages/PrivacyPolicy'
 import OrderSuccess from './pages/OrderSuccess'
 import MyOrders from './pages/MyOrder'
+import OrderTracking from './pages/OrderTracking'
+import ProtectedRoute from './utils/ProtectedRoute'
+import usePageTracking from './hooks/usePageTracking'
 
 const App = () => {
+  usePageTracking();
+
+
   return (
     <>
       <Navbar />
-      <ScrollToTop/>
+      <ScrollToTop />
 
       <Routes>
         <Route path='/' element={<Home />} />
@@ -33,19 +39,25 @@ const App = () => {
         <Route path='/news' element={<News />} />
         <Route path='/shop' element={<Shop />} />
         <Route path='/checkout' element={<CheckoutPage />} />
-        <Route path='/product/:token' element={<ProductDetail />} />
+        <Route path='/product/:productToken' element={<ProductDetail />} />
         <Route path="/blog/:id" element={<BlogDetail />} />
         <Route path="/faqs" element={<FAQs />} />
         <Route path="/delivery-returns" element={<DeliveryReturns />} />
         <Route path="/terms" element={<TermsConditions />} />
         <Route path="/privacy" element={<PrivacyPolicy />} />
         <Route path="/order-success/:orderId" element={<OrderSuccess />} />
-        <Route path="/orders" element={<MyOrders />} />
+
+
+        <Route element={<ProtectedRoute />}>
+          <Route path="/orders" element={<MyOrders />} />
+        </Route>
+
+        <Route path="/orders/:order_id" element={<OrderTracking />} />
 
 
       </Routes>
 
-      <Footer/>
+      <Footer />
     </>
   )
 }

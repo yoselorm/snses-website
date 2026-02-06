@@ -19,7 +19,7 @@ const TermsConditions = () => {
         "Company name: SNSES GROUP Ltd",
         "Company number: 16341586",
         "Registered address: Longshoreman House, E16, United Kingdom",
-        "Email: snsesgroup@gmail.com",
+        "Email: info@houseofsnses.com",
         "Website: www.houseofsnses.com",
         "",
         "SNSES Group Ltd is a company registered in England and Wales."
@@ -94,7 +94,7 @@ const TermsConditions = () => {
       intro: "Under the Consumer Contracts Regulations 2013, UK and EU consumers have the right to cancel their order within 14 days of receiving it for any reason.",
       subheading: "To exercise this right:",
       orderedList: [
-        "Contact us by email at snsesgroup@gmail.com within 14 days of delivery.",
+        "Contact us by email at info@houseofsnses.com within 14 days of delivery.",
         "Return the goods to us within 14 days of notifying us.",
         "We'll issue a refund within 14 days of receiving the returned goods."
       ],
@@ -296,8 +296,8 @@ const TermsConditions = () => {
               <div className="flex flex-col md:flex-row md:items-center md:justify-center md:gap-12 gap-4 text-sm text-gray-700">
                 <div className="flex items-center justify-center gap-3">
                   <Mail className="w-5 h-5 text-gray-600" />
-                  <a href="mailto:snsesgroup@gmail.com" className="hover:text-gray-900 transition-colors">
-                    snsesgroup@gmail.com
+                  <a href="mailto:info@houseofsnses.com" className="hover:text-gray-900 transition-colors">
+                    info@houseofsnses.com
                   </a>
                 </div>
                 
