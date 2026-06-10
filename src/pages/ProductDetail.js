@@ -199,9 +199,8 @@ const ProductDetail = () => {
                 <button
                   key={idx}
                   onClick={() => setSelectedImage(img)}
-                  className={`w-full aspect-square border-2 overflow-hidden transition ${
-                    selectedImage === img ? 'border-gray-800' : 'border-gray-300'
-                  }`}
+                  className={`w-full aspect-square border-2 overflow-hidden transition ${selectedImage === img ? 'border-gray-800' : 'border-gray-300'
+                    }`}
                 >
                   <img src={img} alt={`View ${idx + 1}`} className="w-full h-full object-cover" />
                 </button>
@@ -255,19 +254,25 @@ const ProductDetail = () => {
             <div className='flex flex-col gap-4'>
               <button
                 onClick={handleAddToCart}
-                className="w-full bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] py-3 text-sm font-semibold transition tracking-wider uppercase"
+                disabled={selectedProduct?.status?.toLowerCase().includes('out of stock')}
+                className={`w-full py-3 text-sm font-semibold transition tracking-wider uppercase 
+    ${selectedProduct?.status?.toLowerCase().includes('out of stock')
+                    ? 'bg-rose-100 text-rose-700 cursor-not-allowed border border-rose-200'
+                    : 'bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8]'
+                  }`}
               >
-                Add to Cart
+                {selectedProduct?.status?.toLowerCase().includes('out of stock')
+                  ? 'Out of Stock'
+                  : 'Add to Cart'}
               </button>
               {/* Add to Wishlist */}
               <button
                 onClick={handleAddToWishlist}
                 disabled={selectedProduct?.isInWishlist || wishlistLoading}
-                className={`w-full py-3 text-sm font-semibold uppercase tracking-wider transition ${
-                  selectedProduct?.isInWishlist || wishlistLoading
+                className={`w-full py-3 text-sm font-semibold uppercase tracking-wider transition ${selectedProduct?.isInWishlist || wishlistLoading
                     ? 'text-[#4b0c0c] bg-[#f1e7c7]  cursor-not-allowed'
                     : 'text-[#4b0c0c] bg-[#f1e7c7] hover:bg-[#f3e6bb] hover:shadow'
-                }`}
+                  }`}
               >
                 {wishlistLoading
                   ? 'Adding...'

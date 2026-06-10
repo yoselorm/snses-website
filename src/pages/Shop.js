@@ -31,7 +31,7 @@ const Shop = () => {
   const [priceRange, setPriceRange] = useState({ min: 0, max: 1000 });
   const [maxPrice, setMaxPrice] = useState(1000);
   const [wishlistProductTokens, setWishlistProductTokens] = useState(new Set());
-  const [cartMessage, setCartMessage] = useState(null); 
+  const [cartMessage, setCartMessage] = useState(null);
 
   // Fetch products and wishlist on mount
   useEffect(() => {
@@ -49,7 +49,7 @@ const Shop = () => {
       setWishlistProductTokens(tokens);
     }
   }, [wishlist]);
-  
+
 
   // Calculate max price from products
   useEffect(() => {
@@ -290,7 +290,7 @@ const Shop = () => {
                         }`}
                       title={inWishlist ? 'Already in wishlist' : 'Add to wishlist'}
                     >
-                 <Heart
+                      <Heart
                         size={18}
                         className={
                           inWishlist
@@ -301,11 +301,11 @@ const Shop = () => {
                     </button>
 
                     {/* ⭐ Bestseller Tag */}
-                    {/* {product.productName?.toLowerCase().includes('north') && (
-                      <span className="absolute top-3 right-16 bg-[#DDC57A] text-white text-xs px-2 py-1 rounded shadow-md z-10">
-                        Bestseller
+                    {product?.status?.toLowerCase().includes('out of stock') && (
+                      <span className="absolute top-3 right-16 bg-rose-100 text-rose-700 border border-rose-200 text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm z-10">
+                        Out of Stock
                       </span>
-                    )} */}
+                    )}
                   </div>
 
 
@@ -326,10 +326,24 @@ const Shop = () => {
 
                       <button
                         onClick={(e) => handleAddToCart(e, product)}
-                        className="bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8] px-4 py-2 rounded text-sm transition flex items-center gap-2"
+                        disabled={product?.status?.toLowerCase().includes('out of stock')}
+                        className={`px-4 py-2 rounded text-sm transition flex items-center gap-2 
+    ${product?.status?.toLowerCase().includes('out of stock')
+                            ? 'bg-rose-100 text-rose-800 cursor-not-allowed border border-rose-200'
+                            : 'bg-[#4b0c0c] text-[#f1e7c7] hover:bg-[#4b0c0cd8]'
+                          }`}
                       >
-                        {/* <ShoppingCart size={16} /> */}
-                        Add to Cart
+                        {product?.status?.toLowerCase().includes('out of stock') ? (
+                          <>
+                            {/* Optional: <XCircle size={16} /> */}
+                            Unavailable
+                          </>
+                        ) : (
+                          <>
+                            {/* <ShoppingCart size={16} /> */}
+                            Add to Cart
+                          </>
+                        )}
                       </button>
                     </div>
                   </div>

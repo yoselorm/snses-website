@@ -1,0 +1,38 @@
+{
+  "files": {
+    "main.css": "/static/css/main.9ef7c6ca.css",
+    "main.js": "/static/js/main.abb1f4a2.js",
+    "static/media/ourcommcard.jpeg": "/static/media/ourcommcard.e268301ef57f19597581.jpeg",
+    "static/media/snsescomm.jpeg": "/static/media/snsescomm.d6029300370bf904cc04.jpeg",
+    "static/media/bestsobolo.jpeg": "/static/media/bestsobolo.9f44c087b73302f539ec.jpeg",
+    "static/media/founder.jpeg": "/static/media/founder.c66c1ef24af8bbf4e72c.jpeg",
+    "static/media/bestmakola.jpeg": "/static/media/bestmakola.1f6d2aa22dc9a8196a67.jpeg",
+    "static/media/bestnorth.jpeg": "/static/media/bestnorth.8ab234c6662796edf576.jpeg",
+    "static/media/k_signature.png": "/static/media/k_signature.d3a9d9b604fb7eea6dd9.png",
+    "static/media/bhc02.jpeg": "/static/media/bhc02.a2516f05c62d3cddc5a5.jpeg",
+    "static/media/metro-nova-pro.otf": "/static/media/metro-nova-pro.b46a7cb1739c50b76fc7.otf",
+    "static/media/storycard.jpeg": "/static/media/storycard.75e23c8cf82cb026a9da.jpeg",
+    "static/media/ourcomm.jpeg": "/static/media/ourcomm.2255f7027f6e49a86a50.jpeg",
+    "static/media/Jost-ExtraLightItalic.ttf": "/static/media/Jost-ExtraLightItalic.e67b5a5ba9707269f33d.ttf",
+    "static/media/bhc01.jpeg": "/static/media/bhc01.685f2bbc27b3d95f5eb9.jpeg",
+    "static/media/snses-mak.jpeg": "/static/media/snses-mak.1fdec7b15784dc3f0e7d.jpeg",
+    "static/media/bestseller04.jpeg": "/static/media/bestseller04.b6350b892b7ad0d204f1.jpeg",
+    "static/media/allproducts.jpeg": "/static/media/allproducts.edce937d44af72e9e293.jpeg",
+    "static/media/comm01.jpeg": "/static/media/comm01.505e8d7ca068b511168b.jpeg",
+    "static/media/garamond.ttf": "/static/media/garamond.8870e8a24f4ad963676c.ttf",
+    "static/media/comm02.jpeg": "/static/media/comm02.a7cd4a21a133effbffe9.jpeg",
+    "static/media/wwa.jpeg": "/static/media/wwa.6311389725e0296b1d49.jpeg",
+    "static/media/comm03.jpeg": "/static/media/comm03.19c891136579a689e49c.jpeg",
+    "static/media/videoreplace.jpeg": "/static/media/videoreplace.655dc82e2e3cbfddcbc3.jpeg",
+    "static/media/card-icons.jpg": "/static/media/card-icons.065d0e001b56ece8494c.jpg",
+    "static/media/logozzz.png": "/static/media/logozzz.7ca1436dff6b0a3afcce.png",
+    "static/media/bhc03.jpeg": "/static/media/bhc03.9b250a710895c11949ec.jpeg",
+    "index.html": "/index.html",
+    "main.9ef7c6ca.css.map": "/static/css/main.9ef7c6ca.css.map",
+    "main.abb1f4a2.js.map": "/static/js/main.abb1f4a2.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9ef7c6ca.css",
+    "static/js/main.abb1f4a2.js"
+  ]
+}
