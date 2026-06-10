@@ -1,5 +1,5 @@
 ---
 deployment:
   tasks:
-    - export DEPLOYPATH=/home/nexauraagency/public_html/houseofsnses/
-    - /bin/cp -R dist/* $DEPLOYPATH
+    - export DEPLOYPATH=/home/nexauraagency/public_html/houseofsenses.com/
+    - /bin/cp -R build/* $DEPLOYPATH
